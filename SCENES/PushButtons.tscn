@@ -1,0 +1,108 @@
+[gd_scene load_steps=7 format=3 uid="uid://i5f8ef0jjqg"]
+
+[ext_resource type="Texture2D" uid="uid://dfb1c8ecevioo" path="res://ART/Floof.png" id="1_bvvpb"]
+[ext_resource type="Script" path="res://SCENES/push_buttons.gd" id="1_fvi1r"]
+[ext_resource type="Texture2D" uid="uid://dgoi5frckq4vt" path="res://ART/Button A.png" id="2_ul1jk"]
+[ext_resource type="Texture2D" uid="uid://devju0oy5ngfe" path="res://ART/Eye 1.png" id="3_sc37v"]
+[ext_resource type="Texture2D" uid="uid://wno7cj2gayh3" path="res://ART/Mouth 1.png" id="4_v14rc"]
+[ext_resource type="Texture2D" uid="uid://b6cevu4p1o34n" path="res://ART/Floof 3.png" id="6_fi882"]
+
+[node name="PushButtons" type="Node2D"]
+position = Vector2(-1, 0)
+script = ExtResource("1_fvi1r")
+
+[node name="LIST OF THINGS" type="Label" parent="."]
+offset_left = -284.0
+offset_top = 27.0
+offset_right = -29.0
+offset_bottom = 377.0
+text = "LIST OF THNGS:
+ART WITH FLOOF
+TABS FOR CATEGORIES
+BUTTONS TO PICK CHANGES
+COLOR PICKER
+POSITION MODEFIER BUTTONS
+SAVE OPTION
+OPEN FUNCTION
+
+"
+
+[node name="textBody" type="TextureRect" parent="."]
+offset_left = 58.0
+offset_top = 101.0
+offset_right = 516.0
+offset_bottom = 581.0
+texture = ExtResource("1_bvvpb")
+expand_mode = 1
+
+[node name="textEyes" type="TextureRect" parent="."]
+offset_left = 156.0
+offset_top = 261.0
+offset_right = 263.0
+offset_bottom = 373.0
+texture = ExtResource("3_sc37v")
+expand_mode = 1
+
+[node name="textMouth" type="TextureRect" parent="."]
+offset_left = 193.0
+offset_top = 353.0
+offset_right = 380.0
+offset_bottom = 448.0
+texture = ExtResource("4_v14rc")
+expand_mode = 1
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 600.0
+offset_top = 51.0
+offset_right = 640.0
+offset_bottom = 91.0
+
+[node name="GridContainer" type="GridContainer" parent="UI"]
+layout_mode = 0
+offset_left = -61.0
+offset_top = 1.0
+offset_right = 814.0
+offset_bottom = 849.0
+scale = Vector2(0.65, 0.65)
+columns = 3
+
+[node name="Button 1A" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_ul1jk")
+
+[node name="TextureRect" type="TextureRect" parent="UI/GridContainer/Button 1A"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 43.0
+offset_right = 234.0
+offset_bottom = 234.0
+texture = ExtResource("1_bvvpb")
+expand_mode = 1
+
+[node name="Button 1B" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_ul1jk")
+
+[node name="Button 1C" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_ul1jk")
+
+[node name="Button 2A2" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_ul1jk")
+
+[node name="TextureRect" type="TextureRect" parent="UI/GridContainer/Button 2A2"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 43.0
+offset_right = 234.0
+offset_bottom = 234.0
+texture = ExtResource("6_fi882")
+expand_mode = 1
+
+[connection signal="pressed" from="UI/GridContainer/Button 1A" to="." method="_on_button_1a_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 1B" to="." method="_on_button_1b_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 1C" to="." method="_on_button_1c_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 2A2" to="." method="_on_button_1a_pressed"]
