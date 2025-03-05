@@ -1,0 +1,176 @@
+[gd_scene load_steps=12 format=3 uid="uid://bwsvynguljndy"]
+
+[ext_resource type="Script" path="res://SCENES/game_test_2.gd" id="1_bnoht"]
+[ext_resource type="Texture2D" uid="uid://dgoi5frckq4vt" path="res://ART/Button A.png" id="2_a5gun"]
+[ext_resource type="Texture2D" uid="uid://wvyqnci4huwn" path="res://ART/Body Classic.png" id="3_pk52t"]
+[ext_resource type="Texture2D" uid="uid://x55babem06gj" path="res://ART/Body Toll.png" id="4_jx5yd"]
+[ext_resource type="Texture2D" uid="uid://cl7pafqbn4ln2" path="res://ART/Body Wide.png" id="5_vf8tq"]
+[ext_resource type="Texture2D" uid="uid://bjddcjpw6i4l" path="res://ART/Eye Classic.png" id="6_uvrbl"]
+[ext_resource type="Texture2D" uid="uid://m10updmwr6rc" path="res://ART/Eye Stare.png" id="7_taps1"]
+[ext_resource type="Texture2D" uid="uid://or0omoiicatl" path="res://ART/Eye Round.png" id="8_x8d73"]
+[ext_resource type="Texture2D" uid="uid://drah0svuy34no" path="res://ART/Mouth Tree.png" id="9_5n28f"]
+[ext_resource type="Texture2D" uid="uid://kq1jk5ukx3hc" path="res://ART/Mouth Toof.png" id="10_va02o"]
+[ext_resource type="Texture2D" uid="uid://b68ktvgq8t2ag" path="res://ART/Mouth Kirby.png" id="11_3hu7s"]
+
+[node name="PROTOTYPE" type="Node2D"]
+script = ExtResource("1_bnoht")
+
+[node name="floofBody" type="TextureRect" parent="."]
+offset_right = 1.0
+offset_bottom = 1.0
+
+[node name="floofEye" type="TextureRect" parent="."]
+offset_right = 1.0
+offset_bottom = 1.0
+
+[node name="floofEye2" type="TextureRect" parent="."]
+offset_right = 1.0
+offset_bottom = 1.0
+flip_h = true
+
+[node name="floofMouth" type="TextureRect" parent="."]
+offset_right = 1.0
+offset_bottom = 1.0
+flip_h = true
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridContainer" type="GridContainer" parent="UI"]
+layout_mode = 0
+offset_left = 562.0
+offset_top = 72.0
+offset_right = 1437.0
+offset_bottom = 920.0
+scale = Vector2(0.6, 0.6)
+columns = 3
+
+[node name="Button 1" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_a5gun")
+
+[node name="ButtonText 1" type="TextureRect" parent="UI/GridContainer/Button 1"]
+layout_mode = 0
+offset_left = 41.6667
+offset_top = 38.3333
+offset_right = 243.667
+offset_bottom = 240.333
+texture = ExtResource("3_pk52t")
+expand_mode = 1
+
+[node name="Button 2" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_a5gun")
+
+[node name="ButtonText 2" type="TextureRect" parent="UI/GridContainer/Button 2"]
+layout_mode = 0
+offset_left = 41.6667
+offset_top = 38.3333
+offset_right = 243.667
+offset_bottom = 240.333
+texture = ExtResource("4_jx5yd")
+expand_mode = 1
+
+[node name="Button 3" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_a5gun")
+
+[node name="ButtonText 3" type="TextureRect" parent="UI/GridContainer/Button 3"]
+layout_mode = 0
+offset_left = 41.6667
+offset_top = 38.3333
+offset_right = 243.667
+offset_bottom = 240.333
+texture = ExtResource("5_vf8tq")
+expand_mode = 1
+
+[node name="Button 4" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_a5gun")
+
+[node name="ButtonText 4" type="TextureRect" parent="UI/GridContainer/Button 4"]
+layout_mode = 0
+offset_left = 41.6667
+offset_top = 38.3333
+offset_right = 243.667
+offset_bottom = 240.333
+texture = ExtResource("6_uvrbl")
+expand_mode = 1
+
+[node name="Button 5" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_a5gun")
+
+[node name="ButtonText 5" type="TextureRect" parent="UI/GridContainer/Button 5"]
+layout_mode = 0
+offset_left = 41.6667
+offset_top = 38.3333
+offset_right = 243.667
+offset_bottom = 240.333
+texture = ExtResource("7_taps1")
+expand_mode = 1
+
+[node name="Button 6" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_a5gun")
+
+[node name="ButtonText 6" type="TextureRect" parent="UI/GridContainer/Button 6"]
+layout_mode = 0
+offset_left = 41.6667
+offset_top = 38.3333
+offset_right = 243.667
+offset_bottom = 240.333
+texture = ExtResource("8_x8d73")
+expand_mode = 1
+
+[node name="Button 7" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_a5gun")
+
+[node name="ButtonText 7" type="TextureRect" parent="UI/GridContainer/Button 7"]
+layout_mode = 0
+offset_left = 41.6667
+offset_top = 38.3333
+offset_right = 243.667
+offset_bottom = 240.333
+texture = ExtResource("9_5n28f")
+expand_mode = 1
+
+[node name="Button 8" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_a5gun")
+
+[node name="ButtonText 8" type="TextureRect" parent="UI/GridContainer/Button 8"]
+layout_mode = 0
+offset_left = 41.6667
+offset_top = 38.3333
+offset_right = 243.667
+offset_bottom = 240.333
+texture = ExtResource("10_va02o")
+expand_mode = 1
+
+[node name="Button 9" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+icon = ExtResource("2_a5gun")
+
+[node name="ButtonText 9" type="TextureRect" parent="UI/GridContainer/Button 9"]
+layout_mode = 0
+offset_left = 41.6667
+offset_top = 38.3333
+offset_right = 243.667
+offset_bottom = 240.333
+texture = ExtResource("11_3hu7s")
+expand_mode = 1
+
+[connection signal="pressed" from="UI/GridContainer/Button 1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 5" to="." method="_on_button_5_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 6" to="." method="_on_button_6_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 7" to="." method="_on_button_7_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 8" to="." method="_on_button_8_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 9" to="." method="_on_button_9_pressed"]
