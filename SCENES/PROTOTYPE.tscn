@@ -165,6 +165,8 @@ offset_bottom = 240.333
 texture = ExtResource("11_3hu7s")
 expand_mode = 1
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
 [connection signal="pressed" from="UI/GridContainer/Button 1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="UI/GridContainer/Button 2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="UI/GridContainer/Button 3" to="." method="_on_button_3_pressed"]

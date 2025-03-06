@@ -11,6 +11,8 @@ const MOUTH_KIRBY = preload("res://ART/Mouth Kirby.png")
 const MOUTH_TOOF = preload("res://ART/Mouth Toof.png")
 const MOUTH_TREE = preload("res://ART/Mouth Tree.png")
 
+
+
 @onready var floofBody: TextureRect = $floofBody
 @onready var grid_container: GridContainer = $UI/GridContainer
 @onready var button: Button = $UI/GridContainer/Button
