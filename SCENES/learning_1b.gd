@@ -4,6 +4,11 @@ extends Node2D
 @onready var EYE_STARE = preload("res://ART/Eye Stare.png")
 @onready var EYE_ROUND = preload("res://ART/Eye Round.png")
 @onready var EYE_CLASSIC = preload("res://ART/Eye Classic.png")
+
+@onready var MOUTH_KIRBY = preload("res://ART/Mouth Kirby.png")
+@onready var MOUTH_TOOF = preload("res://ART/Mouth Toof.png")
+@onready var MOUTH_TREE = preload("res://ART/Mouth Tree.png")
+
 @onready var BUTTON_A = preload("res://ART/Button A.png")
 @onready var BUTTON_OFF = preload("res://ART/Button Off.png")
 @onready var BUTTON_ON = preload("res://ART/Button On.png")
@@ -16,6 +21,7 @@ signal click
 func _ready() -> void:
 	spawn_button()
 	spawn_texture(EYE_STARE)
+	spawn_button_mouth()
 
 
 func _process(delta: float) -> void:
@@ -46,12 +52,22 @@ func spawn_button():
 	add_child(grid_container)
 	grid_container.scale = Vector2(0.5,0.5)
 	grid_container.columns = 3
-	grid_container.position = Vector2(600,100)
+	grid_container.position = Vector2(600,300)
 	
 	
 	create_button(grid_container, BUTTON_OFF, EYE_STARE)
 	create_button(grid_container, BUTTON_OFF, EYE_CLASSIC)
 	create_button(grid_container, BUTTON_OFF, EYE_ROUND)
+	
+func spawn_button_mouth():
+	var grid_container = GridContainer.new()
+	add_child(grid_container)
+	grid_container.scale = Vector2(0.5,0.5)
+	grid_container.columns = 3
+	grid_container.position = Vector2(600,100)
+	create_button(grid_container, BUTTON_OFF, MOUTH_TREE)
+	create_button(grid_container, BUTTON_OFF, MOUTH_KIRBY)
+	create_button(grid_container, BUTTON_OFF, MOUTH_TOOF)
 
 func create_button(parent, button_texture, eye_texture):
 	var button_inst = Button.new()
