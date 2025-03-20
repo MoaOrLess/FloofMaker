@@ -23,8 +23,17 @@ var current_sprite_eye_L: Sprite2D = null
 var current_sprite_mouth: Sprite2D = null
 var current_sprite_body: Sprite2D = null
 
+# Global references to button images
+var sprite_inst_eye: Sprite2D
+var sprite_inst_mouth: Sprite2D 
+var sprite_inst_body: Sprite2D 
+
+
 var texture_item: TextureRect
 signal click
+
+var pressed_offset = Vector2(5, 5)  # Add offset for position change when pressed
+
 
 
 func _ready() -> void:
@@ -150,70 +159,97 @@ func spawn_button_body():
 	create_button_body(grid_container, BUTTON_OFF, BODY_WIDE)
 	
 func create_button_eye(parent, button_texture, eye_texture):
-	var button_inst_eye = Button.new()
+	var button_inst_eye = TextureButton.new()
 	parent.add_child(button_inst_eye)
-	button_inst_eye.flat = true
-	var text_inst_eye = Sprite2D.new()
+	button_inst_eye.focus_mode = false
+	sprite_inst_eye = Sprite2D.new()
 	
 	
-	button_inst_eye.icon = button_texture
-	button_inst_eye.add_child(text_inst_eye)
-	text_inst_eye.texture = eye_texture
+	button_inst_eye.texture_normal = button_texture
+	button_inst_eye.texture_pressed = BUTTON_ON
+	button_inst_eye.add_child(sprite_inst_eye)
+	sprite_inst_eye.texture = eye_texture
 	
-	var button_height = button_inst_eye.icon.get_height()
-	var button_width = button_inst_eye.icon.get_width()
-	text_inst_eye.position = Vector2(button_width/2,button_height/2)
-	text_inst_eye.scale = Vector2(0.80,0.80)
+	var button_height = button_inst_eye.texture_normal.get_height()
+	var button_width = button_inst_eye.texture_normal.get_width()
+	sprite_inst_eye.position = Vector2(button_width/2,button_height/2)
+	sprite_inst_eye.scale = Vector2(0.80,0.80)
 	
-	button_inst_eye.pressed.connect(button_is_pressed_eye.bind(text_inst_eye.texture))
+	button_inst_eye.pressed.connect(button_is_pressed_eye.bind(sprite_inst_eye.texture))
 
 func create_button_mouth(parent, button_texture, mouth_texture):
-	var button_inst_mouth = Button.new()
+	var button_inst_mouth = TextureButton.new()
 	parent.add_child(button_inst_mouth)
-	button_inst_mouth.flat = true
-	var text_inst_mouth = Sprite2D.new()
+	button_inst_mouth.focus_mode = false
+	sprite_inst_mouth = Sprite2D.new()
 	
 	
-	button_inst_mouth.icon = button_texture
-	button_inst_mouth.add_child(text_inst_mouth)
-	text_inst_mouth.texture = mouth_texture
+	button_inst_mouth.texture_normal = button_texture
+	button_inst_mouth.texture_pressed = BUTTON_ON
+	button_inst_mouth.add_child(sprite_inst_mouth)
+	sprite_inst_mouth.texture = mouth_texture
 	
-	var button_height = button_inst_mouth.icon.get_height()
-	var button_width = button_inst_mouth.icon.get_width()
-	text_inst_mouth.position = Vector2(button_width/2,button_height/2)
-	text_inst_mouth.scale = Vector2(0.80,0.80)
+	var button_height = button_inst_mouth.texture_normal.get_height()
+	var button_width = button_inst_mouth.texture_normal.get_width()
+	sprite_inst_mouth.position = Vector2(button_width/2 ,button_height/2)
+	sprite_inst_mouth.scale = Vector2(0.80,0.80)
 	
-	button_inst_mouth.pressed.connect(button_is_pressed_mouth.bind(text_inst_mouth.texture))
+	button_inst_mouth.pressed.connect(button_is_pressed_mouth.bind(sprite_inst_mouth.texture))
 	
 func create_button_body(parent, button_texture, body_texture):
-	var button_inst_body = Button.new()
+	var button_inst_body = TextureButton.new()
 	parent.add_child(button_inst_body)
-	button_inst_body.flat = true
-	var text_inst_body = Sprite2D.new()
+	#button_inst_body.flat = true
+	button_inst_body.focus_mode = false
+	sprite_inst_body = Sprite2D.new()
 	
 	
-	button_inst_body.icon = button_texture
-	button_inst_body.add_child(text_inst_body)
-	text_inst_body.texture = body_texture
+	button_inst_body.texture_normal = button_texture
+	button_inst_body.texture_pressed = BUTTON_ON
+	button_inst_body.add_child(sprite_inst_body)
+	sprite_inst_body.texture = body_texture
+
 	
-	var button_height = button_inst_body.icon.get_height()
-	var button_width = button_inst_body.icon.get_width()
-	text_inst_body.position = Vector2(button_width/2,button_height/2)
-	text_inst_body.scale = Vector2(0.15,0.15)
+	var button_height = button_inst_body.texture_normal.get_height()
+	var button_width = button_inst_body.texture_normal.get_width()
+	sprite_inst_body.position = Vector2(button_width/2,button_height/2)
+	sprite_inst_body.scale = Vector2(0.15,0.15)
 	
-	button_inst_body.pressed.connect(button_is_pressed_body.bind(text_inst_body.texture))
+	#button_inst_body.pressed.connect(button_is_pressed_body.bind(sprite_inst_body.texture))
+	button_inst_body.button_down.connect(button_is_pressed_body.bind(sprite_inst_body.texture))
+	button_inst_body.pressed.connect(button_is_released_body)
+	
+func button_is_released_body():
+	move_text_inst_position(sprite_inst_body, - pressed_offset)
 
 func button_is_pressed_eye(texture):
 	spawn_texture_eye(texture)
-	print(str(texture))
-	print('Button pressed, sprite updated')
+	move_text_inst_position(sprite_inst_eye, pressed_offset)
+	print(sprite_inst_eye)
+	
+	await get_tree().create_timer(0.2).timeout
+	move_text_inst_position(sprite_inst_eye, -pressed_offset)
 	
 func button_is_pressed_mouth(texture):
 	spawn_texture_mouth(texture)
-	print(str(texture))
-	print('Button pressed, sprite updated')
+	move_text_inst_position(sprite_inst_mouth, pressed_offset)
+	print(sprite_inst_mouth)
 	
+	await get_tree().create_timer(0.2).timeout
+	move_text_inst_position(sprite_inst_mouth, -pressed_offset)
+
+
 func button_is_pressed_body(texture):
 	spawn_texture_body(texture)
-	print(str(texture))
-	print('Button pressed, sprite updated')
+	move_text_inst_position(sprite_inst_body, pressed_offset)
+	print(sprite_inst_body)
+	
+	#await get_tree().create_timer(0.2).timeout
+	
+	
+
+
+
+func move_text_inst_position(item_sprite, offset):
+	if item_sprite != null:
+		item_sprite.position = item_sprite.position + offset  # Move the sprite by the offset

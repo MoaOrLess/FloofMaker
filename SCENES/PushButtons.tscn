@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://i5f8ef0jjqg"]
+[gd_scene load_steps=8 format=3 uid="uid://i5f8ef0jjqg"]
 
 [ext_resource type="Texture2D" uid="uid://dfb1c8ecevioo" path="res://ART/Floof.png" id="1_bvvpb"]
 [ext_resource type="Script" path="res://SCENES/push_buttons.gd" id="1_fvi1r"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://devju0oy5ngfe" path="res://ART/Eye 1.png" id="3_sc37v"]
 [ext_resource type="Texture2D" uid="uid://wno7cj2gayh3" path="res://ART/Mouth 1.png" id="4_v14rc"]
 [ext_resource type="Texture2D" uid="uid://b6cevu4p1o34n" path="res://ART/Floof 3.png" id="6_fi882"]
+
+[sub_resource type="Theme" id="Theme_a2sc0"]
 
 [node name="PushButtons" type="Node2D"]
 position = Vector2(-1, 0)
@@ -68,6 +70,9 @@ offset_bottom = 849.0
 scale = Vector2(0.65, 0.65)
 columns = 3
 
+[node name="TextureButton" type="TextureButton" parent="UI/GridContainer"]
+layout_mode = 2
+
 [node name="Button 1A" type="Button" parent="UI/GridContainer"]
 layout_mode = 2
 icon = ExtResource("2_ul1jk")
@@ -82,6 +87,11 @@ texture = ExtResource("1_bvvpb")
 expand_mode = 1
 
 [node name="Button 1B" type="Button" parent="UI/GridContainer"]
+layout_mode = 2
+theme = SubResource("Theme_a2sc0")
+icon = ExtResource("2_ul1jk")
+
+[node name="Button 1B2" type="Button" parent="UI/GridContainer"]
 layout_mode = 2
 icon = ExtResource("2_ul1jk")
 
@@ -104,5 +114,6 @@ expand_mode = 1
 
 [connection signal="pressed" from="UI/GridContainer/Button 1A" to="." method="_on_button_1a_pressed"]
 [connection signal="pressed" from="UI/GridContainer/Button 1B" to="." method="_on_button_1b_pressed"]
+[connection signal="pressed" from="UI/GridContainer/Button 1B2" to="." method="_on_button_1b_pressed"]
 [connection signal="pressed" from="UI/GridContainer/Button 1C" to="." method="_on_button_1c_pressed"]
 [connection signal="pressed" from="UI/GridContainer/Button 2A2" to="." method="_on_button_1a_pressed"]
