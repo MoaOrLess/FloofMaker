@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg6edh5d7u0v"]
+
+[ext_resource type="PackedScene" uid="uid://bp5lkyhj64drb" path="res://SCENES/Button_prefab_1.tscn" id="1_0q5wf"]
+
+[node name="learning_2" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridContainer" type="GridContainer" parent="UI"]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 70.0
+offset_right = 1564.0
+offset_bottom = 1062.0
+scale = Vector2(0.5, 0.5)
+theme_override_constants/h_separation = 300
+theme_override_constants/v_separation = 300
+columns = 3
+
+[node name="OptionButtonPrefab" parent="UI/GridContainer" instance=ExtResource("1_0q5wf")]
+layout_direction = 2
+layout_mode = 2
+size_flags_stretch_ratio = 6.95
+
+[node name="OptionButtonPrefab2" parent="UI/GridContainer" instance=ExtResource("1_0q5wf")]
+layout_direction = 2
+layout_mode = 2
+size_flags_stretch_ratio = 6.95
+
+[node name="OptionButtonPrefab3" parent="UI/GridContainer" instance=ExtResource("1_0q5wf")]
+layout_direction = 2
+layout_mode = 2
+size_flags_stretch_ratio = 6.95
+
+[node name="OptionButtonPrefab4" parent="UI/GridContainer" instance=ExtResource("1_0q5wf")]
+layout_direction = 2
+layout_mode = 2
+size_flags_stretch_ratio = 6.95
+
+[node name="OptionButtonPrefab5" parent="UI/GridContainer" instance=ExtResource("1_0q5wf")]
+layout_direction = 2
+layout_mode = 2
+size_flags_stretch_ratio = 6.95
+
+[node name="OptionButtonPrefab6" parent="UI/GridContainer" instance=ExtResource("1_0q5wf")]
+layout_direction = 2
+layout_mode = 2
+size_flags_stretch_ratio = 6.95
