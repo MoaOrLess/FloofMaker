@@ -1,10 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg6edh5d7u0v"]
+[gd_scene load_steps=4 format=3 uid="uid://bg6edh5d7u0v"]
 
 [ext_resource type="PackedScene" uid="uid://bp5lkyhj64drb" path="res://SCENES/Button_prefab_1.tscn" id="1_0q5wf"]
+[ext_resource type="Texture2D" uid="uid://iu7mkhq8etxx" path="res://ART/UI LOOK.png" id="1_ny5bw"]
+[ext_resource type="PackedScene" uid="uid://b0etfrqq8vd2q" path="res://SCENES/Button_prefab_2.tscn" id="3_cllmi"]
 
 [node name="learning_2" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+
+[node name="UiLook" type="Sprite2D" parent="."]
+position = Vector2(579.222, 324)
+scale = Vector2(0.598148, 0.598148)
+texture = ExtResource("1_ny5bw")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -14,11 +21,11 @@ offset_bottom = 40.0
 
 [node name="GridContainer" type="GridContainer" parent="UI"]
 layout_mode = 0
-offset_left = 560.0
-offset_top = 70.0
-offset_right = 1564.0
-offset_bottom = 1062.0
-scale = Vector2(0.5, 0.5)
+offset_left = 586.0
+offset_top = 217.0
+offset_right = 1590.0
+offset_bottom = 1209.0
+scale = Vector2(0.38, 0.38)
 theme_override_constants/h_separation = 300
 theme_override_constants/v_separation = 300
 columns = 3
@@ -52,3 +59,33 @@ size_flags_stretch_ratio = 6.95
 layout_direction = 2
 layout_mode = 2
 size_flags_stretch_ratio = 6.95
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+offset_left = 539.0
+offset_top = 43.0
+offset_right = 639.0
+offset_bottom = 83.0
+scale = Vector2(0.35, 0.35)
+theme_override_constants/separation = 235
+
+[node name="CategoryButtonPrefab" parent="UI/HBoxContainer" instance=ExtResource("3_cllmi")]
+layout_mode = 2
+
+[node name="CategoryButtonPrefab2" parent="UI/HBoxContainer" instance=ExtResource("3_cllmi")]
+layout_mode = 2
+
+[node name="CategoryButtonPrefab3" parent="UI/HBoxContainer" instance=ExtResource("3_cllmi")]
+layout_mode = 2
+
+[node name="CategoryButtonPrefab4" parent="UI/HBoxContainer" instance=ExtResource("3_cllmi")]
+layout_mode = 2
+
+[node name="CategoryButtonPrefab5" parent="UI/HBoxContainer" instance=ExtResource("3_cllmi")]
+layout_mode = 2
+
+[node name="CategoryButtonPrefab6" parent="UI/HBoxContainer" instance=ExtResource("3_cllmi")]
+layout_mode = 2
+
+[node name="CategoryButtonPrefab7" parent="UI/HBoxContainer" instance=ExtResource("3_cllmi")]
+layout_mode = 2
