@@ -1,6 +1,9 @@
 extends Control
 
+
+@onready var option_button: TextureButton = $OptionButton
 @onready var option_sprite: Sprite2D = $OptionButton/OptionSprite
+
 var pos_offset = Vector2(10,10)
 var base_pos = Vector2(143,143)
 
@@ -10,7 +13,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(option_sprite.position)
+	pass
+	
 
 
 func _on_option_button_pressed() -> void:

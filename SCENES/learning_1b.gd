@@ -4,6 +4,12 @@ extends Node2D
 @onready var EYE_STARE = preload("res://ART/Eye Stare.png")
 @onready var EYE_ROUND = preload("res://ART/Eye Round.png")
 @onready var EYE_CLASSIC = preload("res://ART/Eye Classic.png")
+@onready var EYE_BIG = preload("res://ART/Eye Big.png")
+@onready var EYE_DONE = preload("res://ART/Eye Done.png")
+@onready var EYE_LINE_ = preload("res://ART/Eye Line .png")
+@onready var EYE_WOBLE = preload("res://ART/Eye Woble.png")
+
+
 
 @onready var MOUTH_KIRBY = preload("res://ART/Mouth Kirby.png")
 @onready var MOUTH_TOOF = preload("res://ART/Mouth Toof.png")
@@ -135,13 +141,17 @@ func spawn_button_eye():
 	create_button_eye(grid_container, BUTTON_OFF, EYE_STARE)
 	create_button_eye(grid_container, BUTTON_OFF, EYE_CLASSIC)
 	create_button_eye(grid_container, BUTTON_OFF, EYE_ROUND)
+	create_button_eye(grid_container, BUTTON_OFF, EYE_DONE)
+	create_button_eye(grid_container, BUTTON_OFF, EYE_LINE_)
+	create_button_eye(grid_container, BUTTON_OFF, EYE_WOBLE)
+	create_button_eye(grid_container, BUTTON_OFF, EYE_BIG)
 	
 func spawn_button_mouth():
 	var grid_container = GridContainer.new()
 	add_child(grid_container)
 	grid_container.scale = Vector2(0.5,0.5)
 	grid_container.columns = 3
-	grid_container.position = Vector2(600,250)
+	grid_container.position = Vector2(600,400)
 	
 	create_button_mouth(grid_container, BUTTON_OFF, MOUTH_TREE)
 	create_button_mouth(grid_container, BUTTON_OFF, MOUTH_KIRBY)
@@ -152,7 +162,7 @@ func spawn_button_body():
 	add_child(grid_container)
 	grid_container.scale = Vector2(0.5,0.5)
 	grid_container.columns = 3
-	grid_container.position = Vector2(600,400)
+	grid_container.position = Vector2(600,550)
 	
 	create_button_body(grid_container, BUTTON_OFF, BODY_CLASSIC)
 	create_button_body(grid_container, BUTTON_OFF, BODY_TOLL)
