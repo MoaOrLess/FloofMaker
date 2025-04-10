@@ -78,7 +78,7 @@ theme_override_constants/h_separation = 300
 theme_override_constants/v_separation = 300
 columns = 3
 
-[node name="TextureButton" type="TextureButton" parent="UI/MainPanel"]
+[node name="PageUp" type="TextureButton" parent="UI/MainPanel"]
 layout_mode = 0
 offset_left = 366.0
 offset_top = 148.0
@@ -87,7 +87,7 @@ offset_bottom = 448.0
 scale = Vector2(0.3, 0.3)
 texture_normal = ExtResource("2_5ownq")
 
-[node name="TextureButton2" type="TextureButton" parent="UI/MainPanel"]
+[node name="PageDown" type="TextureButton" parent="UI/MainPanel"]
 layout_mode = 0
 offset_left = 365.0
 offset_top = 242.0
@@ -278,5 +278,5 @@ position = Vector2(579.222, 324)
 scale = Vector2(0.598148, 0.598148)
 texture = ExtResource("1_ny5bw")
 
-[connection signal="pressed" from="UI/MainPanel/TextureButton" to="." method="_on_texture_button_pressed"]
-[connection signal="pressed" from="UI/MainPanel/TextureButton2" to="." method="_on_texture_button_2_pressed"]
+[connection signal="pressed" from="UI/MainPanel/PageUp" to="." method="_on_page_up_pressed"]
+[connection signal="pressed" from="UI/MainPanel/PageDown" to="." method="_on_page_down_pressed"]

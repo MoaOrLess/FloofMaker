@@ -59,7 +59,8 @@ MOUTH_W, MOUTH_BEAN]
 
 var CategoryOption = [BODY_ICON, EYE_ICON, MOUTH_ICON, BROW_ICON, NOSE_ICON, HAIR_ICON, EXTRA_ICON]
 
-var count = 0
+var page_index
+var page = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -69,17 +70,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(count)
+	print(page_index)
 
 func create_eye_option_buttons():
-	for page_index in 9:
+	for index_on_page in 9:
 			var button = BUTTON_PREFAB.instantiate()
 			var sprite = button.get_node("OptionButton/OptionSprite")
-			sprite.texture = EyeOption[count]
-			option_container.add_child(button)
-			count += 1
-			if count > EyeOption.size(): 
+			var index = index_on_page + (page * 9)
+			if index >= EyeOption.size(): 
 				break
+			sprite.texture = EyeOption[index]
+			option_container.add_child(button)
 
 
 func clear_eye_option_buttons():
@@ -108,15 +109,16 @@ func page_mouth():
 	create_mouth_option_buttons()
 
 
-func _on_texture_button_2_pressed() -> void:
-	print("pressed")
-	count = 9
-	clear_eye_option_buttons()
-	create_eye_option_buttons()
+func _on_page_up_pressed() -> void:
+	if page > 0:
+		page -= 1
+		clear_eye_option_buttons()
+		create_eye_option_buttons()
 
 
-func _on_texture_button_pressed() -> void:
-	print("pressed")
-	count = 0
-	clear_eye_option_buttons()
-	create_eye_option_buttons()
+
+func _on_page_down_pressed() -> void:
+	if (page + 1) * 9 < EyeOption.size():
+		page += 1
+		clear_eye_option_buttons()
+		create_eye_option_buttons()
