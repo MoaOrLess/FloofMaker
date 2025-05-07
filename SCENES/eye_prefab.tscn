@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c87vojqg64ada"]
+[gd_scene load_steps=3 format=3 uid="uid://c87vojqg64ada"]
 
+[ext_resource type="Script" path="res://SCENES/eye_prefab.gd" id="1_gt2oi"]
 [ext_resource type="Texture2D" uid="uid://m10updmwr6rc" path="res://ART/Eye Stare.png" id="1_sstrx"]
 
 [node name="EyePrefab" type="Node2D"]
+script = ExtResource("1_gt2oi")
 
 [node name="EyeSprite" type="Sprite2D" parent="."]
 position = Vector2(139, 0)

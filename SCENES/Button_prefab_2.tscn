@@ -5,22 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://buhgsv216h2ae" path="res://ART/Round Button On.png" id="3_ui6k6"]
 [ext_resource type="Texture2D" uid="uid://qq736aul3ary" path="res://ART/Body Icon.png" id="4_rdaw5"]
 
-[node name="CategoryButtonPrefab" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_p4tqh")
-
-[node name="CategoryButton" type="TextureButton" parent="."]
-layout_mode = 0
+[node name="CategoryButton" type="TextureButton"]
 offset_right = 135.0
 offset_bottom = 135.0
 texture_normal = ExtResource("2_w7j8t")
 texture_pressed = ExtResource("3_ui6k6")
+script = ExtResource("1_p4tqh")
 
-[node name="CategorySprite" type="Sprite2D" parent="CategoryButton"]
-position = Vector2(142, 143)
+[node name="CategorySprite" type="Sprite2D" parent="."]
+position = Vector2(101, 105)
 texture = ExtResource("4_rdaw5")
 
-[connection signal="button_down" from="CategoryButton" to="." method="_on_option_button_button_down"]
-[connection signal="button_up" from="CategoryButton" to="." method="_on_option_button_button_up"]
-[connection signal="pressed" from="CategoryButton" to="." method="_on_option_button_pressed"]
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

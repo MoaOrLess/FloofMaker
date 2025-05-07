@@ -50,6 +50,8 @@ const HAIR_ICON = preload("res://ART/Hair Icon.png")
 const MOUTH_ICON = preload("res://ART/Mouth Icon.png")
 const NOSE_ICON = preload("res://ART/Nose Icon.png")
 
+@onready var page_number: Label = $"UI/MainPanel/Page Number"
+
 
 var EyeOption = [EYE_STARE, EYE_ROUND, EYE_CLASSIC, EYE_BIG, EYE_DONE, EYE_LINE_,EYE_WOBLE, EYE_ANIME,
 EYE_BLINK, EYE_CROSSED, EYE_GURL, EYE_INTENSE, EYE_KIRBY, EYE_SHARP, EYE_TIC_TAC, EYE_TRAUMA, EYE_TWINKLE, EYE_U]
@@ -61,6 +63,10 @@ var CategoryOption = [BODY_ICON, EYE_ICON, MOUTH_ICON, BROW_ICON, NOSE_ICON, HAI
 
 var page_index
 var page = 0
+var EYES
+var MOUTHS
+var category_index
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -70,55 +76,79 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(page_index)
+	number_page()
 
+func number_page():
+	page_number.text = str(page + 1)
+	
 func create_eye_option_buttons():
 	for index_on_page in 9:
-			var button = BUTTON_PREFAB.instantiate()
-			var sprite = button.get_node("OptionButton/OptionSprite")
-			var index = index_on_page + (page * 9)
-			if index >= EyeOption.size(): 
-				break
-			sprite.texture = EyeOption[index]
-			option_container.add_child(button)
+		var button = BUTTON_PREFAB.instantiate()
+		var sprite = button.get_node("OptionSprite")
+		var index = index_on_page + (page * 9)
+		if index >= EyeOption.size(): 
+			break
+		sprite.texture = EyeOption[index]
+		option_container.add_child(button)
 
 
-func clear_eye_option_buttons():
+func clear_option_buttons():
 	for child in option_container.get_children():
 		option_container.remove_child(child)
 	
 
 func create_mouth_option_buttons():
-	for mouth_sprite in MouthOption:
+	for index_on_page in 9:
 		var button = BUTTON_PREFAB.instantiate()
-		var sprite = button.get_node("OptionButton/OptionSprite")
-		sprite.texture = mouth_sprite
-		#sprite.scale = Vector2(0.85,0.85)
+		var sprite = button.get_node("OptionSprite")
+		var index = index_on_page + (page * 9)
+		if index >= MouthOption.size(): 
+			break
+		sprite.texture = MouthOption[index]
 		option_container.add_child(button)
 
+#func create_mouth_option_buttons():
+	#for mouth_sprite in MouthOption:
+		#var button = BUTTON_PREFAB.instantiate()
+		#var sprite = button.get_node("OptionButton/OptionSprite")
+		#sprite.texture = mouth_sprite
+		#sprite.scale = Vector2(0.85,0.85)
+		#option_container.add_child(button)
+
 func create_Icon_option_buttons():
-	for category_sprite in CategoryOption:
+	for category_index in 7:
 		var roundButton = ROUND_BUTTON_PREFAB.instantiate()
-		var categorysprite = roundButton.get_node("CategoryButton/CategorySprite")
-		categorysprite.texture = category_sprite
+		var categorysprite = roundButton.get_node("CategorySprite")
+		categorysprite.texture = CategoryOption[category_index]
 		#sprite.scale = Vector2(0.85,0.85)
 		h_box_container.add_child(roundButton)
+		roundButton.pressed.connect(category_button_pressed.bind(category_index))
+		print(category_index)
 
 
 func page_mouth():
+	clear_option_buttons()
 	create_mouth_option_buttons()
 
 
 func _on_page_up_pressed() -> void:
 	if page > 0:
 		page -= 1
-		clear_eye_option_buttons()
+		clear_option_buttons()
 		create_eye_option_buttons()
-
+	
 
 
 func _on_page_down_pressed() -> void:
 	if (page + 1) * 9 < EyeOption.size():
 		page += 1
-		clear_eye_option_buttons()
+		clear_option_buttons()
 		create_eye_option_buttons()
+		
+
+func category_button_pressed():
+	print("works")
+	if category_index == 0:
+		print("WORKS")
+	if  CategoryOption[1]:
+		print("WORKSSSSSSSSSSS")

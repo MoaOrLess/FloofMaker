@@ -5,22 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://cde7vehmjp1a7" path="res://ART/Button On.png" id="2_q2v3w"]
 [ext_resource type="Texture2D" uid="uid://m10updmwr6rc" path="res://ART/Eye Stare.png" id="3_g8ou5"]
 
-[node name="OptionButtonPrefab" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_ve7tg")
-
-[node name="OptionButton" type="TextureButton" parent="."]
-layout_mode = 0
+[node name="OptionButton" type="TextureButton"]
 offset_right = 135.0
 offset_bottom = 135.0
 texture_normal = ExtResource("1_svggt")
 texture_pressed = ExtResource("2_q2v3w")
+script = ExtResource("1_ve7tg")
 
-[node name="OptionSprite" type="Sprite2D" parent="OptionButton"]
+[node name="OptionSprite" type="Sprite2D" parent="."]
 position = Vector2(145, 143)
 texture = ExtResource("3_g8ou5")
 
-[connection signal="button_down" from="OptionButton" to="." method="_on_option_button_button_down"]
-[connection signal="button_up" from="OptionButton" to="." method="_on_option_button_button_up"]
-[connection signal="pressed" from="OptionButton" to="." method="_on_option_button_pressed"]
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
