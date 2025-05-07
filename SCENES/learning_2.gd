@@ -9,6 +9,11 @@ extends Control
 @export var BUTTON_PREFAB = preload("res://SCENES/Button_prefab_1.tscn")
 @export var ROUND_BUTTON_PREFAB = preload("res://SCENES/Button_prefab_2.tscn")
 
+@onready var body_prefab: Node2D = $UI/BodyPrefab
+@onready var eye_prefab: Node2D = $UI/EyePrefab
+@onready var mouth_prefab: Node2D = $UI/MouthPrefab
+
+
 
 #ART SPRITES
 var EYE_STARE = preload("res://ART/Eye Stare.png")
@@ -67,6 +72,9 @@ var EYES
 var MOUTHS
 var category_index
 
+var eye_sprite
+var current_sprite_eye: Sprite2D = null
+var current_sprite_mouth: Sprite2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -83,13 +91,14 @@ func number_page():
 	
 func create_eye_option_buttons():
 	for index_on_page in 9:
-		var button = BUTTON_PREFAB.instantiate()
-		var sprite = button.get_node("OptionSprite")
+		var eye_button = BUTTON_PREFAB.instantiate()
+		eye_sprite = eye_button.get_node("OptionSprite")
 		var index = index_on_page + (page * 9)
 		if index >= EyeOption.size(): 
 			break
-		sprite.texture = EyeOption[index]
-		option_container.add_child(button)
+		eye_sprite.texture = EyeOption[index]
+		option_container.add_child(eye_button)
+		eye_button.pressed.connect(button_is_pressed.bind(eye_sprite.texture))
 
 
 func clear_option_buttons():
@@ -106,6 +115,7 @@ func create_mouth_option_buttons():
 			break
 		sprite.texture = MouthOption[index]
 		option_container.add_child(button)
+		button.pressed.connect(button_is_pressed.bind(sprite.texture))
 
 #func create_mouth_option_buttons():
 	#for mouth_sprite in MouthOption:
@@ -123,7 +133,7 @@ func create_Icon_option_buttons():
 		#sprite.scale = Vector2(0.85,0.85)
 		h_box_container.add_child(roundButton)
 		roundButton.pressed.connect(category_button_pressed.bind(category_index))
-		print(category_index)
+		
 
 
 func page_mouth():
@@ -146,9 +156,33 @@ func _on_page_down_pressed() -> void:
 		create_eye_option_buttons()
 		
 
-func category_button_pressed():
-	print("works")
+func category_button_pressed(category_index):
+	print(category_index)
 	if category_index == 0:
-		print("WORKS")
-	if  CategoryOption[1]:
-		print("WORKSSSSSSSSSSS")
+		pass
+	if  category_index == 1:
+		clear_option_buttons()
+		create_eye_option_buttons()
+	if  category_index == 2:
+		clear_option_buttons()
+		create_mouth_option_buttons()
+	#if  CategoryOption[2]:
+		#clear_option_buttons()
+		#create_mouth_option_buttons()
+	
+
+func button_is_pressed(texture):
+	change_texture_eye(texture)
+	change_texture_mouth(texture)
+
+	
+	
+func change_texture_eye(texture):
+	if current_sprite_eye != null:
+		eye_prefab.eye_sprite.texture = texture
+	eye_prefab.eye_sprite.texture = texture
+	
+func change_texture_mouth(texture):
+	if current_sprite_mouth != null:
+		mouth_prefab.mouth_sprite.texture = texture
+	mouth_prefab.mouth_sprite.texture = texture

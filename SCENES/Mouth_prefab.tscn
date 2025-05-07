@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8d2abrj4fajm"]
+[gd_scene load_steps=3 format=3 uid="uid://c8d2abrj4fajm"]
 
+[ext_resource type="Script" path="res://SCENES/mouth_prefab.gd" id="1_4j4mr"]
 [ext_resource type="Texture2D" uid="uid://drah0svuy34no" path="res://ART/Mouth Tree.png" id="1_ftqtr"]
 
 [node name="MouthPrefab" type="Node2D"]
+script = ExtResource("1_4j4mr")
 
 [node name="MouthSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_ftqtr")
