@@ -73,6 +73,9 @@ var MOUTHS
 var category_index
 
 var eye_sprite
+var current_category = 1
+var cat_eyes
+var cat_mouth
 var current_sprite_eye: Sprite2D = null
 var current_sprite_mouth: Sprite2D = null
 
@@ -82,9 +85,11 @@ func _ready() -> void:
 	create_Icon_option_buttons()
 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	number_page()
+	print(current_category)
 
 func number_page():
 	page_number.text = str(page + 1)
@@ -150,10 +155,11 @@ func _on_page_up_pressed() -> void:
 
 
 func _on_page_down_pressed() -> void:
-	if (page + 1) * 9 < EyeOption.size():
-		page += 1
-		clear_option_buttons()
-		create_eye_option_buttons()
+	if current_category == 1:
+		if (page + 1) * 9 < EyeOption.size():
+			page += 1
+			clear_option_buttons()
+			create_eye_option_buttons()
 		
 
 func category_button_pressed(category_index):
@@ -161,9 +167,13 @@ func category_button_pressed(category_index):
 	if category_index == 0:
 		pass
 	if  category_index == 1:
+		page = 0
+		current_category = 1
 		clear_option_buttons()
 		create_eye_option_buttons()
 	if  category_index == 2:
+		page = 0
+		current_category = 2
 		clear_option_buttons()
 		create_mouth_option_buttons()
 	#if  CategoryOption[2]:
@@ -178,11 +188,51 @@ func button_is_pressed(texture):
 	
 	
 func change_texture_eye(texture):
+	var MirrorSprite = eye_prefab.get_node("EyeSprite")
 	if current_sprite_eye != null:
 		eye_prefab.eye_sprite.texture = texture
-	eye_prefab.eye_sprite.texture = texture
+	if current_category == 1:
+		#eye_prefab.eye_sprite.texture = texture
+		MirrorSprite.texture = texture
+		eye_prefab.eye_mirror.texture = texture
+	
+	
 	
 func change_texture_mouth(texture):
 	if current_sprite_mouth != null:
 		mouth_prefab.mouth_sprite.texture = texture
-	mouth_prefab.mouth_sprite.texture = texture
+	if current_category == 2:
+		mouth_prefab.mouth_sprite.texture = texture
+
+
+
+func Item_Up_Button_Pressed() -> void:
+	var item_move = 10
+	if current_category == 1:
+		eye_prefab.eye_mirror.position.y -= item_move
+	if current_category == 2:
+		mouth_prefab.position.y -= item_move
+
+
+func _on_item_down_pressed() -> void:
+	var item_move = 10
+	if current_category == 1:
+		eye_prefab.eye_mirror.position.y += item_move
+	if current_category == 2:
+		mouth_prefab.position.y += item_move
+
+
+func _on_item_shrink_pressed() -> void:
+	var item_scale = 0.05
+	if current_category == 1:
+		eye_prefab.eye_mirror.scale += Vector2(item_scale,item_scale)
+	if current_category == 2:
+		mouth_prefab.scale += Vector2(item_scale,item_scale)
+
+
+func _on_item_zoom_pressed() -> void:
+	var item_scale = 0.05
+	if current_category == 1:
+		eye_prefab.eye_mirror.scale -= Vector2(item_scale,item_scale)
+	if current_category == 2:
+		mouth_prefab.scale -= Vector2(item_scale,item_scale)
