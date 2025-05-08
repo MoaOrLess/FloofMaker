@@ -89,7 +89,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	number_page()
-	print(current_category)
+	
 
 func number_page():
 	page_number.text = str(page + 1)
@@ -210,6 +210,7 @@ func Item_Up_Button_Pressed() -> void:
 	var item_move = 10
 	if current_category == 1:
 		eye_prefab.eye_mirror.position.y -= item_move
+		eye_prefab.eye_sprite.position.y -= item_move
 	if current_category == 2:
 		mouth_prefab.position.y -= item_move
 
@@ -218,6 +219,7 @@ func _on_item_down_pressed() -> void:
 	var item_move = 10
 	if current_category == 1:
 		eye_prefab.eye_mirror.position.y += item_move
+		eye_prefab.eye_sprite.position.y += item_move
 	if current_category == 2:
 		mouth_prefab.position.y += item_move
 
@@ -225,14 +227,52 @@ func _on_item_down_pressed() -> void:
 func _on_item_shrink_pressed() -> void:
 	var item_scale = 0.05
 	if current_category == 1:
-		eye_prefab.eye_mirror.scale += Vector2(item_scale,item_scale)
+		eye_prefab.eye_mirror.scale -= Vector2(item_scale,item_scale)
+		eye_prefab.eye_sprite.scale -= Vector2(item_scale,item_scale)
 	if current_category == 2:
-		mouth_prefab.scale += Vector2(item_scale,item_scale)
+		mouth_prefab.scale -= Vector2(item_scale,item_scale)
 
 
 func _on_item_zoom_pressed() -> void:
 	var item_scale = 0.05
 	if current_category == 1:
-		eye_prefab.eye_mirror.scale -= Vector2(item_scale,item_scale)
+		eye_prefab.eye_mirror.scale += Vector2(item_scale,item_scale)
+		eye_prefab.eye_sprite.scale += Vector2(item_scale,item_scale)
 	if current_category == 2:
-		mouth_prefab.scale -= Vector2(item_scale,item_scale)
+		mouth_prefab.scale += Vector2(item_scale,item_scale)
+
+
+func _on_item_rot_left_pressed() -> void:
+	var item_rot = deg_to_rad(5)
+	if current_category == 1:
+		eye_prefab.eye_mirror.rotation -= item_rot
+		eye_prefab.eye_sprite.rotation += item_rot
+	if current_category == 2:
+		mouth_prefab.rotation -= item_rot
+
+func _on_item_rot_right_pressed() -> void:
+	var item_rot = deg_to_rad(5)
+	if current_category == 1:
+		eye_prefab.eye_mirror.rotation += item_rot
+		eye_prefab.eye_sprite.rotation -= item_rot
+	if current_category == 2:
+		mouth_prefab.rotation += item_rot
+
+
+func _on_item_further_pressed() -> void:
+	var item_pos = 10
+	var item_scale = 0.05
+	if current_category == 1:
+		eye_prefab.eye_mirror.position.x -= item_pos
+		eye_prefab.eye_sprite.position.x += item_pos
+	if current_category == 2:
+		mouth_prefab.scale.x -= item_scale
+
+func _on_item_closer_pressed() -> void:
+	var item_pos = 10
+	var item_scale = 0.05
+	if current_category == 1:
+		eye_prefab.eye_mirror.position.x += item_pos
+		eye_prefab.eye_sprite.position.x -= item_pos
+	if current_category == 2:
+		mouth_prefab.scale.x += item_scale

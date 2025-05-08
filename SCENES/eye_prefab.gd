@@ -5,14 +5,16 @@ const EYE_STARE = preload("res://ART/Eye Stare.png")
 const EYE_CROSSED = preload("res://ART/Eye Crossed.png")
 var eye_mirror
 var texture
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	eye_sprite.texture = EYE_CROSSED
 	eye_mirror = Sprite2D.new()
 	add_child(eye_mirror)
 	eye_mirror.texture = EYE_CROSSED
-	eye_mirror.flip_h
+	eye_mirror.flip_h = true
 	eye_mirror.position = Vector2(-139,0)
+	pass
 	
 
 
