@@ -3,15 +3,22 @@ extends Control
 @onready var option_button_prefab: Control = $UI/MainPanel/GridContainer/OptionButtonPrefab
 @onready var option_container: GridContainer = $UI/MainPanel/OptionContainer
 @onready var h_box_container: HBoxContainer = $UI/HBoxContainer
+@onready var extra_options: HBoxContainer = $"Extra Options"
+
 
 
 
 @export var BUTTON_PREFAB = preload("res://SCENES/Button_prefab_1.tscn")
 @export var ROUND_BUTTON_PREFAB = preload("res://SCENES/Button_prefab_2.tscn")
+@export var BROW_PREFAB = preload("res://SCENES/Brow_prefab.tscn")
+
 
 @onready var body_prefab: Node2D = $UI/BodyPrefab
 @onready var eye_prefab: Node2D = $UI/EyePrefab
 @onready var mouth_prefab: Node2D = $UI/MouthPrefab
+@onready var brow_prefab: Node2D = $UI/BrowPrefab
+
+
 
 
 
@@ -46,6 +53,23 @@ var MOUTH_V = preload("res://ART/Mouth V.png")
 var MOUTH_W = preload("res://ART/Mouth W.png")
 var MOUTH_BEAN = preload("res://ART/Mouth Bean.png")
 
+var BROW_EMPTY
+const BROW_BLOCK = preload("res://ART/BAD ART/Brow Block.png")
+const BROW_BRICK = preload("res://ART/BAD ART/Brow Brick.png")
+const BROW_CHONK = preload("res://ART/BAD ART/Brow Chonk.png")
+const BROW_CLASSIC = preload("res://ART/BAD ART/Brow Classic.png")
+const BROW_FROWN = preload("res://ART/BAD ART/Brow Frown.png")
+const BROW_HAIRY = preload("res://ART/BAD ART/Brow Hairy.png")
+const BROW_HAT = preload("res://ART/BAD ART/Brow Hat.png")
+const BROW_INTENSE = preload("res://ART/BAD ART/Brow Intense.png")
+const BROW_PRESSED = preload("res://ART/BAD ART/Brow Pressed.png")
+const BROW_ROUND_BLOCK = preload("res://ART/BAD ART/Brow RoundBlock.png")
+const BROW_ROUNDISH = preload("res://ART/BAD ART/Brow Roundish.png")
+const BROW_SHWONK = preload("res://ART/BAD ART/Brow Shwonk.png")
+const BROW_SLICK = preload("res://ART/BAD ART/Brow Slick.png")
+const BROW_SWOOP = preload("res://ART/BAD ART/Brow Swoop.png")
+const BROW_TEAR = preload("res://ART/BAD ART/Brow Tear.png")
+
 
 const BODY_ICON = preload("res://ART/Body Icon.png")
 const BROW_ICON = preload("res://ART/Brow Icon.png")
@@ -55,14 +79,19 @@ const HAIR_ICON = preload("res://ART/Hair Icon.png")
 const MOUTH_ICON = preload("res://ART/Mouth Icon.png")
 const NOSE_ICON = preload("res://ART/Nose Icon.png")
 
+const QUESTION_MARK_ICON = preload("res://ART/Question Mark Icon.png")
+
 @onready var page_number: Label = $"UI/MainPanel/Page Number"
 
+var ExtraOption =[QUESTION_MARK_ICON]
 
 var EyeOption = [EYE_STARE, EYE_ROUND, EYE_CLASSIC, EYE_BIG, EYE_DONE, EYE_LINE_,EYE_WOBLE, EYE_ANIME,
 EYE_BLINK, EYE_CROSSED, EYE_GURL, EYE_INTENSE, EYE_KIRBY, EYE_SHARP, EYE_TIC_TAC, EYE_TRAUMA, EYE_TWINKLE, EYE_U]
 
 var MouthOption = [MOUTH_KIRBY, MOUTH_TOOF, MOUTH_TREE, MOUTH_LIP, MOUTH_POUT, MOUTH_SMOLLSMILE, MOUTH_V,
 MOUTH_W, MOUTH_BEAN]
+
+var BrowOption = [BROW_EMPTY, BROW_BLOCK, BROW_BRICK, BROW_CHONK, BROW_CLASSIC, BROW_FROWN, BROW_HAIRY, BROW_HAT, BROW_INTENSE, BROW_PRESSED, BROW_ROUND_BLOCK, BROW_ROUNDISH, BROW_SHWONK, BROW_SLICK, BROW_SWOOP, BROW_TEAR]
 
 var CategoryOption = [BODY_ICON, EYE_ICON, MOUTH_ICON, BROW_ICON, NOSE_ICON, HAIR_ICON, EXTRA_ICON]
 
@@ -76,13 +105,16 @@ var eye_sprite
 var current_category = 1
 var cat_eyes
 var cat_mouth
+var cat_brows
 var current_sprite_eye: Sprite2D = null
 var current_sprite_mouth: Sprite2D = null
+var current_sprite_brow: Sprite2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	create_eye_option_buttons()
 	create_Icon_option_buttons()
+	create_extra_options()
 
 
 
@@ -93,7 +125,16 @@ func _process(delta: float) -> void:
 
 func number_page():
 	page_number.text = str(page + 1)
-	
+
+
+func create_extra_options():
+	for x in 1:
+		var roundButton = ROUND_BUTTON_PREFAB.instantiate()
+		var ExtraButtonsprite = roundButton.get_node("CategorySprite")
+		ExtraButtonsprite.texture = ExtraOption[x]
+		extra_options.add_child(roundButton)
+		roundButton.pressed.connect(random_button_pressed)
+
 func create_eye_option_buttons():
 	for index_on_page in 9:
 		var eye_button = BUTTON_PREFAB.instantiate()
@@ -121,6 +162,17 @@ func create_mouth_option_buttons():
 		sprite.texture = MouthOption[index]
 		option_container.add_child(button)
 		button.pressed.connect(button_is_pressed.bind(sprite.texture))
+
+func create_brow_option_buttons():
+	for index_on_page in 9:
+		var brow_button = BUTTON_PREFAB.instantiate()
+		var brow_sprite = brow_button.get_node("OptionSprite")
+		var index = index_on_page + (page * 9)
+		if index >= BrowOption.size(): 
+			break
+		brow_sprite.texture = BrowOption[index]
+		option_container.add_child(brow_button)
+		brow_button.pressed.connect(button_is_pressed.bind(brow_sprite.texture))
 
 #func create_mouth_option_buttons():
 	#for mouth_sprite in MouthOption:
@@ -150,7 +202,11 @@ func _on_page_up_pressed() -> void:
 	if page > 0:
 		page -= 1
 		clear_option_buttons()
-		create_eye_option_buttons()
+		if current_category == 1:
+			create_eye_option_buttons()
+		if current_category == 3:
+			create_brow_option_buttons()
+		
 	
 
 
@@ -160,6 +216,11 @@ func _on_page_down_pressed() -> void:
 			page += 1
 			clear_option_buttons()
 			create_eye_option_buttons()
+	if current_category == 3:
+		if (page + 1) * 9 < BrowOption.size():
+			page += 1
+			clear_option_buttons()
+			create_brow_option_buttons()
 		
 
 func category_button_pressed(category_index):
@@ -176,6 +237,11 @@ func category_button_pressed(category_index):
 		current_category = 2
 		clear_option_buttons()
 		create_mouth_option_buttons()
+	if  category_index == 3:
+		page = 0
+		current_category = 3
+		clear_option_buttons()
+		create_brow_option_buttons()
 	#if  CategoryOption[2]:
 		#clear_option_buttons()
 		#create_mouth_option_buttons()
@@ -184,6 +250,7 @@ func category_button_pressed(category_index):
 func button_is_pressed(texture):
 	change_texture_eye(texture)
 	change_texture_mouth(texture)
+	change_texture_brow(texture)
 
 	
 	
@@ -195,16 +262,21 @@ func change_texture_eye(texture):
 		#eye_prefab.eye_sprite.texture = texture
 		MirrorSprite.texture = texture
 		eye_prefab.eye_mirror.texture = texture
-	
-	
-	
+
+
 func change_texture_mouth(texture):
 	if current_sprite_mouth != null:
 		mouth_prefab.mouth_sprite.texture = texture
 	if current_category == 2:
 		mouth_prefab.mouth_sprite.texture = texture
 
-
+func change_texture_brow(texture):
+	var MirrorSprite = brow_prefab.get_node("BrowSprite")
+	if current_sprite_brow != null:
+		brow_prefab.brow_sprite.texture = texture
+	if current_category == 3:
+		MirrorSprite.texture = texture
+		brow_prefab.brow_mirror.texture = texture
 
 func Item_Up_Button_Pressed() -> void:
 	var item_move = 10
@@ -213,6 +285,9 @@ func Item_Up_Button_Pressed() -> void:
 		eye_prefab.eye_sprite.position.y -= item_move
 	if current_category == 2:
 		mouth_prefab.position.y -= item_move
+	if current_category == 3:
+		brow_prefab.brow_mirror.position.y -= item_move
+		brow_prefab.brow_sprite.position.y -= item_move
 
 
 func _on_item_down_pressed() -> void:
@@ -222,6 +297,9 @@ func _on_item_down_pressed() -> void:
 		eye_prefab.eye_sprite.position.y += item_move
 	if current_category == 2:
 		mouth_prefab.position.y += item_move
+	if current_category == 3:
+		brow_prefab.brow_mirror.position.y += item_move
+		brow_prefab.brow_sprite.position.y += item_move
 
 
 func _on_item_shrink_pressed() -> void:
@@ -231,6 +309,9 @@ func _on_item_shrink_pressed() -> void:
 		eye_prefab.eye_sprite.scale -= Vector2(item_scale,item_scale)
 	if current_category == 2:
 		mouth_prefab.scale -= Vector2(item_scale,item_scale)
+	if current_category == 3:
+		brow_prefab.brow_mirror.scale -= Vector2(item_scale,item_scale)
+		brow_prefab.brow_sprite.scale -= Vector2(item_scale,item_scale)
 
 
 func _on_item_zoom_pressed() -> void:
@@ -240,6 +321,9 @@ func _on_item_zoom_pressed() -> void:
 		eye_prefab.eye_sprite.scale += Vector2(item_scale,item_scale)
 	if current_category == 2:
 		mouth_prefab.scale += Vector2(item_scale,item_scale)
+	if current_category == 3:
+		brow_prefab.brow_mirror.scale += Vector2(item_scale,item_scale)
+		brow_prefab.brow_sprite.scale += Vector2(item_scale,item_scale)
 
 
 func _on_item_rot_left_pressed() -> void:
@@ -249,6 +333,9 @@ func _on_item_rot_left_pressed() -> void:
 		eye_prefab.eye_sprite.rotation += item_rot
 	if current_category == 2:
 		mouth_prefab.rotation -= item_rot
+	if current_category == 3:
+		brow_prefab.brow_mirror.rotation -= item_rot
+		brow_prefab.brow_sprite.rotation += item_rot
 
 func _on_item_rot_right_pressed() -> void:
 	var item_rot = deg_to_rad(5)
@@ -257,6 +344,9 @@ func _on_item_rot_right_pressed() -> void:
 		eye_prefab.eye_sprite.rotation -= item_rot
 	if current_category == 2:
 		mouth_prefab.rotation += item_rot
+	if current_category == 3:
+		brow_prefab.brow_mirror.rotation += item_rot
+		brow_prefab.brow_sprite.rotation -= item_rot
 
 
 func _on_item_further_pressed() -> void:
@@ -267,6 +357,9 @@ func _on_item_further_pressed() -> void:
 		eye_prefab.eye_sprite.position.x += item_pos
 	if current_category == 2:
 		mouth_prefab.scale.x -= item_scale
+	if current_category == 3:
+		brow_prefab.brow_mirror.position.x -= item_pos
+		brow_prefab.brow_sprite.position.x += item_pos
 
 func _on_item_closer_pressed() -> void:
 	var item_pos = 10
@@ -276,3 +369,27 @@ func _on_item_closer_pressed() -> void:
 		eye_prefab.eye_sprite.position.x -= item_pos
 	if current_category == 2:
 		mouth_prefab.scale.x += item_scale
+	if current_category == 3:
+		brow_prefab.brow_mirror.position.x += item_pos
+		brow_prefab.brow_sprite.position.x -= item_pos
+
+func random_eyes():
+	var pick_random_eyes = EyeOption.pick_random()
+	var MirrorSprite = eye_prefab.get_node("EyeSprite")
+	MirrorSprite.texture = pick_random_eyes
+	eye_prefab.eye_mirror.texture = pick_random_eyes
+
+func random_mouth():
+	var pick_random_mouth = MouthOption.pick_random()
+	mouth_prefab.mouth_sprite.texture = pick_random_mouth
+
+func random_brows():
+	var pick_random_brows = BrowOption.pick_random()
+	var MirrorSprite = brow_prefab.get_node("BrowSprite")
+	MirrorSprite.texture = pick_random_brows
+	brow_prefab.brow_mirror.texture = pick_random_brows
+
+func random_button_pressed():
+	random_eyes()
+	random_mouth()
+	random_brows()

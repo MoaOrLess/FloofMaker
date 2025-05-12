@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://sdgxjbdh2l3w"]
+
+[ext_resource type="Script" path="res://SCENES/brow_prefab.gd" id="1_h4xsa"]
+[ext_resource type="Texture2D" uid="uid://bm0fra5q0yix7" path="res://ART/BAD ART/Brow Tear.png" id="2_vnf1b"]
+
+[node name="BrowPrefab" type="Node2D"]
+script = ExtResource("1_h4xsa")
+
+[node name="BrowSprite" type="Sprite2D" parent="."]
+position = Vector2(139, 0)
+texture = ExtResource("2_vnf1b")

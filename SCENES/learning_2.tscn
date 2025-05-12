@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bg6edh5d7u0v"]
+[gd_scene load_steps=22 format=3 uid="uid://bg6edh5d7u0v"]
 
 [ext_resource type="Texture2D" uid="uid://iu7mkhq8etxx" path="res://ART/UI LOOK.png" id="1_ny5bw"]
 [ext_resource type="Script" path="res://SCENES/learning_2.gd" id="1_t10gp"]
@@ -11,8 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://bhnkuevux1xvj" path="res://ART/Arrow Grow.png" id="6_66r7e"]
 [ext_resource type="Texture2D" uid="uid://2snsbexgctnm" path="res://ART/Arrow Rotate.png" id="7_q66o3"]
 [ext_resource type="PackedScene" uid="uid://c87vojqg64ada" path="res://SCENES/eye_prefab.tscn" id="9_kudht"]
+[ext_resource type="Texture2D" uid="uid://ll03qkavyck1" path="res://ART/Podium.png" id="10_7dlkg"]
 [ext_resource type="PackedScene" uid="uid://b7mb1gq2r5806" path="res://SCENES/Body_prefab.tscn" id="10_oeyuo"]
 [ext_resource type="PackedScene" uid="uid://c8d2abrj4fajm" path="res://SCENES/Mouth_prefab.tscn" id="11_32im6"]
+[ext_resource type="PackedScene" uid="uid://sdgxjbdh2l3w" path="res://SCENES/Brow_prefab.tscn" id="12_odh43"]
 
 [sub_resource type="Gradient" id="Gradient_hgyj7"]
 colors = PackedColorArray(0.505882, 0.866667, 0.835294, 1, 1, 1, 1, 1)
@@ -443,16 +445,25 @@ position = Vector2(49, 38)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_8dvh8")
 
+[node name="Podium" type="Sprite2D" parent="UI"]
+position = Vector2(262, 558)
+scale = Vector2(0.46, 0.46)
+texture = ExtResource("10_7dlkg")
+
 [node name="BodyPrefab" parent="UI" instance=ExtResource("10_oeyuo")]
-position = Vector2(260, 346)
+position = Vector2(260, 254)
 scale = Vector2(0.5, 0.5)
 
 [node name="MouthPrefab" parent="UI" instance=ExtResource("11_32im6")]
-position = Vector2(260, 395)
+position = Vector2(260, 303)
 scale = Vector2(0.5, 0.5)
 
 [node name="EyePrefab" parent="UI" instance=ExtResource("9_kudht")]
-position = Vector2(261, 342)
+position = Vector2(261, 250)
+scale = Vector2(0.5, 0.5)
+
+[node name="BrowPrefab" parent="UI" instance=ExtResource("12_odh43")]
+position = Vector2(261, 188)
 scale = Vector2(0.5, 0.5)
 
 [node name="UiLook" type="Sprite2D" parent="UI"]
@@ -460,6 +471,15 @@ visible = false
 position = Vector2(579.222, 324)
 scale = Vector2(0.598148, 0.598148)
 texture = ExtResource("1_ny5bw")
+
+[node name="Extra Options" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 549.0
+offset_right = 104.0
+offset_bottom = 626.0
+scale = Vector2(0.35, 0.35)
+theme_override_constants/separation = 14
 
 [connection signal="pressed" from="UI/MainPanel/PageUp" to="." method="_on_page_up_pressed"]
 [connection signal="pressed" from="UI/MainPanel/PageDown" to="." method="_on_page_down_pressed"]

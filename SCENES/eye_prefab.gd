@@ -3,6 +3,7 @@ extends Node2D
 @onready var eye_sprite: Sprite2D = $EyeSprite
 const EYE_STARE = preload("res://ART/Eye Stare.png")
 const EYE_CROSSED = preload("res://ART/Eye Crossed.png")
+
 var eye_mirror
 var texture
 
