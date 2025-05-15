@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://bg6edh5d7u0v"]
+[gd_scene load_steps=23 format=3 uid="uid://bg6edh5d7u0v"]
 
 [ext_resource type="Texture2D" uid="uid://iu7mkhq8etxx" path="res://ART/UI LOOK.png" id="1_ny5bw"]
 [ext_resource type="Script" path="res://SCENES/learning_2.gd" id="1_t10gp"]
 [ext_resource type="Texture2D" uid="uid://c8mojrwefkpga" path="res://ART/BUTTON ART/Simple Up Button.png" id="2_5ownq"]
 [ext_resource type="Texture2D" uid="uid://bq3awijdlrigx" path="res://ART/BUTTON ART/Arrow Up.png" id="2_l6esw"]
 [ext_resource type="Texture2D" uid="uid://f4xpd4h14h8i" path="res://ART/BUTTON ART/Arrow In.png" id="3_aqovp"]
+[ext_resource type="Material" uid="uid://c0wi7obchsds8" path="res://SHADER/Make Button Black.tres" id="3_w3kbl"]
 [ext_resource type="Texture2D" uid="uid://bcbcub2nbp01g" path="res://ART/BUTTON ART/Collor Picker.png" id="4_8dvh8"]
 [ext_resource type="Texture2D" uid="uid://byebwktexvnf" path="res://ART/BUTTON ART/Arrow Out.png" id="4_kx4j1"]
 [ext_resource type="Texture2D" uid="uid://dfvdd7253sx0x" path="res://ART/BUTTON ART/Arrow Shrink.png" id="5_tr8ew"]
@@ -292,6 +293,7 @@ offset_bottom = 595.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6mxl8")
 
 [node name="Item Up" type="TextureButton" parent="UI/SidePanel"]
+material = ExtResource("3_w3kbl")
 layout_mode = 0
 offset_left = 20.0
 offset_top = 62.0
@@ -301,6 +303,7 @@ scale = Vector2(0.2, 0.2)
 texture_normal = ExtResource("2_l6esw")
 
 [node name="Item Down" type="TextureButton" parent="UI/SidePanel"]
+material = ExtResource("3_w3kbl")
 layout_mode = 0
 offset_left = 20.0
 offset_top = 13.0
@@ -483,11 +486,27 @@ theme_override_constants/separation = 14
 
 [connection signal="pressed" from="UI/MainPanel/PageUp" to="." method="_on_page_up_pressed"]
 [connection signal="pressed" from="UI/MainPanel/PageDown" to="." method="_on_page_down_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Up" to="." method="_on_item_up_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Up" to="." method="_on_item_up_button_up"]
 [connection signal="pressed" from="UI/SidePanel/Item Up" to="." method="Item_Up_Button_Pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Down" to="." method="_on_item_down_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Down" to="." method="_on_item_down_button_up"]
 [connection signal="pressed" from="UI/SidePanel/Item Down" to="." method="_on_item_down_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Closer" to="." method="_on_item_closer_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Closer" to="." method="_on_item_closer_button_up"]
 [connection signal="pressed" from="UI/SidePanel/Item Closer" to="." method="_on_item_closer_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Further" to="." method="_on_item_further_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Further" to="." method="_on_item_further_button_up"]
 [connection signal="pressed" from="UI/SidePanel/Item Further" to="." method="_on_item_further_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Shrink" to="." method="_on_item_shrink_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Shrink" to="." method="_on_item_shrink_button_up"]
 [connection signal="pressed" from="UI/SidePanel/Item Shrink" to="." method="_on_item_shrink_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Zoom" to="." method="_on_item_zoom_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Zoom" to="." method="_on_item_zoom_button_up"]
 [connection signal="pressed" from="UI/SidePanel/Item Zoom" to="." method="_on_item_zoom_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Rot Right" to="." method="_on_item_rot_right_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Rot Right" to="." method="_on_item_rot_right_button_up"]
 [connection signal="pressed" from="UI/SidePanel/Item Rot Right" to="." method="_on_item_rot_right_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Rot left" to="." method="_on_item_rot_left_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Rot left" to="." method="_on_item_rot_left_button_up"]
 [connection signal="pressed" from="UI/SidePanel/Item Rot left" to="." method="_on_item_rot_left_pressed"]

@@ -1,9 +1,24 @@
 extends Control
 
+#Side Buttons:
+@onready var item_up: TextureButton = $"UI/SidePanel/Item Up"
+@onready var item_down: TextureButton = $"UI/SidePanel/Item Down"
+@onready var item_closer: TextureButton = $"UI/SidePanel/Item Closer"
+@onready var item_further: TextureButton = $"UI/SidePanel/Item Further"
+@onready var item_shrink: TextureButton = $"UI/SidePanel/Item Shrink"
+@onready var item_zoom: TextureButton = $"UI/SidePanel/Item Zoom"
+@onready var item_rot_right: TextureButton = $"UI/SidePanel/Item Rot Right"
+@onready var item_rot_left: TextureButton = $"UI/SidePanel/Item Rot left"
+
+
 @onready var option_button_prefab: Control = $UI/MainPanel/GridContainer/OptionButtonPrefab
 @onready var option_container: GridContainer = $UI/MainPanel/OptionContainer
 @onready var h_box_container: HBoxContainer = $UI/HBoxContainer
 @onready var extra_options: HBoxContainer = $"Extra Options"
+
+const MAKE_BUTTON_WHITE = preload("res://SHADER/Make Button White.tres")
+const MAKE_BUTTON_BLACK = preload("res://SHADER/Make Button Black.tres")
+
 
 @onready var body_prefab: Node2D = $UI/BodyPrefab
 @onready var eye_prefab: Node2D = $UI/EyePrefab
@@ -126,6 +141,16 @@ var current_sprite_eye: Sprite2D = null
 var current_sprite_mouth: Sprite2D = null
 var current_sprite_brow: Sprite2D = null
 
+
+var Item_up_pressed: bool = false
+var Item_down_pressed: bool = false
+var Item_zoom_pressed:  bool = false
+var Item_shrink_pressed:  bool = false
+var Item_further_pressed:  bool = false
+var Item_closer_pressed:  bool = false
+var Item_rotr_pressed:  bool = false
+var Item_rotl_pressed:  bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	create_eye_option_buttons()
@@ -136,8 +161,26 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	number_page()
 	
+	#if delta < (1 / 30): 
+	#	return
+	number_page() 
+	if Item_up_pressed == true:
+		Item_Up()
+	if Item_closer_pressed == true:
+		Item_Closer()
+	if Item_down_pressed == true:
+		Item_Down()
+	if Item_further_pressed == true:
+		Item_Further()
+	if Item_zoom_pressed == true:
+		Item_Zoom()
+	if Item_shrink_pressed == true:
+		Item_Shrink()
+	if Item_rotl_pressed == true:
+		Item_RotL()
+	if Item_rotr_pressed == true:
+		Item_RotR()
 
 func number_page():
 	page_number.text = str(page + 1)
@@ -295,6 +338,10 @@ func change_texture_brow(texture):
 		brow_prefab.brow_mirror.texture = texture
 
 func Item_Up_Button_Pressed() -> void:
+	Item_Up()
+
+func Item_Up():
+	Item_up_pressed = true
 	var item_move = 10
 	if current_category == 1:
 		eye_prefab.eye_mirror.position.y -= item_move
@@ -305,8 +352,19 @@ func Item_Up_Button_Pressed() -> void:
 		brow_prefab.brow_mirror.position.y -= item_move
 		brow_prefab.brow_sprite.position.y -= item_move
 
+func _on_item_up_button_up() -> void:
+	item_up.material = MAKE_BUTTON_BLACK
+	Item_up_pressed = false
+
+func _on_item_up_button_down() -> void:
+	item_up.material = MAKE_BUTTON_WHITE
+	Item_Up()
 
 func _on_item_down_pressed() -> void:
+	Item_Down()
+
+func Item_Down():
+	Item_down_pressed = true
 	var item_move = 10
 	if current_category == 1:
 		eye_prefab.eye_mirror.position.y += item_move
@@ -318,7 +376,19 @@ func _on_item_down_pressed() -> void:
 		brow_prefab.brow_sprite.position.y += item_move
 
 
+func _on_item_down_button_up() -> void:
+	item_down.material = MAKE_BUTTON_BLACK
+	Item_down_pressed = false
+
+func _on_item_down_button_down() -> void:
+	item_down.material = MAKE_BUTTON_WHITE
+	Item_Down()
+
 func _on_item_shrink_pressed() -> void:
+	Item_Shrink()
+
+func Item_Shrink():
+	Item_shrink_pressed = true
 	var item_scale = 0.05
 	if current_category == 1:
 		eye_prefab.eye_mirror.scale -= Vector2(item_scale,item_scale)
@@ -329,8 +399,19 @@ func _on_item_shrink_pressed() -> void:
 		brow_prefab.brow_mirror.scale -= Vector2(item_scale,item_scale)
 		brow_prefab.brow_sprite.scale -= Vector2(item_scale,item_scale)
 
+func _on_item_shrink_button_up() -> void:
+	Item_shrink_pressed = false
+	item_shrink.material = MAKE_BUTTON_BLACK
+
+func _on_item_shrink_button_down() -> void:
+	item_shrink.material = MAKE_BUTTON_WHITE
+	Item_Shrink()
 
 func _on_item_zoom_pressed() -> void:
+	Item_Zoom()
+
+func Item_Zoom():
+	Item_shrink_pressed = true
 	var item_scale = 0.05
 	if current_category == 1:
 		eye_prefab.eye_mirror.scale += Vector2(item_scale,item_scale)
@@ -341,8 +422,19 @@ func _on_item_zoom_pressed() -> void:
 		brow_prefab.brow_mirror.scale += Vector2(item_scale,item_scale)
 		brow_prefab.brow_sprite.scale += Vector2(item_scale,item_scale)
 
+func _on_item_zoom_button_up() -> void:
+	item_zoom.material = MAKE_BUTTON_BLACK
+	Item_shrink_pressed = false
+
+func _on_item_zoom_button_down() -> void:
+	item_zoom.material = MAKE_BUTTON_WHITE
+	Item_Zoom()
 
 func _on_item_rot_left_pressed() -> void:
+	Item_RotL()
+
+func Item_RotL():
+	Item_rotl_pressed = true
 	var item_rot = deg_to_rad(5)
 	if current_category == 1:
 		eye_prefab.eye_mirror.rotation -= item_rot
@@ -353,7 +445,19 @@ func _on_item_rot_left_pressed() -> void:
 		brow_prefab.brow_mirror.rotation -= item_rot
 		brow_prefab.brow_sprite.rotation += item_rot
 
+func _on_item_rot_left_button_up() -> void:
+	Item_rotl_pressed = false
+	item_rot_left.material = MAKE_BUTTON_BLACK
+
+func _on_item_rot_left_button_down() -> void:
+	item_rot_left.material = MAKE_BUTTON_WHITE
+	Item_RotL()
+
 func _on_item_rot_right_pressed() -> void:
+	Item_RotR()
+
+func Item_RotR():
+	Item_rotr_pressed = true
 	var item_rot = deg_to_rad(5)
 	if current_category == 1:
 		eye_prefab.eye_mirror.rotation += item_rot
@@ -364,8 +468,19 @@ func _on_item_rot_right_pressed() -> void:
 		brow_prefab.brow_mirror.rotation += item_rot
 		brow_prefab.brow_sprite.rotation -= item_rot
 
+func _on_item_rot_right_button_up() -> void:
+	Item_rotr_pressed = false
+	item_rot_right.material = MAKE_BUTTON_BLACK
+
+func _on_item_rot_right_button_down() -> void:
+	item_rot_right.material = MAKE_BUTTON_WHITE
+	Item_RotR()
 
 func _on_item_further_pressed() -> void:
+	Item_Further()
+
+func Item_Further():
+	Item_further_pressed = true
 	var item_pos = 10
 	var item_scale = 0.05
 	if current_category == 1:
@@ -377,7 +492,19 @@ func _on_item_further_pressed() -> void:
 		brow_prefab.brow_mirror.position.x -= item_pos
 		brow_prefab.brow_sprite.position.x += item_pos
 
+func _on_item_further_button_up() -> void:
+	item_further.material = MAKE_BUTTON_BLACK
+	Item_further_pressed = false
+
+func _on_item_further_button_down() -> void:
+	item_further.material = MAKE_BUTTON_WHITE
+	Item_Further()
+
 func _on_item_closer_pressed() -> void:
+	Item_Closer()
+
+func Item_Closer():
+	Item_closer_pressed = true
 	var item_pos = 10
 	var item_scale = 0.05
 	if current_category == 1:
@@ -388,6 +515,14 @@ func _on_item_closer_pressed() -> void:
 	if current_category == 3:
 		brow_prefab.brow_mirror.position.x += item_pos
 		brow_prefab.brow_sprite.position.x -= item_pos
+
+func _on_item_closer_button_up() -> void:
+	item_closer.material = MAKE_BUTTON_BLACK
+	Item_closer_pressed = false
+
+func _on_item_closer_button_down() -> void:
+	item_closer.material = MAKE_BUTTON_WHITE
+	Item_Closer()
 
 func random_eyes():
 	var pick_random_eyes = EyeOption.pick_random()

@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c1ukoke80k2a2"]
+
+[ext_resource type="Shader" path="res://SHADER/Make White.gdshader" id="1_fg48p"]
+
+[resource]
+shader = ExtResource("1_fg48p")
+shader_parameter/color = Color(0.937255, 1, 1, 1)
+shader_parameter/tint_factor = 1.0
+shader_parameter/fade = 1.0
