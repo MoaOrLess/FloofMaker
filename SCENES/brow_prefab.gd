@@ -2,7 +2,7 @@ extends Node2D
 
 
 @onready var brow_sprite: Sprite2D = $BrowSprite
-const BROW_TEAR = preload("res://ART/BAD ART/Brow Tear.png")
+const BROW_TEAR = preload("res://ART/BROWS ART/Brow Tear.png")
 
 var brow_mirror
 var texture

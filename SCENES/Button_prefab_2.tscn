@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0etfrqq8vd2q"]
 
 [ext_resource type="Script" path="res://SCENES/button_prefab_2.gd" id="1_p4tqh"]
-[ext_resource type="Texture2D" uid="uid://by140ghgjifkr" path="res://ART/Round Button Off.png" id="2_w7j8t"]
-[ext_resource type="Texture2D" uid="uid://buhgsv216h2ae" path="res://ART/Round Button On.png" id="3_ui6k6"]
-[ext_resource type="Texture2D" uid="uid://qq736aul3ary" path="res://ART/Body Icon.png" id="4_rdaw5"]
+[ext_resource type="Texture2D" uid="uid://by140ghgjifkr" path="res://ART/BUTTON ART/Round Button Off.png" id="2_w7j8t"]
+[ext_resource type="Texture2D" uid="uid://buhgsv216h2ae" path="res://ART/BUTTON ART/Round Button On.png" id="3_ui6k6"]
+[ext_resource type="Texture2D" uid="uid://qq736aul3ary" path="res://ART/BUTTON ART/Body Icon.png" id="4_rdaw5"]
 
 [node name="CategoryButton" type="TextureButton"]
 offset_right = 135.0

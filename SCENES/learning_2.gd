@@ -5,94 +5,109 @@ extends Control
 @onready var h_box_container: HBoxContainer = $UI/HBoxContainer
 @onready var extra_options: HBoxContainer = $"Extra Options"
 
-
-
-
-@export var BUTTON_PREFAB = preload("res://SCENES/Button_prefab_1.tscn")
-@export var ROUND_BUTTON_PREFAB = preload("res://SCENES/Button_prefab_2.tscn")
-@export var BROW_PREFAB = preload("res://SCENES/Brow_prefab.tscn")
-
-
 @onready var body_prefab: Node2D = $UI/BodyPrefab
 @onready var eye_prefab: Node2D = $UI/EyePrefab
 @onready var mouth_prefab: Node2D = $UI/MouthPrefab
 @onready var brow_prefab: Node2D = $UI/BrowPrefab
 
+@onready var page_number: Label = $"UI/MainPanel/Page Number"
 
-
+#instance stuff
+@export var BUTTON_PREFAB = preload("res://SCENES/Button_prefab_1.tscn")
+@export var ROUND_BUTTON_PREFAB = preload("res://SCENES/Button_prefab_2.tscn")
+@export var BROW_PREFAB = preload("res://SCENES/Brow_prefab.tscn")
 
 
 #ART SPRITES
-var EYE_STARE = preload("res://ART/Eye Stare.png")
-var EYE_ROUND = preload("res://ART/Eye Round.png")
-var EYE_CLASSIC = preload("res://ART/Eye Classic.png")
-var EYE_BIG = preload("res://ART/Eye Big.png")
-var EYE_DONE = preload("res://ART/Eye Done.png")
-var EYE_LINE_ = preload("res://ART/Eye Line .png")
-var EYE_WOBLE = preload("res://ART/Eye Woble.png")
-var EYE_ANIME = preload("res://ART/Eye Anime.png")
-var EYE_BLINK = preload("res://ART/Eye Blink.png")
-var EYE_CROSSED = preload("res://ART/Eye Crossed.png")
-var EYE_GURL = preload("res://ART/Eye Gurl.png")
-var EYE_INTENSE = preload("res://ART/Eye Intense.png")
-var EYE_KIRBY = preload("res://ART/Eye Kirby.png")
-var EYE_SHARP = preload("res://ART/Eye Sharp.png")
-var EYE_TIC_TAC = preload("res://ART/Eye TicTac.png")
-var EYE_TRAUMA = preload("res://ART/Eye Trauma.png")
-var EYE_TWINKLE = preload("res://ART/Eye Twinkle.png")
-var EYE_U = preload("res://ART/Eye U.png")
+const BROW_EMPTY = null
+const BROW_BLOCK = preload("res://ART/BROWS ART/Brow Block.png")
+const BROW_BRICK = preload("res://ART/BROWS ART/Brow Brick.png")
+const BROW_CHONK = preload("res://ART/BROWS ART/Brow Chonk.png")
+const BROW_CLASSIC = preload("res://ART/BROWS ART/Brow Classic.png")
+const BROW_FROWN = preload("res://ART/BROWS ART/Brow Frown.png")
+const BROW_HAIRY = preload("res://ART/BROWS ART/Brow Hairy.png")
+const BROW_HAT = preload("res://ART/BROWS ART/Brow Hat.png")
+const BROW_INTENSE = preload("res://ART/BROWS ART/Brow Intense.png")
+const BROW_PRESSED = preload("res://ART/BROWS ART/Brow Pressed.png")
+const BROW_ROUND_BLOCK = preload("res://ART/BROWS ART/Brow RoundBlock.png")
+const BROW_ROUNDISH = preload("res://ART/BROWS ART/Brow Roundish.png")
+const BROW_SHWONK = preload("res://ART/BROWS ART/Brow Shwonk.png")
+const BROW_SLICK = preload("res://ART/BROWS ART/Brow Slick.png")
+const BROW_SWOOP = preload("res://ART/BROWS ART/Brow Swoop.png")
+const BROW_TEAR = preload("res://ART/BROWS ART/Brow Tear.png")
 
 
-var MOUTH_KIRBY = preload("res://ART/Mouth Kirby.png")
-var MOUTH_TOOF = preload("res://ART/Mouth Toof.png")
-var MOUTH_TREE = preload("res://ART/Mouth Tree.png")
-var MOUTH_LIP = preload("res://ART/Mouth Lip.png")
-var MOUTH_POUT = preload("res://ART/Mouth Pout.png")
-var MOUTH_SMOLLSMILE = preload("res://ART/Mouth Smollsmile.png")
-var MOUTH_V = preload("res://ART/Mouth V.png")
-var MOUTH_W = preload("res://ART/Mouth W.png")
-var MOUTH_BEAN = preload("res://ART/Mouth Bean.png")
+const BODY_ICON = preload("res://ART/BUTTON ART/Body Icon.png")
+const BROW_ICON = preload("res://ART/BUTTON ART/Brow Icon.png")
+const EXTRA_ICON = preload("res://ART/BUTTON ART/Extra Icon.png")
+const EYE_ICON = preload("res://ART/BUTTON ART/Eye Icon.png")
+const HAIR_ICON = preload("res://ART/BUTTON ART/Hair Icon.png")
+const NOSE_ICON = preload("res://ART/BUTTON ART/Nose Icon.png")
+const QUESTION_MARK_ICON = preload("res://ART/BUTTON ART/Question Mark Icon.png")
 
-var BROW_EMPTY
-const BROW_BLOCK = preload("res://ART/BAD ART/Brow Block.png")
-const BROW_BRICK = preload("res://ART/BAD ART/Brow Brick.png")
-const BROW_CHONK = preload("res://ART/BAD ART/Brow Chonk.png")
-const BROW_CLASSIC = preload("res://ART/BAD ART/Brow Classic.png")
-const BROW_FROWN = preload("res://ART/BAD ART/Brow Frown.png")
-const BROW_HAIRY = preload("res://ART/BAD ART/Brow Hairy.png")
-const BROW_HAT = preload("res://ART/BAD ART/Brow Hat.png")
-const BROW_INTENSE = preload("res://ART/BAD ART/Brow Intense.png")
-const BROW_PRESSED = preload("res://ART/BAD ART/Brow Pressed.png")
-const BROW_ROUND_BLOCK = preload("res://ART/BAD ART/Brow RoundBlock.png")
-const BROW_ROUNDISH = preload("res://ART/BAD ART/Brow Roundish.png")
-const BROW_SHWONK = preload("res://ART/BAD ART/Brow Shwonk.png")
-const BROW_SLICK = preload("res://ART/BAD ART/Brow Slick.png")
-const BROW_SWOOP = preload("res://ART/BAD ART/Brow Swoop.png")
-const BROW_TEAR = preload("res://ART/BAD ART/Brow Tear.png")
+const EYE_ALMOND = preload("res://ART/EYES ART/Eye Almond.png")
+const EYE_ANIME = preload("res://ART/EYES ART/Eye Anime.png")
+const EYE_BIG = preload("res://ART/EYES ART/Eye Big.png")
+const EYE_BLINK = preload("res://ART/EYES ART/Eye Blink.png")
+const EYE_CLASSIC = preload("res://ART/EYES ART/Eye Classic.png")
+const EYE_CROSSED = preload("res://ART/EYES ART/Eye Crossed.png")
+const EYE_DONE = preload("res://ART/EYES ART/Eye Done.png")
+const EYE_GURL = preload("res://ART/EYES ART/Eye Gurl.png")
+const EYE_INTENSE = preload("res://ART/EYES ART/Eye Intense.png")
+const EYE_KIRBY = preload("res://ART/EYES ART/Eye Kirby.png")
+const EYE_LINE_ = preload("res://ART/EYES ART/Eye Line .png")
+const EYE_REALISH = preload("res://ART/EYES ART/Eye Realish.png")
+const EYE_ROUND = preload("res://ART/EYES ART/Eye Round.png")
+const EYE_SHARP = preload("res://ART/EYES ART/Eye Sharp.png")
+const EYE_STARE = preload("res://ART/EYES ART/Eye Stare.png")
+const EYE_TIC_TAC = preload("res://ART/EYES ART/Eye TicTac.png")
+const EYE_TRAUMA = preload("res://ART/EYES ART/Eye Trauma.png")
+const EYE_TWINKLE = preload("res://ART/EYES ART/Eye Twinkle.png")
+const EYE_U = preload("res://ART/EYES ART/Eye U.png")
+const EYE_WOBLE = preload("res://ART/EYES ART/Eye Woble.png")
+const FLOOF_GIDDY = preload("res://ART/EYES ART/Floof Giddy.png")
 
+const MOUTH_BEAN = preload("res://ART/MOUTH ART/Mouth Bean.png")
+const MOUTH_CHEEKY_GRIN = preload("res://ART/MOUTH ART/Mouth Cheeky Grin.png")
+const MOUTH_GRIN = preload("res://ART/MOUTH ART/Mouth Grin.png")
+const MOUTH_ICON = preload("res://ART/MOUTH ART/Mouth Icon.png")
+const MOUTH_JOJO = preload("res://ART/MOUTH ART/Mouth Jojo.png")
+const MOUTH_KIRBY = preload("res://ART/MOUTH ART/Mouth Kirby.png")
+const MOUTH_LIP = preload("res://ART/MOUTH ART/Mouth Lip.png")
+const MOUTH_LIPS = preload("res://ART/MOUTH ART/Mouth Lips.png")
+const MOUTH_POUT = preload("res://ART/MOUTH ART/Mouth Pout.png")
+const MOUTH_SHARP = preload("res://ART/MOUTH ART/Mouth Sharp.png")
+const MOUTH_SMIRK = preload("res://ART/MOUTH ART/Mouth Smirk.png")
+const MOUTH_SMOLLSMILE = preload("res://ART/MOUTH ART/Mouth Smollsmile.png")
+const MOUTH_SMUG = preload("res://ART/MOUTH ART/Mouth Smug.png")
+const MOUTH_SSSSH = preload("res://ART/MOUTH ART/Mouth Ssssh.png")
+const MOUTH_TOOF = preload("res://ART/MOUTH ART/Mouth Toof.png")
+const MOUTH_TREE = preload("res://ART/MOUTH ART/Mouth Tree.png")
+const MOUTH_V = preload("res://ART/MOUTH ART/Mouth V.png")
+const MOUTH_W = preload("res://ART/MOUTH ART/Mouth W.png")
 
-const BODY_ICON = preload("res://ART/Body Icon.png")
-const BROW_ICON = preload("res://ART/Brow Icon.png")
-const EXTRA_ICON = preload("res://ART/Extra Icon.png")
-const EYE_ICON = preload("res://ART/Eye Icon.png")
-const HAIR_ICON = preload("res://ART/Hair Icon.png")
-const MOUTH_ICON = preload("res://ART/Mouth Icon.png")
-const NOSE_ICON = preload("res://ART/Nose Icon.png")
+const NOSE_BLOB = preload("res://ART/NOSE ART/Nose Blob.png")
+const NOSE_BUTTON = preload("res://ART/NOSE ART/Nose Button.png")
+const NOSE_CAT = preload("res://ART/NOSE ART/Nose Cat.png")
+const NOSE_CLOWN = preload("res://ART/NOSE ART/Nose Clown.png")
+const NOSE_FLARE = preload("res://ART/NOSE ART/Nose Flare.png")
+const NOSE_GREMLIN = preload("res://ART/NOSE ART/Nose Gremlin.png")
+const NOSE_REALISH = preload("res://ART/NOSE ART/Nose Realish.png")
+const NOSE_SQUIDWARD = preload("res://ART/NOSE ART/Nose Squidward.png")
+const NOSE_VOLDY = preload("res://ART/NOSE ART/Nose Voldy.png")
 
-const QUESTION_MARK_ICON = preload("res://ART/Question Mark Icon.png")
-
-@onready var page_number: Label = $"UI/MainPanel/Page Number"
-
+# Arrays of options
 var ExtraOption =[QUESTION_MARK_ICON]
-
-var EyeOption = [EYE_STARE, EYE_ROUND, EYE_CLASSIC, EYE_BIG, EYE_DONE, EYE_LINE_,EYE_WOBLE, EYE_ANIME,
-EYE_BLINK, EYE_CROSSED, EYE_GURL, EYE_INTENSE, EYE_KIRBY, EYE_SHARP, EYE_TIC_TAC, EYE_TRAUMA, EYE_TWINKLE, EYE_U]
-
-var MouthOption = [MOUTH_KIRBY, MOUTH_TOOF, MOUTH_TREE, MOUTH_LIP, MOUTH_POUT, MOUTH_SMOLLSMILE, MOUTH_V,
-MOUTH_W, MOUTH_BEAN]
-
-var BrowOption = [BROW_EMPTY, BROW_BLOCK, BROW_BRICK, BROW_CHONK, BROW_CLASSIC, BROW_FROWN, BROW_HAIRY, BROW_HAT, BROW_INTENSE, BROW_PRESSED, BROW_ROUND_BLOCK, BROW_ROUNDISH, BROW_SHWONK, BROW_SLICK, BROW_SWOOP, BROW_TEAR]
-
+var EyeOption = [EYE_ALMOND, EYE_ANIME, EYE_BIG, EYE_BLINK, EYE_CLASSIC, EYE_CROSSED, EYE_DONE,
+EYE_GURL, EYE_INTENSE, EYE_KIRBY, EYE_LINE_, EYE_REALISH, EYE_ROUND, EYE_SHARP, EYE_STARE,
+EYE_TIC_TAC, EYE_TRAUMA, EYE_TWINKLE, EYE_U, EYE_WOBLE, FLOOF_GIDDY]
+var MouthOption = [MOUTH_BEAN, MOUTH_CHEEKY_GRIN, MOUTH_GRIN, MOUTH_ICON, MOUTH_JOJO,
+MOUTH_KIRBY, MOUTH_LIP, MOUTH_LIPS, MOUTH_POUT, MOUTH_SHARP, MOUTH_SMIRK, MOUTH_SMOLLSMILE,
+MOUTH_SMUG, MOUTH_SSSSH, MOUTH_TOOF, MOUTH_TREE, MOUTH_V, MOUTH_W ]
+var BrowOption = [BROW_EMPTY, BROW_BLOCK, BROW_BRICK, BROW_CHONK, BROW_CLASSIC, BROW_FROWN, BROW_HAIRY,
+BROW_HAT, BROW_INTENSE, BROW_PRESSED, BROW_ROUND_BLOCK, BROW_ROUNDISH, BROW_SHWONK, BROW_SLICK, BROW_SWOOP, BROW_TEAR]
+var NoseOption = [NOSE_BLOB, NOSE_BUTTON, NOSE_CAT, NOSE_CLOWN, NOSE_FLARE, NOSE_GREMLIN, NOSE_REALISH,
+NOSE_SQUIDWARD, NOSE_VOLDY]
 var CategoryOption = [BODY_ICON, EYE_ICON, MOUTH_ICON, BROW_ICON, NOSE_ICON, HAIR_ICON, EXTRA_ICON]
 
 var page_index
@@ -102,6 +117,7 @@ var MOUTHS
 var category_index
 
 var eye_sprite
+var brow_sprite
 var current_category = 1
 var cat_eyes
 var cat_mouth

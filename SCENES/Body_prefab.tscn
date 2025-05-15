@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b7mb1gq2r5806"]
 
-[ext_resource type="Texture2D" uid="uid://wvyqnci4huwn" path="res://ART/Body Classic.png" id="1_s4ui3"]
+[ext_resource type="Texture2D" uid="uid://wvyqnci4huwn" path="res://ART/GENERAL ART/Body Classic.png" id="1_s4ui3"]
 
 [node name="BodyPrefab" type="Node2D"]
 
