@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsrhn6sqmdgn"]
+
+[ext_resource type="Script" path="res://SCENES/nose_prefab.gd" id="1_3fdul"]
+[ext_resource type="Texture2D" uid="uid://ckdpyylv5s1tc" path="res://ART/NOSE ART/Nose Clown.png" id="1_n7own"]
+
+[node name="NosePrefab" type="Node2D"]
+script = ExtResource("1_3fdul")
+
+[node name="NoseSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_n7own")

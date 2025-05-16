@@ -1,7 +1,7 @@
 extends Control
 
 
-@onready var option_button: TextureButton = $OptionButton
+@onready var option_button: TextureButton = $"."
 @onready var option_sprite: Sprite2D = $OptionSprite
 
 var pos_offset = Vector2(10,10)

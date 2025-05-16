@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bg6edh5d7u0v"]
+[gd_scene load_steps=24 format=3 uid="uid://bg6edh5d7u0v"]
 
 [ext_resource type="Texture2D" uid="uid://iu7mkhq8etxx" path="res://ART/UI LOOK.png" id="1_ny5bw"]
 [ext_resource type="Script" path="res://SCENES/learning_2.gd" id="1_t10gp"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b7mb1gq2r5806" path="res://SCENES/Body_prefab.tscn" id="10_oeyuo"]
 [ext_resource type="PackedScene" uid="uid://c8d2abrj4fajm" path="res://SCENES/Mouth_prefab.tscn" id="11_32im6"]
 [ext_resource type="PackedScene" uid="uid://sdgxjbdh2l3w" path="res://SCENES/Brow_prefab.tscn" id="12_odh43"]
+[ext_resource type="PackedScene" uid="uid://dsrhn6sqmdgn" path="res://SCENES/nose_prefab.tscn" id="16_r5aol"]
 
 [sub_resource type="Gradient" id="Gradient_hgyj7"]
 colors = PackedColorArray(0.505882, 0.866667, 0.835294, 1, 1, 1, 1, 1)
@@ -457,16 +458,20 @@ texture = ExtResource("10_7dlkg")
 position = Vector2(260, 254)
 scale = Vector2(0.5, 0.5)
 
-[node name="MouthPrefab" parent="UI" instance=ExtResource("11_32im6")]
-position = Vector2(260, 303)
-scale = Vector2(0.5, 0.5)
-
 [node name="EyePrefab" parent="UI" instance=ExtResource("9_kudht")]
 position = Vector2(261, 250)
 scale = Vector2(0.5, 0.5)
 
 [node name="BrowPrefab" parent="UI" instance=ExtResource("12_odh43")]
 position = Vector2(261, 188)
+scale = Vector2(0.5, 0.5)
+
+[node name="MouthPrefab" parent="UI" instance=ExtResource("11_32im6")]
+position = Vector2(260, 303)
+scale = Vector2(0.5, 0.5)
+
+[node name="NosePrefab" parent="UI" instance=ExtResource("16_r5aol")]
+position = Vector2(260, 250)
 scale = Vector2(0.5, 0.5)
 
 [node name="UiLook" type="Sprite2D" parent="UI"]
