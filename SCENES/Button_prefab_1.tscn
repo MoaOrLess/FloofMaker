@@ -16,6 +16,10 @@ script = ExtResource("1_ve7tg")
 position = Vector2(145, 143)
 texture = ExtResource("3_g8ou5")
 
+[node name="IrisSprite" type="Sprite2D" parent="."]
+position = Vector2(145, 143)
+texture = ExtResource("3_g8ou5")
+
 [connection signal="button_down" from="." to="." method="_on_button_down"]
 [connection signal="button_up" from="." to="." method="_on_button_up"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

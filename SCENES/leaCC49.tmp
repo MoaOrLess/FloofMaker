@@ -387,11 +387,11 @@ texture = ExtResource("10_7dlkg")
 position = Vector2(260, 254)
 scale = Vector2(0.5, 0.5)
 
-[node name="EyePrefab" parent="UI" instance=ExtResource("9_kudht")]
+[node name="IrisPrefab" parent="UI" instance=ExtResource("12_ftq0g")]
 position = Vector2(261, 250)
 scale = Vector2(0.5, 0.5)
 
-[node name="IrisPrefab" parent="UI" instance=ExtResource("12_ftq0g")]
+[node name="EyePrefab" parent="UI" instance=ExtResource("9_kudht")]
 position = Vector2(261, 250)
 scale = Vector2(0.5, 0.5)
 

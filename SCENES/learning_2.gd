@@ -23,6 +23,7 @@ const MAKE_BUTTON_BLACK = preload("res://SHADER/Make Button Black.tres")
 
 @onready var body_prefab: Node2D = $UI/BodyPrefab
 @onready var eye_prefab: Node2D = $UI/EyePrefab
+@onready var iris_prefab: Node2D = $UI/IrisPrefab
 @onready var mouth_prefab: Node2D = $UI/MouthPrefab
 @onready var brow_prefab: Node2D = $UI/BrowPrefab
 @onready var nose_prefab: Node2D = $UI/NosePrefab
@@ -76,7 +77,7 @@ const EYE_DONE = preload("res://ART/EYES ART/Eye Done.png")
 const EYE_GURL = preload("res://ART/EYES ART/Eye Gurl.png")
 const EYE_INTENSE = preload("res://ART/EYES ART/Eye Intense.png")
 const EYE_KIRBY = preload("res://ART/EYES ART/Eye Kirby.png")
-const EYE_LINE_ = preload("res://ART/EYES ART/Eye Line .png")
+const EYE_LINE = preload("res://ART/EYES ART/Eye Line .png")
 const EYE_REALISH = preload("res://ART/EYES ART/Eye Realish.png")
 const EYE_ROUND = preload("res://ART/EYES ART/Eye Round.png")
 const EYE_SHARP = preload("res://ART/EYES ART/Eye Sharp.png")
@@ -87,6 +88,29 @@ const EYE_TWINKLE = preload("res://ART/EYES ART/Eye Twinkle.png")
 const EYE_U = preload("res://ART/EYES ART/Eye U.png")
 const EYE_WOBLE = preload("res://ART/EYES ART/Eye Woble.png")
 const FLOOF_GIDDY = preload("res://ART/EYES ART/Floof Giddy.png")
+
+const EYE_ALMOND_IRIS = preload("res://ART/EYES ART/IRIS/Eye Almond Iris.png")
+const EYE_ANIME_IRIS = preload("res://ART/EYES ART/IRIS/Eye Anime Iris.png")
+const EYE_BIG_IRIS = preload("res://ART/EYES ART/IRIS/Eye Big Iris.png")
+const EYE_BLINK_IRIS = null
+const EYE_CLASSIC_IRIS = null
+const EYE_CROSSED_IRIS = preload("res://ART/EYES ART/IRIS/Eye Crossed Iris.png")
+const EYE_DONE_IRIS = null
+const EYE_GURL_IRIS = null
+const EYE_INTENSE_IRIS = preload("res://ART/EYES ART/IRIS/Eye Intense Iris.png")
+const EYE_KIRBY_IRIS = null
+const EYE_LINE_IRIS = null
+const EYE_REALISH_IRIS = preload("res://ART/EYES ART/IRIS/Eye Realish Iris.png")
+const EYE_ROUND_IRIS = null
+const EYE_SHARP_IRIS = preload("res://ART/EYES ART/IRIS/Eye Sharp Iris.png")
+const EYE_STARE_IRIS = preload("res://ART/EYES ART/IRIS/Eye Stare Iris.png")
+const EYE_TIC_TAC_IRIS = null
+const EYE_TRAUMA_IRIS = null
+const EYE_TWINKLE_IRIS = null
+const EYE_U_IRIS = null
+const EYE_WOBLE_IRIS = preload("res://ART/EYES ART/IRIS/Eye Woble Iris.png")
+const FLOOF_GIDDY_IRIS = preload("res://ART/EYES ART/IRIS/Floof Giddy Iris.png")
+
 
 const MOUTH_BEAN = preload("res://ART/MOUTH ART/Mouth Bean.png")
 const MOUTH_CHEEKY_GRIN = preload("res://ART/MOUTH ART/Mouth Cheeky Grin.png")
@@ -132,8 +156,14 @@ const WHITE = Color(0, 0, 0)
 # Arrays of options
 var ExtraOption =[QUESTION_MARK_ICON]
 var EyeOption = [EYE_ALMOND, EYE_ANIME, EYE_BIG, EYE_BLINK, EYE_CLASSIC, EYE_CROSSED, EYE_DONE,
-EYE_GURL, EYE_INTENSE, EYE_KIRBY, EYE_LINE_, EYE_REALISH, EYE_ROUND, EYE_SHARP, EYE_STARE,
+EYE_GURL, EYE_INTENSE, EYE_KIRBY, EYE_LINE, EYE_REALISH, EYE_ROUND, EYE_SHARP, EYE_STARE,
 EYE_TIC_TAC, EYE_TRAUMA, EYE_TWINKLE, EYE_U, EYE_WOBLE, FLOOF_GIDDY]
+var IrisOption = [EYE_ALMOND_IRIS, EYE_ANIME_IRIS, EYE_BIG_IRIS, EYE_BLINK_IRIS,
+EYE_CLASSIC_IRIS, EYE_CROSSED_IRIS, EYE_DONE_IRIS, EYE_GURL_IRIS, EYE_INTENSE_IRIS,
+EYE_KIRBY_IRIS, EYE_LINE_IRIS, EYE_REALISH_IRIS, EYE_ROUND_IRIS, EYE_SHARP_IRIS,
+EYE_STARE_IRIS, EYE_TIC_TAC_IRIS, EYE_TRAUMA_IRIS, EYE_TWINKLE_IRIS, EYE_U_IRIS, EYE_WOBLE_IRIS,
+FLOOF_GIDDY_IRIS]
+
 var MouthOption = [MOUTH_BEAN, MOUTH_CHEEKY_GRIN, MOUTH_GRIN, MOUTH_JOJO,
 MOUTH_KIRBY, MOUTH_LIP, MOUTH_LIPS, MOUTH_POUT, MOUTH_SHARP, MOUTH_SMIRK, MOUTH_SMOLLSMILE,
 MOUTH_SMUG, MOUTH_SSSSH, MOUTH_TOOF, MOUTH_TREE, MOUTH_V, MOUTH_W ]
@@ -152,6 +182,7 @@ var MOUTHS
 var category_index
 
 var eye_sprite
+var iris_sprite
 var brow_sprite
 var current_category = 1
 var cat_eyes
@@ -222,12 +253,14 @@ func create_eye_option_buttons():
 	for index_on_page in 9:
 		var eye_button = BUTTON_PREFAB.instantiate()
 		eye_sprite = eye_button.get_node("OptionSprite")
+		iris_sprite = eye_button.get_node("IrisSprite")
 		var index = index_on_page + (page * 9)
 		if index >= EyeOption.size(): 
 			break
 		eye_sprite.texture = EyeOption[index]
+		iris_sprite.texture = IrisOption[index]
 		option_container.add_child(eye_button)
-		eye_button.pressed.connect(button_is_pressed.bind(eye_sprite.texture))
+		eye_button.pressed.connect(button_is_pressed_eyes.bind(eye_sprite.texture, iris_sprite.texture))
 
 
 func clear_option_buttons():
@@ -336,13 +369,11 @@ func _on_page_down_pressed() -> void:
 			clear_option_buttons()
 			create_nose_option_buttons()
 
-func color_button_pressed(color_index):
-	print("pressed")
-	#if category_index == 0:
-	body_prefab.modulate = ColorOption[color_index]
+
 
 func category_button_pressed(category_index):
-	#print(category_index)
+	print(category_index)
+	self.category_index = category_index
 	if category_index == 0:
 		pass
 	if  category_index == 1:
@@ -369,23 +400,38 @@ func category_button_pressed(category_index):
 		#clear_option_buttons()
 		#create_mouth_option_buttons()
 	
+func color_button_pressed(color_index):
+	if category_index == 0:
+		print("pressed")
+		body_prefab.modulate = ColorOption[color_index]
+	if category_index == 1:
+		iris_prefab.modulate = ColorOption[color_index]
+	if category_index == 2:
+		mouth_prefab.modulate = ColorOption[color_index]
+	if category_index == 3:
+		brow_prefab.modulate = ColorOption[color_index]
 
 func button_is_pressed(texture):
-	change_texture_eye(texture)
+	#change_texture_eye(texture)
 	change_texture_mouth(texture)
 	change_texture_brow(texture)
 	change_texture_nose(texture)
 
+func button_is_pressed_eyes(texture, texture2):
+	change_texture_eye(texture, texture2)
 	
-	
-func change_texture_eye(texture):
+func change_texture_eye(texture, texture2):
 	var MirrorSprite = eye_prefab.get_node("EyeSprite")
+	var MirrorSprite2 = iris_prefab.get_node("IrisSprite")
 	if current_sprite_eye != null:
-		eye_prefab.eye_sprite.texture = texture
+		eye_prefab.eye_sprirte.texture = texture
+		iris_prefab.iris_sprite.texture = texture2
 	if current_category == 1:
 		#eye_prefab.eye_sprite.texture = texture
 		MirrorSprite.texture = texture
+		MirrorSprite2.texture = texture2
 		eye_prefab.eye_mirror.texture = texture
+		iris_prefab.iris_mirror.texture = texture2
 
 
 func change_texture_mouth(texture):
@@ -418,6 +464,9 @@ func Item_Up(delta):
 		if eye_prefab.eye_mirror.position.y > -300:
 			eye_prefab.eye_mirror.position.y -= item_move * delta
 			eye_prefab.eye_sprite.position.y -= item_move * delta
+			
+			iris_prefab.iris_mirror.position.y -= item_move * delta
+			iris_prefab.iris_sprite.position.y -= item_move * delta
 	if current_category == 2:
 		if mouth_prefab.position.y > 100:
 			mouth_prefab.position.y -= item_move * delta
