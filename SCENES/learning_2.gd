@@ -14,6 +14,8 @@ extends Control
 @onready var option_container: GridContainer = $UI/MainPanel/OptionContainer
 @onready var h_box_container: HBoxContainer = $UI/HBoxContainer
 @onready var extra_options: HBoxContainer = $"Extra Options"
+@onready var h_box_container_2: HBoxContainer = $UI/HBoxContainer2
+
 
 const MAKE_BUTTON_WHITE = preload("res://SHADER/Make Button White.tres")
 const MAKE_BUTTON_BLACK = preload("res://SHADER/Make Button Black.tres")
@@ -33,6 +35,7 @@ const MAKE_BUTTON_BLACK = preload("res://SHADER/Make Button Black.tres")
 @export var ROUND_BUTTON_PREFAB = preload("res://SCENES/Button_prefab_2.tscn")
 @export var BROW_PREFAB = preload("res://SCENES/Brow_prefab.tscn")
 @export var NOSE_PREFAB = preload("res://SCENES/nose_prefab.tscn")
+@export var COLOR_SELECT_PREFAB = preload("res://SCENES/color_select_prefab.tscn")
 
 
 #ART SPRITES
@@ -114,6 +117,18 @@ const NOSE_REALISH = preload("res://ART/NOSE ART/Nose Realish.png")
 const NOSE_SQUIDWARD = preload("res://ART/NOSE ART/Nose Squidward.png")
 const NOSE_VOLDY = preload("res://ART/NOSE ART/Nose Voldy.png")
 
+#color
+const PINK = Color(0.788, 0.384, 0.502)
+const ORANGE = Color(0.798, 0.415, 0.163)
+const YELLOW = Color(0.835, 0.62, 0.231)
+const GREEN = Color(0.448, 0.674, 0.416)
+const TEAL = Color(0.26, 0.633, 0.58)
+const BLUE = Color(0.122, 0.459, 0.796)
+const RED = Color(0.78, 0.212, 0.188)
+const PURPLE = Color(0.416, 0.278, 0.655)
+const WHITE = Color(0, 0, 0)
+
+
 # Arrays of options
 var ExtraOption =[QUESTION_MARK_ICON]
 var EyeOption = [EYE_ALMOND, EYE_ANIME, EYE_BIG, EYE_BLINK, EYE_CLASSIC, EYE_CROSSED, EYE_DONE,
@@ -127,6 +142,8 @@ BROW_HAT, BROW_INTENSE, BROW_PRESSED, BROW_ROUND_BLOCK, BROW_ROUNDISH, BROW_SHWO
 var NoseOption = [EMPTY, NOSE_BLOB, NOSE_BUTTON, NOSE_CAT, NOSE_CLOWN, NOSE_FLARE, NOSE_GREMLIN, NOSE_REALISH,
 NOSE_SQUIDWARD, NOSE_VOLDY]
 var CategoryOption = [BODY_ICON, EYE_ICON, MOUTH_ICON, BROW_ICON, NOSE_ICON, HAIR_ICON, EXTRA_ICON]
+var ColorOption = [PINK, ORANGE, YELLOW, GREEN, TEAL, BLUE, RED, PURPLE, WHITE]
+
 
 var page_index
 var page = 0
@@ -160,6 +177,7 @@ func _ready() -> void:
 	create_eye_option_buttons()
 	create_Icon_option_buttons()
 	create_extra_options()
+	create_Color_Option_button()
 
 
 
@@ -186,7 +204,7 @@ func _process(delta: float) -> void:
 	if Item_rotr_pressed == true:
 		Item_RotR(delta* 5)
 	
-	print(nose_prefab.position.y)
+	#print(nose_prefab.position.y)
 
 func number_page():
 	page_number.text = str(page + 1)
@@ -268,6 +286,14 @@ func create_Icon_option_buttons():
 		roundButton.pressed.connect(category_button_pressed.bind(category_index))
 		
 
+func create_Color_Option_button():
+	for color_index in 9:
+		var colorButton = COLOR_SELECT_PREFAB.instantiate()
+		var colorHue = colorButton.get_node("ColorRect")
+		colorHue.color = ColorOption[color_index]
+		h_box_container_2.add_child(colorButton)
+		colorButton.pressed.connect(color_button_pressed.bind(color_index))
+		
 
 func page_mouth():
 	clear_option_buttons()
@@ -310,8 +336,13 @@ func _on_page_down_pressed() -> void:
 			clear_option_buttons()
 			create_nose_option_buttons()
 
+func color_button_pressed(color_index):
+	print("pressed")
+	if category_index == 0:
+		mouth_prefab.mouth_sprite.color = color_index
+
 func category_button_pressed(category_index):
-	print(category_index)
+	#print(category_index)
 	if category_index == 0:
 		pass
 	if  category_index == 1:

@@ -1,8 +1,8 @@
 extends Node2D
 
 
-@onready var EYE_STARE = preload("res://ART/Eye Stare.png")
-@onready var EYE_ROUND = preload("res://ART/Eye Round.png")
+@onready var EYE_STARE = preload("res://ART/EYES ART/Eye Stare.png")
+@onready var EYE_ROUND = preload("res://ART//EYES ART/Eye Round.png")
 @onready var BUTTON_A = preload("res://ART/Button A.png")
 
 var texture_item: TextureRect

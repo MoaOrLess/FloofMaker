@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dih3jiofwn540"]
+
+[ext_resource type="Texture2D" uid="uid://332u0xlscn3r" path="res://ART/BUTTON ART/Collor Picker Small.png" id="1_ce86y"]
+[ext_resource type="Script" path="res://SCENES/color_select_prefab.gd" id="1_l33jf"]
+[ext_resource type="Shader" path="res://SCENES/color_circle.gdshader" id="2_uqgy6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2wl6b"]
+shader = ExtResource("2_uqgy6")
+shader_parameter/radius = 0.3
+shader_parameter/center = Vector2(0.5, 0.5)
+
+[node name="Color select" type="TextureButton"]
+texture_normal = ExtResource("1_ce86y")
+script = ExtResource("1_l33jf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_2wl6b")
+offset_right = 91.0
+offset_bottom = 91.0
+mouse_filter = 2
+color = Color(0.987582, 0.94373, 0.952657, 1)
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
