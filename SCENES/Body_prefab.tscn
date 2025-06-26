@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://b7mb1gq2r5806"]
 
-[ext_resource type="Texture2D" uid="uid://wvyqnci4huwn" path="res://ART/GENERAL ART/Body Classic.png" id="1_s4ui3"]
+[ext_resource type="Texture2D" uid="uid://daax7c44sqgpu" path="res://ART/GENERAL ART/Body Classic White.png" id="1_thw3c"]
 
 [node name="BodyPrefab" type="Node2D"]
 
 [node name="BodySprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_s4ui3")
+texture = ExtResource("1_thw3c")

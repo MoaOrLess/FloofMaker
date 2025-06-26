@@ -338,8 +338,8 @@ func _on_page_down_pressed() -> void:
 
 func color_button_pressed(color_index):
 	print("pressed")
-	if category_index == 0:
-		mouth_prefab.mouth_sprite.color = color_index
+	#if category_index == 0:
+	body_prefab.modulate = ColorOption[color_index]
 
 func category_button_pressed(category_index):
 	#print(category_index)
