@@ -15,6 +15,7 @@ script = ExtResource("1_l33jf")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_2wl6b")
+layout_mode = 0
 offset_right = 91.0
 offset_bottom = 91.0
 mouse_filter = 2

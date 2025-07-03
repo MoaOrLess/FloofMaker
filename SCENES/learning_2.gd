@@ -1,5 +1,9 @@
 extends Control
 
+
+@onready var color_panel: Panel = $"UI/Color Panel"
+
+
 #Side Buttons:
 @onready var item_up: TextureButton = $"UI/SidePanel/Item Up"
 @onready var item_down: TextureButton = $"UI/SidePanel/Item Down"
@@ -405,12 +409,17 @@ func color_button_pressed(color_index):
 		print("pressed")
 		body_prefab.modulate = ColorOption[color_index]
 	if category_index == 1:
-		iris_prefab.modulate = ColorOption[color_index]
+		#iris_prefab.modulate = ColorOption[color_index]
+		eye_prefab.iris_sprite.modulate = ColorOption[color_index]
+		eye_prefab.iris_mirror.modulate = ColorOption[color_index]
 	if category_index == 2:
 		mouth_prefab.modulate = ColorOption[color_index]
 	if category_index == 3:
 		brow_prefab.modulate = ColorOption[color_index]
-
+	
+	if button_is_pressed("RMC"):
+		color_panel.visible = true
+ 
 func button_is_pressed(texture):
 	#change_texture_eye(texture)
 	change_texture_mouth(texture)
@@ -461,12 +470,12 @@ func Item_Up(delta):
 	Item_up_pressed = true
 	var item_move = 10
 	if current_category == 1:
-		if eye_prefab.eye_mirror.position.y > -300:
-			eye_prefab.eye_mirror.position.y -= item_move * delta
-			eye_prefab.eye_sprite.position.y -= item_move * delta
+		if eye_prefab.position.y > -300:
+			eye_prefab.position.y -= item_move * delta
+			#eye_prefab.eye_sprite.position.y -= item_move * delta
 			
-			iris_prefab.iris_mirror.position.y -= item_move * delta
-			iris_prefab.iris_sprite.position.y -= item_move * delta
+			#iris_prefab.iris_mirror.position.y -= item_move * delta
+			#iris_prefab.iris_sprite.position.y -= item_move * delta
 	if current_category == 2:
 		if mouth_prefab.position.y > 100:
 			mouth_prefab.position.y -= item_move * delta
@@ -493,9 +502,9 @@ func Item_Down(delta):
 	Item_down_pressed = true
 	var item_move = 10
 	if current_category == 1:
-		if eye_prefab.eye_mirror.position.y < 430:
-			eye_prefab.eye_mirror.position.y += item_move * delta
-			eye_prefab.eye_sprite.position.y += item_move * delta
+		if eye_prefab.position.y < 430:
+			eye_prefab.position.y += item_move * delta
+			#eye_prefab.eye_sprite.position.y += item_move * delta
 	if current_category == 2:
 		if mouth_prefab.position.y < 470:
 			mouth_prefab.position.y += item_move * delta
@@ -523,9 +532,11 @@ func Item_Shrink(delta):
 	Item_shrink_pressed = true
 	var item_scale = 0.05
 	if current_category == 1:
-		if eye_prefab.eye_mirror.scale > Vector2 (0.5,0.5):
-			eye_prefab.eye_mirror.scale -= Vector2(item_scale,item_scale) * delta
+		if eye_prefab.eye_sprite.scale > Vector2 (0.5,0.5):
 			eye_prefab.eye_sprite.scale -= Vector2(item_scale,item_scale) * delta
+			eye_prefab.iris_sprite.scale -= Vector2(item_scale,item_scale) * delta
+			eye_prefab.eye_mirror.scale -= Vector2(item_scale,item_scale) * delta
+			eye_prefab.iris_mirror.scale -= Vector2(item_scale,item_scale) * delta
 	if current_category == 2:
 		if mouth_prefab.scale > Vector2 (0.5,0.5):
 			mouth_prefab.scale -= Vector2(item_scale,item_scale) * delta
@@ -549,9 +560,11 @@ func Item_Zoom(delta):
 	Item_zoom_pressed = true
 	var item_scale = 0.05
 	if current_category == 1:
-		if eye_prefab.eye_mirror.scale < Vector2 (1.5,1.5):
-			eye_prefab.eye_mirror.scale += Vector2(item_scale,item_scale) * delta
+		if eye_prefab.eye_sprite.scale < Vector2 (1.5,1.5):
 			eye_prefab.eye_sprite.scale += Vector2(item_scale,item_scale) * delta
+			eye_prefab.iris_sprite.scale += Vector2(item_scale,item_scale) * delta
+			eye_prefab.eye_mirror.scale += Vector2(item_scale,item_scale) * delta
+			eye_prefab.iris_mirror.scale += Vector2(item_scale,item_scale) * delta
 	if current_category == 2:
 		if mouth_prefab.scale < Vector2 (1.5,1.5):
 			mouth_prefab.scale += Vector2(item_scale,item_scale) * delta
@@ -577,7 +590,9 @@ func Item_RotL(delta):
 	if current_category == 1:
 		if eye_prefab.eye_mirror.rotation > deg_to_rad(-180):
 			eye_prefab.eye_mirror.rotation -= item_rot * delta
+			eye_prefab.iris_mirror.rotation -= item_rot * delta
 			eye_prefab.eye_sprite.rotation += item_rot * delta
+			eye_prefab.iris_sprite.rotation += item_rot * delta
 	if current_category == 2:
 		if mouth_prefab.rotation > deg_to_rad(-180):
 			mouth_prefab.rotation -= item_rot * delta
@@ -604,6 +619,9 @@ func Item_RotR(delta):
 		if eye_prefab.eye_mirror.rotation < deg_to_rad(180):
 			eye_prefab.eye_mirror.rotation += item_rot * delta
 			eye_prefab.eye_sprite.rotation -= item_rot * delta
+			eye_prefab.iris_mirror.rotation += item_rot * delta
+			eye_prefab.iris_sprite.rotation -= item_rot * delta
+			
 	if current_category == 2:
 		if mouth_prefab.rotation < deg_to_rad(180):
 			mouth_prefab.rotation += item_rot * delta
@@ -631,6 +649,8 @@ func Item_Further(delta):
 		if eye_prefab.eye_sprite.position.x < 350:
 			eye_prefab.eye_mirror.position.x -= item_pos * delta
 			eye_prefab.eye_sprite.position.x += item_pos * delta
+			eye_prefab.iris_mirror.position.x -= item_pos * delta
+			eye_prefab.iris_sprite.position.x += item_pos * delta
 	if current_category == 2:
 		if mouth_prefab.scale.x < 350:
 			mouth_prefab.scale.x -= item_scale * delta
@@ -658,6 +678,8 @@ func Item_Closer(delta):
 		if eye_prefab.eye_sprite.position.x > 50:
 			eye_prefab.eye_mirror.position.x += item_pos * delta
 			eye_prefab.eye_sprite.position.x -= item_pos * delta
+			eye_prefab.iris_mirror.position.x += item_pos * delta
+			eye_prefab.iris_sprite.position.x -= item_pos * delta
 	if current_category == 2:
 		if mouth_prefab.scale.x > 50:
 			mouth_prefab.scale.x += item_scale * delta
@@ -676,13 +698,23 @@ func _on_item_closer_button_down() -> void:
 
 func random_eyes():
 	var random_numb = randf_range(-200,50)
-	var pick_random_eyes = EyeOption.pick_random()
-	var MirrorSprite = eye_prefab.get_node("EyeSprite")
-	MirrorSprite.texture = pick_random_eyes
-	eye_prefab.eye_mirror.texture = pick_random_eyes
-	eye_prefab.eye_mirror.position.y = random_numb
-	eye_prefab.eye_sprite.position.y = random_numb
+	var random_value = randi_range(0,EyeOption.size()-1)
 	
+	var pick_random_eyes = EyeOption[random_value]
+	var MirrorSprite = eye_prefab.get_node("EyeSprite")
+	var match_random_iris = IrisOption[random_value]
+	var MirrorIris = eye_prefab.get_node("IrisSprite")
+	
+	MirrorSprite.texture = pick_random_eyes
+	MirrorIris.texture = match_random_iris
+	eye_prefab.eye_mirror.texture = pick_random_eyes
+	eye_prefab.iris_mirror.texture = match_random_iris
+	
+	eye_prefab.eye_mirror.position.y = random_numb
+	eye_prefab.iris_mirror.position.y = random_numb
+	eye_prefab.eye_sprite.position.y = random_numb
+	eye_prefab.iris_sprite.position.y = random_numb
+
 
 func random_mouth():
 	var random_numb = randf_range(100,200)

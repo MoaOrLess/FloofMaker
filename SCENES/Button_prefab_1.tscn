@@ -17,6 +17,7 @@ position = Vector2(145, 143)
 texture = ExtResource("3_g8ou5")
 
 [node name="IrisSprite" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(145, 143)
 texture = ExtResource("3_g8ou5")
 

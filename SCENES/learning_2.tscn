@@ -378,6 +378,30 @@ offset_bottom = 219.0
 scale = Vector2(0.35, 0.35)
 theme_override_constants/separation = 20
 
+[node name="Color Panel" type="Panel" parent="UI"]
+visible = false
+offset_left = 602.0
+offset_top = 221.0
+offset_right = 942.0
+offset_bottom = 539.0
+scale = Vector2(0.565, 0.565)
+theme_override_styles/panel = SubResource("StyleBoxFlat_xx5wb")
+
+[node name="ColorPicker" type="ColorPicker" parent="UI/Color Panel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 27.0
+offset_right = 316.0
+offset_bottom = 299.0
+edit_alpha = false
+picker_shape = 2
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
 [node name="Podium" type="Sprite2D" parent="UI"]
 position = Vector2(262, 558)
 scale = Vector2(0.46, 0.46)
@@ -392,6 +416,7 @@ position = Vector2(261, 250)
 scale = Vector2(0.5, 0.5)
 
 [node name="IrisPrefab" parent="UI" instance=ExtResource("12_ftq0g")]
+visible = false
 position = Vector2(261, 250)
 scale = Vector2(0.5, 0.5)
 
