@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://SCENES/learning_2.gd" id="1_t10gp"]
 [ext_resource type="Texture2D" uid="uid://c8mojrwefkpga" path="res://ART/BUTTON ART/Simple Up Button.png" id="2_5ownq"]
 [ext_resource type="Texture2D" uid="uid://bq3awijdlrigx" path="res://ART/BUTTON ART/Arrow Up.png" id="2_l6esw"]
+[ext_resource type="StyleBox" uid="uid://dbnyr6eiwm0s" path="res://SHADER/BluePanel.tres" id="3_5rg6j"]
 [ext_resource type="Texture2D" uid="uid://f4xpd4h14h8i" path="res://ART/BUTTON ART/Arrow In.png" id="3_aqovp"]
 [ext_resource type="Material" uid="uid://c0wi7obchsds8" path="res://SHADER/Make Button Black.tres" id="3_w3kbl"]
 [ext_resource type="Texture2D" uid="uid://byebwktexvnf" path="res://ART/BUTTON ART/Arrow Out.png" id="4_kx4j1"]
@@ -198,15 +199,6 @@ cache/0/181/0/scale = 1.0
 [sub_resource type="Theme" id="Theme_ud7l4"]
 default_font = SubResource("FontFile_nelsi")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6mxl8"]
-bg_color = Color(0.509804, 0.866667, 0.835294, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-shadow_size = 1
-shadow_offset = Vector2(5, 5)
-
 [node name="learning_2" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -291,7 +283,7 @@ offset_left = 993.0
 offset_top = 145.0
 offset_right = 1093.0
 offset_bottom = 595.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_6mxl8")
+theme_override_styles/panel = ExtResource("3_5rg6j")
 
 [node name="Item Up" type="TextureButton" parent="UI/SidePanel"]
 material = ExtResource("3_w3kbl")
@@ -379,24 +371,23 @@ scale = Vector2(0.35, 0.35)
 theme_override_constants/separation = 20
 
 [node name="Color Panel" type="Panel" parent="UI"]
-visible = false
+layout_mode = 0
 offset_left = 602.0
 offset_top = 221.0
 offset_right = 942.0
-offset_bottom = 539.0
+offset_bottom = 561.0
 scale = Vector2(0.565, 0.565)
-theme_override_styles/panel = SubResource("StyleBoxFlat_xx5wb")
+theme_override_styles/panel = ExtResource("3_5rg6j")
 
 [node name="ColorPicker" type="ColorPicker" parent="UI/Color Panel"]
 layout_mode = 0
-offset_left = 18.0
-offset_top = 27.0
-offset_right = 316.0
-offset_bottom = 299.0
+offset_left = 23.0089
+offset_top = 30.0885
+offset_right = 321.009
+offset_bottom = 330.089
 edit_alpha = false
 picker_shape = 2
 can_add_swatches = false
-sampler_visible = false
 color_modes_visible = false
 sliders_visible = false
 hex_visible = false
@@ -473,3 +464,5 @@ theme_override_constants/separation = 14
 [connection signal="button_down" from="UI/SidePanel/Item Rot left" to="." method="_on_item_rot_left_button_down"]
 [connection signal="button_up" from="UI/SidePanel/Item Rot left" to="." method="_on_item_rot_left_button_up"]
 [connection signal="pressed" from="UI/SidePanel/Item Rot left" to="." method="_on_item_rot_left_pressed"]
+[connection signal="gui_input" from="UI/Color Panel" to="." method="_on_color_panel_gui_input"]
+[connection signal="color_changed" from="UI/Color Panel/ColorPicker" to="." method="_on_color_picker_color_changed"]

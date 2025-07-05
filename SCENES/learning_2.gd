@@ -146,15 +146,15 @@ const NOSE_SQUIDWARD = preload("res://ART/NOSE ART/Nose Squidward.png")
 const NOSE_VOLDY = preload("res://ART/NOSE ART/Nose Voldy.png")
 
 #color
-const PINK = Color(0.788, 0.384, 0.502)
-const ORANGE = Color(0.798, 0.415, 0.163)
-const YELLOW = Color(0.835, 0.62, 0.231)
-const GREEN = Color(0.448, 0.674, 0.416)
-const TEAL = Color(0.26, 0.633, 0.58)
-const BLUE = Color(0.122, 0.459, 0.796)
-const RED = Color(0.78, 0.212, 0.188)
-const PURPLE = Color(0.416, 0.278, 0.655)
-const WHITE = Color(0, 0, 0)
+var PINK = Color(0.788, 0.384, 0.502)
+var ORANGE = Color(0.798, 0.415, 0.163)
+var YELLOW = Color(0.835, 0.62, 0.231)
+var GREEN = Color(0.448, 0.674, 0.416)
+var TEAL = Color(0.26, 0.633, 0.58)
+var BLUE = Color(0.122, 0.459, 0.796)
+var RED = Color(0.78, 0.212, 0.188)
+var PURPLE = Color(0.416, 0.278, 0.655)
+var WHITE = Color(0, 0, 0)
 
 
 # Arrays of options
@@ -207,12 +207,21 @@ var Item_closer_pressed:  bool = false
 var Item_rotr_pressed:  bool = false
 var Item_rotl_pressed:  bool = false
 
+var selected_button_index := -1
+var colorHue
+var newColor
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	create_eye_option_buttons()
 	create_Icon_option_buttons()
 	create_extra_options()
 	create_Color_Option_button()
+	
+	body_prefab.modulate = ColorOption[0]
+	eye_prefab.iris_sprite.modulate = ColorOption[8]
+	eye_prefab.iris_mirror.modulate = ColorOption[8]
+	brow_prefab.modulate = ColorOption[8]
 
 
 
@@ -238,8 +247,6 @@ func _process(delta: float) -> void:
 		Item_RotL(delta* 5)
 	if Item_rotr_pressed == true:
 		Item_RotR(delta* 5)
-	
-	#print(nose_prefab.position.y)
 
 func number_page():
 	page_number.text = str(page + 1)
@@ -270,7 +277,11 @@ func create_eye_option_buttons():
 func clear_option_buttons():
 	for child in option_container.get_children():
 		option_container.remove_child(child)
-	
+
+func clear_color_buttons():
+	for child in h_box_container_2.get_children():
+		h_box_container_2.remove_child(child)
+		
 
 func create_mouth_option_buttons():
 	for index_on_page in 9:
@@ -305,13 +316,6 @@ func create_brow_option_buttons():
 		option_container.add_child(brow_button)
 		brow_button.pressed.connect(button_is_pressed.bind(brow_sprite.texture))
 
-#func create_mouth_option_buttons():
-	#for mouth_sprite in MouthOption:
-		#var button = BUTTON_PREFAB.instantiate()
-		#var sprite = button.get_node("OptionButton/OptionSprite")
-		#sprite.texture = mouth_sprite
-		#sprite.scale = Vector2(0.85,0.85)
-		#option_container.add_child(button)
 
 func create_Icon_option_buttons():
 	for category_index in 7:
@@ -324,13 +328,28 @@ func create_Icon_option_buttons():
 		
 
 func create_Color_Option_button():
+	var colors = get_color_options()
 	for color_index in 9:
 		var colorButton = COLOR_SELECT_PREFAB.instantiate()
-		var colorHue = colorButton.get_node("ColorRect")
-		colorHue.color = ColorOption[color_index]
+		colorHue = colorButton.get_node("ColorRect")
+		#colorHue.color = ColorOption[color_index]
+		colorHue.color = colors[color_index]
 		h_box_container_2.add_child(colorButton)
 		colorButton.pressed.connect(color_button_pressed.bind(color_index))
-		
+		colorButton.gui_input.connect(_on_button_gui_input.bind(colorButton))
+
+func _on_button_gui_input(event, colorButton) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			for i in get_color_options().size():
+				if colorButton.get_node("ColorRect").color == get_color_options()[i]:
+					selected_button_index = i
+					break
+			print("pressed")
+			color_panel.global_position = colorButton.get_global_position() + Vector2(0, colorButton.size.y/2)
+			color_panel.visible = true
+
+
 
 func page_mouth():
 	clear_option_buttons()
@@ -405,23 +424,20 @@ func category_button_pressed(category_index):
 		#create_mouth_option_buttons()
 	
 func color_button_pressed(color_index):
+	var selected_color = get_color_options()[color_index]
 	if category_index == 0:
-		print("pressed")
-		body_prefab.modulate = ColorOption[color_index]
+		body_prefab.modulate = selected_color
 	if category_index == 1:
-		#iris_prefab.modulate = ColorOption[color_index]
-		eye_prefab.iris_sprite.modulate = ColorOption[color_index]
-		eye_prefab.iris_mirror.modulate = ColorOption[color_index]
+		eye_prefab.iris_sprite.modulate = selected_color
+		eye_prefab.iris_mirror.modulate = selected_color
 	if category_index == 2:
-		mouth_prefab.modulate = ColorOption[color_index]
+		mouth_prefab.modulate = selected_color
 	if category_index == 3:
-		brow_prefab.modulate = ColorOption[color_index]
-	
-	if button_is_pressed("RMC"):
-		color_panel.visible = true
+		brow_prefab.modulate = selected_color
  
+
+
 func button_is_pressed(texture):
-	#change_texture_eye(texture)
 	change_texture_mouth(texture)
 	change_texture_brow(texture)
 	change_texture_nose(texture)
@@ -431,16 +447,17 @@ func button_is_pressed_eyes(texture, texture2):
 	
 func change_texture_eye(texture, texture2):
 	var MirrorSprite = eye_prefab.get_node("EyeSprite")
-	var MirrorSprite2 = iris_prefab.get_node("IrisSprite")
+	var MirrorSprite3 = eye_prefab.get_node("IrisSprite")
+	#var MirrorSprite2 = iris_prefab.get_node("IrisSprite")
 	if current_sprite_eye != null:
 		eye_prefab.eye_sprirte.texture = texture
 		iris_prefab.iris_sprite.texture = texture2
 	if current_category == 1:
-		#eye_prefab.eye_sprite.texture = texture
 		MirrorSprite.texture = texture
-		MirrorSprite2.texture = texture2
+		MirrorSprite3.texture = texture2
 		eye_prefab.eye_mirror.texture = texture
-		iris_prefab.iris_mirror.texture = texture2
+		eye_prefab.iris_mirror.texture = texture2
+
 
 
 func change_texture_mouth(texture):
@@ -472,10 +489,6 @@ func Item_Up(delta):
 	if current_category == 1:
 		if eye_prefab.position.y > -300:
 			eye_prefab.position.y -= item_move * delta
-			#eye_prefab.eye_sprite.position.y -= item_move * delta
-			
-			#iris_prefab.iris_mirror.position.y -= item_move * delta
-			#iris_prefab.iris_sprite.position.y -= item_move * delta
 	if current_category == 2:
 		if mouth_prefab.position.y > 100:
 			mouth_prefab.position.y -= item_move * delta
@@ -504,7 +517,6 @@ func Item_Down(delta):
 	if current_category == 1:
 		if eye_prefab.position.y < 430:
 			eye_prefab.position.y += item_move * delta
-			#eye_prefab.eye_sprite.position.y += item_move * delta
 	if current_category == 2:
 		if mouth_prefab.position.y < 470:
 			mouth_prefab.position.y += item_move * delta
@@ -742,3 +754,35 @@ func random_button_pressed():
 	random_mouth()
 	random_brows()
 	random_nose()
+
+func _on_color_picker_color_changed(color: Color) -> void:
+	newColor = $"UI/Color Panel/ColorPicker".color
+	PINK = Color(newColor)
+	print(newColor)
+	print("PINK: ", PINK)
+	
+
+func get_color_options() -> Array:
+	return [PINK, ORANGE, YELLOW, GREEN, TEAL, BLUE, RED, PURPLE, WHITE]
+
+
+func _on_color_panel_gui_input(event) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			color_panel.visible = false
+			
+			var newColor = $"UI/Color Panel/ColorPicker".color
+			match selected_button_index:
+				0: PINK = newColor
+				1: ORANGE = newColor
+				2: YELLOW = newColor
+				3: GREEN = newColor
+				4: TEAL = newColor
+				5: BLUE = newColor
+				6: RED = newColor
+				7: PURPLE = newColor
+				8: WHITE = newColor
+			
+			clear_color_buttons()
+			create_Color_Option_button()
+			color_button_pressed(selected_button_index)
