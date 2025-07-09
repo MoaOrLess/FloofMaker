@@ -184,7 +184,7 @@ var NoseOption = [EMPTY, NOSE_BLOB, NOSE_BUTTON, NOSE_CAT, NOSE_CLOWN, NOSE_FLAR
 NOSE_SQUIDWARD, NOSE_VOLDY,NOSE_MUSH, NOSE_PEAR, NOSE_SCARY, NOSE_SIDE_C, NOSE_SIDE_V, NOSE_SIDE, NOSE_SKULL, NOSE_SMOLL]
 var CategoryOption = [BODY_ICON, EYE_ICON, MOUTH_ICON, BROW_ICON, NOSE_ICON, HAIR_ICON, EXTRA_ICON]
 var ColorOption = [PINK, ORANGE, YELLOW, GREEN, TEAL, BLUE, RED, PURPLE, WHITE]
-
+enum Category {BODY, EYE, MOUTH,BROW, NOSE ,HAIR, ACCECORY}
 
 var page_index
 var page = 0
@@ -495,17 +495,17 @@ func Item_Up_Button_Pressed() -> void:
 func Item_Up(delta):
 	Item_up_pressed = true
 	var item_move = 10
-	if current_category == 1:
+	if current_category == Category.EYE:
 		if eye_prefab.position.y > -300:
 			eye_prefab.position.y -= item_move * delta
-	if current_category == 2:
+	if current_category == Category.MOUTH:
 		if mouth_prefab.position.y > 100:
 			mouth_prefab.position.y -= item_move * delta
-	if current_category == 3:
+	if current_category == Category.BROW:
 		if brow_prefab.brow_mirror.position.y > -320:
 			brow_prefab.brow_mirror.position.y -= item_move * delta
 			brow_prefab.brow_sprite.position.y -= item_move * delta
-	if current_category == 4:
+	if current_category == Category.NOSE:
 		if nose_prefab.position.y > 70:
 			nose_prefab.position.y -= item_move * delta
 
@@ -523,17 +523,17 @@ func _on_item_down_pressed() -> void:
 func Item_Down(delta):
 	Item_down_pressed = true
 	var item_move = 10
-	if current_category == 1:
+	if current_category == Category.EYE:
 		if eye_prefab.position.y < 430:
 			eye_prefab.position.y += item_move * delta
-	if current_category == 2:
+	if current_category == Category.MOUTH:
 		if mouth_prefab.position.y < 470:
 			mouth_prefab.position.y += item_move * delta
-	if current_category == 3:
+	if current_category == Category.BROW:
 		if brow_prefab.brow_sprite.position.y < 420:
 			brow_prefab.brow_mirror.position.y += item_move * delta
 			brow_prefab.brow_sprite.position.y += item_move * delta
-	if current_category == 4:
+	if current_category == Category.NOSE:
 		if nose_prefab.position.y < 500:
 			nose_prefab.position.y += item_move * delta
 
@@ -552,20 +552,23 @@ func _on_item_shrink_pressed() -> void:
 func Item_Shrink(delta):
 	Item_shrink_pressed = true
 	var item_scale = 0.05
-	if current_category == 1:
+	if current_category == Category.EYE:
 		if eye_prefab.eye_sprite.scale > Vector2 (0.5,0.5):
 			eye_prefab.eye_sprite.scale -= Vector2(item_scale,item_scale) * delta
 			eye_prefab.iris_sprite.scale -= Vector2(item_scale,item_scale) * delta
 			eye_prefab.eye_mirror.scale -= Vector2(item_scale,item_scale) * delta
 			eye_prefab.iris_mirror.scale -= Vector2(item_scale,item_scale) * delta
-	if current_category == 2:
-		if mouth_prefab.scale > Vector2 (0.5,0.5):
+	if current_category == Category.MOUTH:
+		if mouth_prefab.scale >= Vector2 (0.3,0.3):
 			mouth_prefab.scale -= Vector2(item_scale,item_scale) * delta
-	if current_category == 3:
-		if brow_prefab.brow_mirror.scale > Vector2 (0.5,0.5):
+	if current_category == Category.BROW:
+		if brow_prefab.brow_mirror.scale > Vector2 (0.3,0.3):
 			brow_prefab.brow_mirror.scale -= Vector2(item_scale,item_scale) * delta
 			brow_prefab.brow_sprite.scale -= Vector2(item_scale,item_scale) * delta
-
+	if current_category == Category.NOSE:
+		if nose_prefab.scale >= Vector2 (0.3,0.3):
+			nose_prefab.scale -= Vector2(item_scale,item_scale) * delta
+			
 func _on_item_shrink_button_up() -> void:
 	Item_shrink_pressed = false
 	item_shrink.material = MAKE_BUTTON_BLACK
@@ -580,16 +583,16 @@ func _on_item_zoom_pressed() -> void:
 func Item_Zoom(delta):
 	Item_zoom_pressed = true
 	var item_scale = 0.05
-	if current_category == 1:
+	if current_category == Category.EYE:
 		if eye_prefab.eye_sprite.scale < Vector2 (1.5,1.5):
 			eye_prefab.eye_sprite.scale += Vector2(item_scale,item_scale) * delta
 			eye_prefab.iris_sprite.scale += Vector2(item_scale,item_scale) * delta
 			eye_prefab.eye_mirror.scale += Vector2(item_scale,item_scale) * delta
 			eye_prefab.iris_mirror.scale += Vector2(item_scale,item_scale) * delta
-	if current_category == 2:
+	if current_category == Category.MOUTH:
 		if mouth_prefab.scale < Vector2 (1.5,1.5):
 			mouth_prefab.scale += Vector2(item_scale,item_scale) * delta
-	if current_category == 3:
+	if current_category == Category.BROW:
 		if brow_prefab.brow_mirror.scale < Vector2 (1.5,1.5):
 			brow_prefab.brow_mirror.scale += Vector2(item_scale,item_scale) * delta
 			brow_prefab.brow_sprite.scale += Vector2(item_scale,item_scale) * delta
@@ -608,19 +611,22 @@ func _on_item_rot_left_pressed() -> void:
 func Item_RotL(delta):
 	Item_rotl_pressed = true
 	var item_rot = deg_to_rad(5)
-	if current_category == 1:
+	if current_category == Category.EYE:
 		if eye_prefab.eye_mirror.rotation > deg_to_rad(-180):
 			eye_prefab.eye_mirror.rotation -= item_rot * delta
 			eye_prefab.iris_mirror.rotation -= item_rot * delta
 			eye_prefab.eye_sprite.rotation += item_rot * delta
 			eye_prefab.iris_sprite.rotation += item_rot * delta
-	if current_category == 2:
+	if current_category == Category.MOUTH:
 		if mouth_prefab.rotation > deg_to_rad(-180):
 			mouth_prefab.rotation -= item_rot * delta
-	if current_category == 3:
+	if current_category == Category.BROW:
 		if brow_prefab.brow_sprite.rotation > deg_to_rad(-180):
 			brow_prefab.brow_mirror.rotation -= item_rot * delta
 			brow_prefab.brow_sprite.rotation += item_rot * delta
+	if current_category == Category.NOSE:
+		if nose_prefab.rotation > deg_to_rad(-180):
+			nose_prefab.rotation -= item_rot * delta
 
 func _on_item_rot_left_button_up() -> void:
 	Item_rotl_pressed = false
@@ -636,20 +642,22 @@ func _on_item_rot_right_pressed() -> void:
 func Item_RotR(delta):
 	Item_rotr_pressed = true
 	var item_rot = deg_to_rad(5)
-	if current_category == 1:
+	if current_category == Category.EYE:
 		if eye_prefab.eye_mirror.rotation < deg_to_rad(180):
 			eye_prefab.eye_mirror.rotation += item_rot * delta
 			eye_prefab.eye_sprite.rotation -= item_rot * delta
 			eye_prefab.iris_mirror.rotation += item_rot * delta
 			eye_prefab.iris_sprite.rotation -= item_rot * delta
-			
-	if current_category == 2:
+	if current_category == Category.MOUTH:
 		if mouth_prefab.rotation < deg_to_rad(180):
 			mouth_prefab.rotation += item_rot * delta
-	if current_category == 3:
+	if current_category == Category.BROW:
 		if brow_prefab.brow_sprite.rotation < deg_to_rad(180):
 			brow_prefab.brow_mirror.rotation += item_rot * delta
 			brow_prefab.brow_sprite.rotation -= item_rot * delta
+	if current_category == Category.NOSE:
+		if nose_prefab.rotation < deg_to_rad(180):
+			nose_prefab.rotation += item_rot * delta
 
 func _on_item_rot_right_button_up() -> void:
 	Item_rotr_pressed = false
@@ -666,19 +674,23 @@ func Item_Further(delta):
 	Item_further_pressed = true
 	var item_pos = 10
 	var item_scale = 0.05
-	if current_category == 1:
+	if current_category == Category.EYE:
 		if eye_prefab.eye_sprite.position.x < 350:
 			eye_prefab.eye_mirror.position.x -= item_pos * delta
 			eye_prefab.eye_sprite.position.x += item_pos * delta
 			eye_prefab.iris_mirror.position.x -= item_pos * delta
 			eye_prefab.iris_sprite.position.x += item_pos * delta
-	if current_category == 2:
-		if mouth_prefab.scale.x < 350:
-			mouth_prefab.scale.x -= item_scale * delta
-	if current_category == 3:
+	if current_category == Category.MOUTH:
+		if mouth_prefab.scale.x < 1.5:
+			mouth_prefab.scale.x += item_scale * delta
+	if current_category == Category.BROW:
 		if brow_prefab.brow_sprite.position.x < 350:
-			brow_prefab.brow_sprite.position.x-= item_pos * delta
+			print(brow_sprite.position.x)
 			brow_prefab.brow_sprite.position.x += item_pos * delta
+			brow_prefab.brow_mirror.position.x -= item_pos * delta
+	if current_category == Category.NOSE:
+		if nose_prefab.scale.x < 1.25:
+			nose_prefab.scale.x += item_scale * delta
 
 func _on_item_further_button_up() -> void:
 	item_further.material = MAKE_BUTTON_BLACK
@@ -695,20 +707,23 @@ func Item_Closer(delta):
 	Item_closer_pressed = true
 	var item_pos = 10
 	var item_scale = 0.05
-	if current_category == 1:
+	if current_category == Category.EYE:
 		if eye_prefab.eye_sprite.position.x > 50:
 			eye_prefab.eye_mirror.position.x += item_pos * delta
 			eye_prefab.eye_sprite.position.x -= item_pos * delta
 			eye_prefab.iris_mirror.position.x += item_pos * delta
 			eye_prefab.iris_sprite.position.x -= item_pos * delta
-	if current_category == 2:
-		if mouth_prefab.scale.x > 50:
-			mouth_prefab.scale.x += item_scale * delta
-	if current_category == 3:
+	if current_category == Category.MOUTH:
+		if mouth_prefab.scale.x > 0.25:
+			mouth_prefab.scale.x -= item_scale * delta
+	if current_category == Category.BROW:
 		if brow_prefab.brow_sprite.position.x > 50:
 			brow_prefab.brow_mirror.position.x += item_pos * delta
 			brow_prefab.brow_sprite.position.x -= item_pos * delta
-
+	if current_category == Category.NOSE:
+		if nose_prefab.scale.x > 0.25:
+			nose_prefab.scale.x -= item_scale * delta
+			
 func _on_item_closer_button_up() -> void:
 	item_closer.material = MAKE_BUTTON_BLACK
 	Item_closer_pressed = false
