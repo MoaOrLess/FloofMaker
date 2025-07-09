@@ -6,15 +6,26 @@
 [ext_resource type="Texture2D" uid="uid://m10updmwr6rc" path="res://ART/EYES ART/Eye Stare.png" id="3_g8ou5"]
 
 [node name="OptionButton" type="TextureButton"]
-offset_right = 135.0
-offset_bottom = 135.0
+offset_right = 300.0
+offset_bottom = 300.0
 texture_normal = ExtResource("1_svggt")
 texture_pressed = ExtResource("2_q2v3w")
 script = ExtResource("1_ve7tg")
 
-[node name="OptionSprite" type="Sprite2D" parent="."]
-position = Vector2(145, 143)
+[node name="OptionSprite" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = -45.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_g8ou5")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="IrisSprite" type="Sprite2D" parent="."]
 visible = false

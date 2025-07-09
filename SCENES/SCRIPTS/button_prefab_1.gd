@@ -2,10 +2,11 @@ extends Control
 
 
 @onready var option_button: TextureButton = $"."
-@onready var option_sprite: Sprite2D = $OptionSprite
+@onready var option_sprite = $OptionSprite
 
-var pos_offset = Vector2(10,10)
-var base_pos = Vector2(143,143)
+var pos_offset = Vector2(5,5)
+var base_pos = Vector2(30,30)
+#var base_pos = Vector2(143,143)
 
 func _ready() -> void:
 	pass
@@ -14,7 +15,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
-	
 
 
 func _on_pressed() -> void:
