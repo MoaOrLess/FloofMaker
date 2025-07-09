@@ -18,7 +18,7 @@ extends Control
 @onready var option_container: GridContainer = $UI/MainPanel/OptionContainer
 @onready var h_box_container: HBoxContainer = $UI/HBoxContainer
 @onready var extra_options: HBoxContainer = $"Extra Options"
-@onready var h_box_container_2: HBoxContainer = $UI/HBoxContainer2
+@onready var color_button_container: HBoxContainer = $UI/HBoxContainer2
 
 
 const MAKE_BUTTON_WHITE = preload("res://SHADER/Make Button White.tres")
@@ -219,6 +219,7 @@ var colorHue
 var newColor
 var color_option = get_color_options()
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	create_eye_option_buttons()
@@ -287,10 +288,6 @@ func clear_option_buttons():
 	for child in option_container.get_children():
 		option_container.remove_child(child)
 
-func clear_color_buttons():
-	for child in h_box_container_2.get_children():
-		h_box_container_2.remove_child(child)
-		
 
 func create_mouth_option_buttons():
 	for index_on_page in 9:
@@ -343,7 +340,7 @@ func create_Color_Option_button():
 		colorHue = colorButton.get_node("ColorRect")
 		#colorHue.color = ColorOption[color_index]
 		colorHue.color = color_option[color_index]
-		h_box_container_2.add_child(colorButton)
+		color_button_container.add_child(colorButton)
 		colorButton.pressed.connect(color_sprite_change.bind(color_index))
 		colorButton.gui_input.connect(_on_color_button_gui_input.bind(colorButton))
 
@@ -436,6 +433,7 @@ func color_sprite_change(color_index):
 	var selected_color = color_option[color_index]
 	if category_index == 0:
 		body_prefab.modulate = selected_color
+		nose_prefab.modulate = selected_color
 	if category_index == 1:
 		eye_prefab.iris_sprite.modulate = selected_color
 		eye_prefab.iris_mirror.modulate = selected_color
@@ -786,6 +784,6 @@ func _on_color_panel_gui_input(event) -> void:
 			color_option[selected_button_index] = newColor
 			
 			
-			clear_color_buttons()
-			create_Color_Option_button()
+			var selected_color_button = color_button_container.get_child(selected_button_index)
+			selected_color_button.get_node("ColorRect").color = color_option[selected_button_index]
 			color_sprite_change(selected_button_index)
