@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dih3jiofwn540"]
 
 [ext_resource type="Texture2D" uid="uid://332u0xlscn3r" path="res://ART/BUTTON ART/Collor Picker Small.png" id="1_ce86y"]
-[ext_resource type="Script" path="res://SCENES/color_select_prefab.gd" id="1_l33jf"]
-[ext_resource type="Shader" path="res://SCENES/color_circle.gdshader" id="2_uqgy6"]
+[ext_resource type="Script" path="res://SCENES/SCRIPTS/color_select_prefab.gd" id="1_l33jf"]
+[ext_resource type="Shader" path="res://SHADER/color_circle.gdshader" id="2_uqgy6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2wl6b"]
 shader = ExtResource("2_uqgy6")

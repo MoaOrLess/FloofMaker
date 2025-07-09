@@ -27,7 +27,6 @@ const MAKE_BUTTON_BLACK = preload("res://SHADER/Make Button Black.tres")
 
 @onready var body_prefab: Node2D = $UI/BodyPrefab
 @onready var eye_prefab: Node2D = $UI/EyePrefab
-@onready var iris_prefab: Node2D = $UI/IrisPrefab
 @onready var mouth_prefab: Node2D = $UI/MouthPrefab
 @onready var brow_prefab: Node2D = $UI/BrowPrefab
 @onready var nose_prefab: Node2D = $UI/NosePrefab
@@ -144,6 +143,14 @@ const NOSE_GREMLIN = preload("res://ART/NOSE ART/Nose Gremlin.png")
 const NOSE_REALISH = preload("res://ART/NOSE ART/Nose Realish.png")
 const NOSE_SQUIDWARD = preload("res://ART/NOSE ART/Nose Squidward.png")
 const NOSE_VOLDY = preload("res://ART/NOSE ART/Nose Voldy.png")
+const NOSE_MUSH = preload("res://ART/NOSE ART/Nose Mush.png")
+const NOSE_PEAR = preload("res://ART/NOSE ART/Nose Pear.png")
+const NOSE_SCARY = preload("res://ART/NOSE ART/Nose Scary.png")
+const NOSE_SIDE_C = preload("res://ART/NOSE ART/Nose Side C.png")
+const NOSE_SIDE_V = preload("res://ART/NOSE ART/Nose Side V.png")
+const NOSE_SIDE = preload("res://ART/NOSE ART/Nose Side.png")
+const NOSE_SKULL = preload("res://ART/NOSE ART/Nose Skull.png")
+const NOSE_SMOLL = preload("res://ART/NOSE ART/Nose Smoll.png")
 
 #color
 var PINK = Color(0.788, 0.384, 0.502)
@@ -174,7 +181,7 @@ MOUTH_SMUG, MOUTH_SSSSH, MOUTH_TOOF, MOUTH_TREE, MOUTH_V, MOUTH_W ]
 var BrowOption = [EMPTY, BROW_BLOCK, BROW_BRICK, BROW_CHONK, BROW_CLASSIC, BROW_FROWN, BROW_HAIRY,
 BROW_HAT, BROW_INTENSE, BROW_PRESSED, BROW_ROUND_BLOCK, BROW_ROUNDISH, BROW_SHWONK, BROW_SLICK, BROW_SWOOP, BROW_TEAR]
 var NoseOption = [EMPTY, NOSE_BLOB, NOSE_BUTTON, NOSE_CAT, NOSE_CLOWN, NOSE_FLARE, NOSE_GREMLIN, NOSE_REALISH,
-NOSE_SQUIDWARD, NOSE_VOLDY]
+NOSE_SQUIDWARD, NOSE_VOLDY,NOSE_MUSH, NOSE_PEAR, NOSE_SCARY, NOSE_SIDE_C, NOSE_SIDE_V, NOSE_SIDE, NOSE_SKULL, NOSE_SMOLL]
 var CategoryOption = [BODY_ICON, EYE_ICON, MOUTH_ICON, BROW_ICON, NOSE_ICON, HAIR_ICON, EXTRA_ICON]
 var ColorOption = [PINK, ORANGE, YELLOW, GREEN, TEAL, BLUE, RED, PURPLE, WHITE]
 
@@ -210,6 +217,7 @@ var Item_rotl_pressed:  bool = false
 var selected_button_index := -1
 var colorHue
 var newColor
+var color_option = get_color_options()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -219,6 +227,7 @@ func _ready() -> void:
 	create_Color_Option_button()
 	
 	body_prefab.modulate = ColorOption[0]
+	nose_prefab.modulate = ColorOption[0]
 	eye_prefab.iris_sprite.modulate = ColorOption[8]
 	eye_prefab.iris_mirror.modulate = ColorOption[8]
 	brow_prefab.modulate = ColorOption[8]
@@ -308,7 +317,7 @@ func create_nose_option_buttons():
 func create_brow_option_buttons():
 	for index_on_page in 9:
 		var brow_button = BUTTON_PREFAB.instantiate()
-		var brow_sprite = brow_button.get_node("OptionSprite")
+		brow_sprite = brow_button.get_node("OptionSprite")
 		var index = index_on_page + (page * 9)
 		if index >= BrowOption.size(): 
 			break
@@ -328,21 +337,21 @@ func create_Icon_option_buttons():
 		
 
 func create_Color_Option_button():
-	var colors = get_color_options()
+	#var colors = get_color_options()
 	for color_index in 9:
 		var colorButton = COLOR_SELECT_PREFAB.instantiate()
 		colorHue = colorButton.get_node("ColorRect")
 		#colorHue.color = ColorOption[color_index]
-		colorHue.color = colors[color_index]
+		colorHue.color = color_option[color_index]
 		h_box_container_2.add_child(colorButton)
-		colorButton.pressed.connect(color_button_pressed.bind(color_index))
-		colorButton.gui_input.connect(_on_button_gui_input.bind(colorButton))
+		colorButton.pressed.connect(color_sprite_change.bind(color_index))
+		colorButton.gui_input.connect(_on_color_button_gui_input.bind(colorButton))
 
-func _on_button_gui_input(event, colorButton) -> void:
+func _on_color_button_gui_input(event, colorButton) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			for i in get_color_options().size():
-				if colorButton.get_node("ColorRect").color == get_color_options()[i]:
+			for i in color_option.size():
+				if colorButton.get_node("ColorRect").color == color_option[i]:
 					selected_button_index = i
 					break
 			print("pressed")
@@ -423,8 +432,8 @@ func category_button_pressed(category_index):
 		#clear_option_buttons()
 		#create_mouth_option_buttons()
 	
-func color_button_pressed(color_index):
-	var selected_color = get_color_options()[color_index]
+func color_sprite_change(color_index):
+	var selected_color = color_option[color_index]
 	if category_index == 0:
 		body_prefab.modulate = selected_color
 	if category_index == 1:
@@ -434,6 +443,8 @@ func color_button_pressed(color_index):
 		mouth_prefab.modulate = selected_color
 	if category_index == 3:
 		brow_prefab.modulate = selected_color
+	if category_index == 4:
+		nose_prefab.modulate = selected_color
  
 
 
@@ -451,7 +462,7 @@ func change_texture_eye(texture, texture2):
 	#var MirrorSprite2 = iris_prefab.get_node("IrisSprite")
 	if current_sprite_eye != null:
 		eye_prefab.eye_sprirte.texture = texture
-		iris_prefab.iris_sprite.texture = texture2
+		eye_prefab.iris_sprite.texture = texture2
 	if current_category == 1:
 		MirrorSprite.texture = texture
 		MirrorSprite3.texture = texture2
@@ -757,7 +768,7 @@ func random_button_pressed():
 
 func _on_color_picker_color_changed(color: Color) -> void:
 	newColor = $"UI/Color Panel/ColorPicker".color
-	PINK = Color(newColor)
+	#PINK = Color(newColor)
 	print(newColor)
 	print("PINK: ", PINK)
 	
@@ -771,18 +782,10 @@ func _on_color_panel_gui_input(event) -> void:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			color_panel.visible = false
 			
-			var newColor = $"UI/Color Panel/ColorPicker".color
-			match selected_button_index:
-				0: PINK = newColor
-				1: ORANGE = newColor
-				2: YELLOW = newColor
-				3: GREEN = newColor
-				4: TEAL = newColor
-				5: BLUE = newColor
-				6: RED = newColor
-				7: PURPLE = newColor
-				8: WHITE = newColor
+			newColor = $"UI/Color Panel/ColorPicker".color
+			color_option[selected_button_index] = newColor
+			
 			
 			clear_color_buttons()
 			create_Color_Option_button()
-			color_button_pressed(selected_button_index)
+			color_sprite_change(selected_button_index)

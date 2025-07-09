@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8d2abrj4fajm"]
 
-[ext_resource type="Script" path="res://SCENES/mouth_prefab.gd" id="1_4j4mr"]
+[ext_resource type="Script" path="res://SCENES/SCRIPTS/mouth_prefab.gd" id="1_4j4mr"]
 [ext_resource type="Texture2D" uid="uid://drah0svuy34no" path="res://ART/MOUTH ART/Mouth Tree.png" id="1_ftqtr"]
 
 [node name="MouthPrefab" type="Node2D"]
