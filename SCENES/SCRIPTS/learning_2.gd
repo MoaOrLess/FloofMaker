@@ -30,6 +30,10 @@ const MAKE_BUTTON_BLACK = preload("res://SHADER/Make Button Black.tres")
 @onready var mouth_prefab: Node2D = $UI/MouthPrefab
 @onready var brow_prefab: Node2D = $UI/BrowPrefab
 @onready var nose_prefab: Node2D = $UI/NosePrefab
+@onready var hair_prefab: Node2D = $UI/HairPrefab
+@onready var extra_prefab: Node2D = $UI/ExtraPrefab
+
+
 
 
 @onready var page_number: Label = $"UI/MainPanel/Page Number"
@@ -91,6 +95,13 @@ const EYE_TWINKLE = preload("res://ART/EYES ART/Eye Twinkle.png")
 const EYE_U = preload("res://ART/EYES ART/Eye U.png")
 const EYE_WOBLE = preload("res://ART/EYES ART/Eye Woble.png")
 const FLOOF_GIDDY = preload("res://ART/EYES ART/Floof Giddy.png")
+const EYE_BANANA = preload("res://ART/EYES ART/Eye Banana.png")
+const EYE_BETTY = preload("res://ART/EYES ART/Eye Betty.png")
+const EYE_BLAND = preload("res://ART/EYES ART/Eye Bland.png")
+const EYE_SAD = preload("res://ART/EYES ART/Eye Sad.png")
+const EYE_SQUIGLE = preload("res://ART/EYES ART/Eye Squigle.png")
+const EYE_SQUINT = preload("res://ART/EYES ART/Eye Squint.png")
+
 
 const EYE_ALMOND_IRIS = preload("res://ART/EYES ART/IRIS/Eye Almond Iris.png")
 const EYE_ANIME_IRIS = preload("res://ART/EYES ART/IRIS/Eye Anime Iris.png")
@@ -113,6 +124,12 @@ const EYE_TWINKLE_IRIS = null
 const EYE_U_IRIS = null
 const EYE_WOBLE_IRIS = preload("res://ART/EYES ART/IRIS/Eye Woble Iris.png")
 const FLOOF_GIDDY_IRIS = preload("res://ART/EYES ART/IRIS/Floof Giddy Iris.png")
+const EYE_BANANA_IRIS = null
+const EYE_BETTY_IRIS = null
+const EYE_BLAND_IRIS = null
+const EYE_SAD_IRIS = null
+const EYE_SQUIGLE_IRIS = null
+const EYE_SQUINT_IRIS = null
 
 
 const MOUTH_BEAN = preload("res://ART/MOUTH ART/Mouth Bean.png")
@@ -152,6 +169,29 @@ const NOSE_SIDE = preload("res://ART/NOSE ART/Nose Side.png")
 const NOSE_SKULL = preload("res://ART/NOSE ART/Nose Skull.png")
 const NOSE_SMOLL = preload("res://ART/NOSE ART/Nose Smoll.png")
 
+
+const HAIR_BEARD = preload("res://ART/MOUTH ART/Hair Beard.png")
+const HAIR_CHIN_WHISKER = preload("res://ART/MOUTH ART/Hair ChinWhisker.png")
+const HAIR_CURLY_STACH = preload("res://ART/MOUTH ART/Hair CurlyStach.png")
+const HAIR_FRENCH = preload("res://ART/MOUTH ART/Hair French.png")
+const HAIR_MOP = preload("res://ART/MOUTH ART/Hair Mop.png")
+const HAIR_PATCH = preload("res://ART/MOUTH ART/Hair Patch.png")
+const HAIR_PENCIL = preload("res://ART/MOUTH ART/Hair Pencil.png")
+const HAIR_STACH = preload("res://ART/MOUTH ART/Hair Stach.png")
+const HAIR_WHISKERS = preload("res://ART/MOUTH ART/Hair Whiskers.png")
+const HAIR_WIDE = preload("res://ART/MOUTH ART/Hair Wide.png")
+
+const EXTRA_BOW = preload("res://ART/MOUTH ART/Extra Bow.png")
+const EXTRA_BOWLER_HAT = preload("res://ART/MOUTH ART/Extra BowlerHat.png")
+const EXTRA_BOWY = preload("res://ART/MOUTH ART/Extra Bowy.png")
+const EXTRA_CLIP = preload("res://ART/MOUTH ART/Extra Clip.png")
+const EXTRA_FLOWER = preload("res://ART/MOUTH ART/Extra Flower.png")
+const EXTRA_GLASSES = preload("res://ART/MOUTH ART/Extra Glasses.png")
+const EXTRA_HALO = preload("res://ART/MOUTH ART/Extra Halo.png")
+const EXTRA_HORN = preload("res://ART/MOUTH ART/Extra Horn.png")
+const EXTRA_MONOCLE = preload("res://ART/MOUTH ART/Extra Monocle.png")
+
+
 #color
 var PINK = Color(0.788, 0.384, 0.502)
 var ORANGE = Color(0.798, 0.415, 0.163)
@@ -165,15 +205,16 @@ var WHITE = Color(0, 0, 0)
 
 
 # Arrays of options
-var ExtraOption =[QUESTION_MARK_ICON]
+var GenerateOption =[QUESTION_MARK_ICON]
 var EyeOption = [EYE_ALMOND, EYE_ANIME, EYE_BIG, EYE_BLINK, EYE_CLASSIC, EYE_CROSSED, EYE_DONE,
 EYE_GURL, EYE_INTENSE, EYE_KIRBY, EYE_LINE, EYE_REALISH, EYE_ROUND, EYE_SHARP, EYE_STARE,
-EYE_TIC_TAC, EYE_TRAUMA, EYE_TWINKLE, EYE_U, EYE_WOBLE, FLOOF_GIDDY]
+EYE_TIC_TAC, EYE_TRAUMA, EYE_TWINKLE, EYE_U, EYE_WOBLE, FLOOF_GIDDY, EYE_BANANA, EYE_BETTY
+,EYE_BLAND, EYE_SAD, EYE_SQUIGLE, EYE_SQUINT]
 var IrisOption = [EYE_ALMOND_IRIS, EYE_ANIME_IRIS, EYE_BIG_IRIS, EYE_BLINK_IRIS,
 EYE_CLASSIC_IRIS, EYE_CROSSED_IRIS, EYE_DONE_IRIS, EYE_GURL_IRIS, EYE_INTENSE_IRIS,
 EYE_KIRBY_IRIS, EYE_LINE_IRIS, EYE_REALISH_IRIS, EYE_ROUND_IRIS, EYE_SHARP_IRIS,
 EYE_STARE_IRIS, EYE_TIC_TAC_IRIS, EYE_TRAUMA_IRIS, EYE_TWINKLE_IRIS, EYE_U_IRIS, EYE_WOBLE_IRIS,
-FLOOF_GIDDY_IRIS]
+FLOOF_GIDDY_IRIS, EYE_BANANA_IRIS, EYE_BETTY_IRIS,EYE_BLAND_IRIS, EYE_SAD_IRIS, EYE_SQUIGLE_IRIS, EYE_SQUINT_IRIS]
 
 var MouthOption = [MOUTH_BEAN, MOUTH_CHEEKY_GRIN, MOUTH_GRIN, MOUTH_JOJO,
 MOUTH_KIRBY, MOUTH_LIP, MOUTH_LIPS, MOUTH_POUT, MOUTH_SHARP, MOUTH_SMIRK, MOUTH_SMOLLSMILE,
@@ -182,9 +223,12 @@ var BrowOption = [EMPTY, BROW_BLOCK, BROW_BRICK, BROW_CHONK, BROW_CLASSIC, BROW_
 BROW_HAT, BROW_INTENSE, BROW_PRESSED, BROW_ROUND_BLOCK, BROW_ROUNDISH, BROW_SHWONK, BROW_SLICK, BROW_SWOOP, BROW_TEAR]
 var NoseOption = [EMPTY, NOSE_BLOB, NOSE_BUTTON, NOSE_CAT, NOSE_CLOWN, NOSE_FLARE, NOSE_GREMLIN, NOSE_REALISH,
 NOSE_SQUIDWARD, NOSE_VOLDY,NOSE_MUSH, NOSE_PEAR, NOSE_SCARY, NOSE_SIDE_C, NOSE_SIDE_V, NOSE_SIDE, NOSE_SKULL, NOSE_SMOLL]
+var HairOption = [HAIR_BEARD, HAIR_CHIN_WHISKER, HAIR_CURLY_STACH, HAIR_FRENCH, HAIR_MOP, HAIR_PATCH, HAIR_PENCIL, HAIR_STACH, HAIR_WHISKERS, HAIR_WIDE]
+var ExtraOption = [ EXTRA_BOW, EXTRA_BOWLER_HAT, EXTRA_BOWY, EXTRA_CLIP, EXTRA_FLOWER, EXTRA_GLASSES, EXTRA_HALO, EXTRA_HORN,EXTRA_MONOCLE]
+
 var CategoryOption = [BODY_ICON, EYE_ICON, MOUTH_ICON, BROW_ICON, NOSE_ICON, HAIR_ICON, EXTRA_ICON]
 var ColorOption = [PINK, ORANGE, YELLOW, GREEN, TEAL, BLUE, RED, PURPLE, WHITE]
-enum Category {BODY, EYE, MOUTH,BROW, NOSE ,HAIR, ACCECORY}
+enum Category {BODY, EYE, MOUTH,BROW, NOSE ,HAIR, ACCECORY }
 
 var page_index
 var page = 0
@@ -195,6 +239,8 @@ var category_index
 var eye_sprite
 var iris_sprite
 var brow_sprite
+var hair_sprite
+var extra_sprite
 var current_category = 1
 var cat_eyes
 var cat_mouth
@@ -203,6 +249,8 @@ var current_sprite_eye: Sprite2D = null
 var current_sprite_mouth: Sprite2D = null
 var current_sprite_brow: Sprite2D = null
 var current_sprite_nose: Sprite2D = null
+var current_sprite_hair: Sprite2D = null
+var current_sprite_extra: Sprite2D = null
 
 
 var Item_up_pressed: bool = false
@@ -265,8 +313,8 @@ func number_page():
 func create_extra_options():
 	for x in 1:
 		var roundButton = ROUND_BUTTON_PREFAB.instantiate()
-		var ExtraButtonsprite = roundButton.get_node("CategorySprite")
-		ExtraButtonsprite.texture = ExtraOption[x]
+		var GenerateButtonsprite = roundButton.get_node("CategorySprite")
+		GenerateButtonsprite.texture = GenerateOption[x]
 		extra_options.add_child(roundButton)
 		roundButton.pressed.connect(random_button_pressed)
 
@@ -322,6 +370,28 @@ func create_brow_option_buttons():
 		option_container.add_child(brow_button)
 		brow_button.pressed.connect(button_is_pressed.bind(brow_sprite.texture))
 
+func create_hair_option_buttons():
+	for index_on_page in 9:
+		var hair_button = BUTTON_PREFAB.instantiate()
+		hair_sprite = hair_button.get_node("OptionSprite")
+		var index = index_on_page + (page * 9)
+		if index >= HairOption.size(): 
+			break
+		hair_sprite.texture = HairOption[index]
+		option_container.add_child(hair_button)
+		hair_button.pressed.connect(button_is_pressed.bind(hair_sprite.texture))
+
+func create_extra_option_buttons():
+	for index_on_page in 9:
+		var extra_button = BUTTON_PREFAB.instantiate()
+		extra_sprite = extra_button.get_node("OptionSprite")
+		var index = index_on_page + (page * 9)
+		if index >= ExtraOption.size(): 
+			break
+		extra_sprite.texture = ExtraOption[index]
+		option_container.add_child(extra_button)
+		extra_button.pressed.connect(button_is_pressed.bind(extra_sprite.texture))
+
 
 func create_Icon_option_buttons():
 	for category_index in 7:
@@ -329,6 +399,7 @@ func create_Icon_option_buttons():
 		var categorysprite = roundButton.get_node("CategorySprite")
 		categorysprite.texture = CategoryOption[category_index]
 		#sprite.scale = Vector2(0.85,0.85)
+		h_box_container.scale = Vector2(0.35,0.35)
 		h_box_container.add_child(roundButton)
 		roundButton.pressed.connect(category_button_pressed.bind(category_index))
 		
@@ -374,6 +445,10 @@ func _on_page_up_pressed() -> void:
 			create_brow_option_buttons()
 		if current_category == 4:
 			create_nose_option_buttons()
+		if current_category == 5:
+			create_hair_option_buttons()
+		if current_category == 6:
+			create_extra_option_buttons()
 
 
 func _on_page_down_pressed() -> void:
@@ -397,7 +472,16 @@ func _on_page_down_pressed() -> void:
 			page += 1
 			clear_option_buttons()
 			create_nose_option_buttons()
-
+	if current_category == 5:
+		if (page + 1) * 9 < HairOption.size():
+			page += 1
+			clear_option_buttons()
+			create_hair_option_buttons()
+	if current_category == 6:
+		if (page + 1) * 9 < ExtraOption.size():
+			page += 1
+			clear_option_buttons()
+			create_extra_option_buttons()
 
 
 func category_button_pressed(category_index):
@@ -425,6 +509,16 @@ func category_button_pressed(category_index):
 		current_category = 4
 		clear_option_buttons()
 		create_nose_option_buttons()
+	if  category_index == 5:
+		page = 0
+		current_category = 5
+		clear_option_buttons()
+		create_hair_option_buttons()
+	if  category_index == 6:
+		page = 0
+		current_category = 6
+		clear_option_buttons()
+		create_extra_option_buttons()
 	#if  CategoryOption[2]:
 		#clear_option_buttons()
 		#create_mouth_option_buttons()
@@ -443,6 +537,10 @@ func color_sprite_change(color_index):
 		brow_prefab.modulate = selected_color
 	if category_index == 4:
 		nose_prefab.modulate = selected_color
+	if category_index == 5:
+		hair_prefab.modulate = selected_color
+	if category_index == 6:
+		extra_prefab.modulate = selected_color
  
 
 
@@ -450,6 +548,8 @@ func button_is_pressed(texture):
 	change_texture_mouth(texture)
 	change_texture_brow(texture)
 	change_texture_nose(texture)
+	change_texture_hair(texture)
+	change_texture_extra(texture)
 
 func button_is_pressed_eyes(texture, texture2):
 	change_texture_eye(texture, texture2)
@@ -488,6 +588,18 @@ func change_texture_brow(texture):
 	if current_category == 3:
 		MirrorSprite.texture = texture
 		brow_prefab.brow_mirror.texture = texture
+
+func change_texture_hair(texture):
+	if current_sprite_hair != null:
+		hair_prefab.hair_sprite.texture = texture
+	if current_category == 5:
+		hair_prefab.hair_sprite.texture = texture
+
+func change_texture_extra(texture):
+	if current_sprite_extra != null:
+		extra_prefab.extra_sprite.texture = texture
+	if current_category == 6:
+		extra_prefab.extra_sprite.texture = texture
 
 func Item_Up_Button_Pressed() -> void:
 	Item_Up(0)

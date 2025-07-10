@@ -1,8 +1,6 @@
 extends Node2D
 
-@onready var nose_sprite: Sprite2D = $NoseSprite
-
-
+@onready var extra_sprite: Sprite2D = $ExtraSprite
 var texture
 
 # Called when the node enters the scene tree for the first time.

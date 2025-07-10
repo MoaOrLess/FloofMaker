@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bg6edh5d7u0v"]
+[gd_scene load_steps=25 format=3 uid="uid://bg6edh5d7u0v"]
 
 [ext_resource type="Texture2D" uid="uid://iu7mkhq8etxx" path="res://ART/UI LOOK.png" id="1_ny5bw"]
 [ext_resource type="Script" path="res://SCENES/SCRIPTS/learning_2.gd" id="1_t10gp"]
@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://c8d2abrj4fajm" path="res://SCENES/Mouth_prefab.tscn" id="11_32im6"]
 [ext_resource type="PackedScene" uid="uid://sdgxjbdh2l3w" path="res://SCENES/Brow_prefab.tscn" id="12_odh43"]
 [ext_resource type="PackedScene" uid="uid://dsrhn6sqmdgn" path="res://SCENES/nose_prefab.tscn" id="16_r5aol"]
+[ext_resource type="PackedScene" uid="uid://b0icx87p5hk48" path="res://SCENES/Extra_prefab.tscn" id="17_7hk03"]
+[ext_resource type="PackedScene" uid="uid://cntb1p7otc03w" path="res://SCENES/hair_prefab.tscn" id="17_tf2bo"]
 
 [sub_resource type="Gradient" id="Gradient_hgyj7"]
 colors = PackedColorArray(0.505882, 0.866667, 0.835294, 1, 1, 1, 1, 1)
@@ -416,6 +418,14 @@ scale = Vector2(0.5, 0.5)
 
 [node name="NosePrefab" parent="UI" instance=ExtResource("16_r5aol")]
 position = Vector2(260, 250)
+scale = Vector2(0.5, 0.5)
+
+[node name="ExtraPrefab" parent="UI" instance=ExtResource("17_7hk03")]
+position = Vector2(260, 93)
+scale = Vector2(0.5, 0.5)
+
+[node name="HairPrefab" parent="UI" instance=ExtResource("17_tf2bo")]
+position = Vector2(260, 293)
 scale = Vector2(0.5, 0.5)
 
 [node name="UiLook" type="Sprite2D" parent="UI"]
