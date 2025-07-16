@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://3ld5r6sk2jqo"]
+
+[ext_resource type="Script" path="res://SCENES/SCRIPTS/beard_prefab.gd" id="1_vooc6"]
+[ext_resource type="Texture2D" uid="uid://bw6ehw58r0rwr" path="res://ART/MOUTH ART/Hair Beard.png" id="2_5gxir"]
+
+[node name="BeardPrefab" type="Node2D"]
+script = ExtResource("1_vooc6")
+
+[node name="BeardSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_5gxir")

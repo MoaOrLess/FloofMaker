@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://bg6edh5d7u0v"]
+[gd_scene load_steps=26 format=3 uid="uid://bg6edh5d7u0v"]
 
 [ext_resource type="Texture2D" uid="uid://iu7mkhq8etxx" path="res://ART/UI LOOK.png" id="1_ny5bw"]
 [ext_resource type="Script" path="res://SCENES/SCRIPTS/learning_2.gd" id="1_t10gp"]
 [ext_resource type="Texture2D" uid="uid://c8mojrwefkpga" path="res://ART/BUTTON ART/Simple Up Button.png" id="2_5ownq"]
+[ext_resource type="StyleBox" uid="uid://djwwlknwmxtu" path="res://SHADER/Flat Box White.tres" id="2_110bv"]
 [ext_resource type="Texture2D" uid="uid://bq3awijdlrigx" path="res://ART/BUTTON ART/Arrow Up.png" id="2_l6esw"]
 [ext_resource type="StyleBox" uid="uid://dbnyr6eiwm0s" path="res://SHADER/BluePanel.tres" id="3_5rg6j"]
 [ext_resource type="Texture2D" uid="uid://f4xpd4h14h8i" path="res://ART/BUTTON ART/Arrow In.png" id="3_aqovp"]
@@ -16,9 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://b7mb1gq2r5806" path="res://SCENES/Body_prefab.tscn" id="10_oeyuo"]
 [ext_resource type="PackedScene" uid="uid://c8d2abrj4fajm" path="res://SCENES/Mouth_prefab.tscn" id="11_32im6"]
 [ext_resource type="PackedScene" uid="uid://sdgxjbdh2l3w" path="res://SCENES/Brow_prefab.tscn" id="12_odh43"]
+[ext_resource type="PackedScene" uid="uid://3ld5r6sk2jqo" path="res://SCENES/beard_prefab.tscn" id="16_bhqn7"]
 [ext_resource type="PackedScene" uid="uid://dsrhn6sqmdgn" path="res://SCENES/nose_prefab.tscn" id="16_r5aol"]
 [ext_resource type="PackedScene" uid="uid://b0icx87p5hk48" path="res://SCENES/Extra_prefab.tscn" id="17_7hk03"]
-[ext_resource type="PackedScene" uid="uid://cntb1p7otc03w" path="res://SCENES/hair_prefab.tscn" id="17_tf2bo"]
+[ext_resource type="PackedScene" uid="uid://cntb1p7otc03w" path="res://SCENES/stash_prefab.tscn" id="17_tf2bo"]
 
 [sub_resource type="Gradient" id="Gradient_hgyj7"]
 colors = PackedColorArray(0.505882, 0.866667, 0.835294, 1, 1, 1, 1, 1)
@@ -28,17 +30,6 @@ gradient = SubResource("Gradient_hgyj7")
 width = 1150
 height = 648
 fill_to = Vector2(0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xx5wb"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-corner_detail = 10
-shadow_color = Color(0, 0, 0, 0.501961)
-shadow_size = 1
-shadow_offset = Vector2(5, 5)
 
 [sub_resource type="FontFile" id="FontFile_nelsi"]
 cache/0/16/0/ascent = 0.0
@@ -224,7 +215,7 @@ offset_left = 526.0
 offset_top = 145.0
 offset_right = 976.0
 offset_bottom = 595.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xx5wb")
+theme_override_styles/panel = ExtResource("2_110bv")
 
 [node name="OptionContainer" type="GridContainer" parent="UI/MainPanel"]
 layout_mode = 0
@@ -268,15 +259,6 @@ theme_override_font_sizes/font_size = 31
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
-layout_mode = 0
-offset_left = 526.0
-offset_top = 36.0
-offset_right = 1885.0
-offset_bottom = 256.0
-scale = Vector2(0.35, 0.35)
-theme_override_constants/separation = 14
 
 [node name="SidePanel" type="Panel" parent="UI"]
 layout_mode = 0
@@ -371,6 +353,15 @@ offset_bottom = 219.0
 scale = Vector2(0.35, 0.35)
 theme_override_constants/separation = 20
 
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+offset_left = 526.0
+offset_top = 36.0
+offset_right = 1885.0
+offset_bottom = 256.0
+scale = Vector2(0.35, 0.35)
+theme_override_constants/separation = 14
+
 [node name="Color Panel" type="Panel" parent="UI"]
 visible = false
 layout_mode = 0
@@ -412,6 +403,10 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(261, 188)
 scale = Vector2(0.5, 0.5)
 
+[node name="BeardPrefab" parent="UI" instance=ExtResource("16_bhqn7")]
+position = Vector2(260, 350)
+scale = Vector2(0.5, 0.5)
+
 [node name="MouthPrefab" parent="UI" instance=ExtResource("11_32im6")]
 position = Vector2(260, 303)
 scale = Vector2(0.5, 0.5)
@@ -424,7 +419,7 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(260, 93)
 scale = Vector2(0.5, 0.5)
 
-[node name="HairPrefab" parent="UI" instance=ExtResource("17_tf2bo")]
+[node name="StashPrefab" parent="UI" instance=ExtResource("17_tf2bo")]
 position = Vector2(260, 293)
 scale = Vector2(0.5, 0.5)
 

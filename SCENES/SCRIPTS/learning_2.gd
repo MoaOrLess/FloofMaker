@@ -30,8 +30,10 @@ const MAKE_BUTTON_BLACK = preload("res://SHADER/Make Button Black.tres")
 @onready var mouth_prefab: Node2D = $UI/MouthPrefab
 @onready var brow_prefab: Node2D = $UI/BrowPrefab
 @onready var nose_prefab: Node2D = $UI/NosePrefab
-@onready var hair_prefab: Node2D = $UI/HairPrefab
+@onready var stash_prefab: Node2D = $UI/StashPrefab
 @onready var extra_prefab: Node2D = $UI/ExtraPrefab
+@onready var beard_prefab: Node2D = $UI/BeardPrefab
+
 
 
 
@@ -73,6 +75,15 @@ const EYE_ICON = preload("res://ART/BUTTON ART/Eye Icon.png")
 const HAIR_ICON = preload("res://ART/BUTTON ART/Hair Icon.png")
 const NOSE_ICON = preload("res://ART/BUTTON ART/Nose Icon.png")
 const QUESTION_MARK_ICON = preload("res://ART/BUTTON ART/Question Mark Icon.png")
+
+const DICE_ICON = preload("res://ART/BUTTON ART/Dice Icon.png")
+
+const BEARD_ICON = preload("res://ART/BUTTON ART/Beard Icon.png")
+const CURL_ICON = preload("res://ART/BUTTON ART/Curl Icon.png")
+const HAND_ICON = preload("res://ART/BUTTON ART/hand Icon.png")
+const SCAR_ICON = preload("res://ART/BUTTON ART/Scar Icon.png")
+const STACH_ICON = preload("res://ART/BUTTON ART/Stach Icon.png")
+
 
 const EYE_ALMOND = preload("res://ART/EYES ART/Eye Almond.png")
 const EYE_ANIME = preload("res://ART/EYES ART/Eye Anime.png")
@@ -205,7 +216,7 @@ var WHITE = Color(0, 0, 0)
 
 
 # Arrays of options
-var GenerateOption =[QUESTION_MARK_ICON]
+var GenerateOption =[DICE_ICON, QUESTION_MARK_ICON]
 var EyeOption = [EYE_ALMOND, EYE_ANIME, EYE_BIG, EYE_BLINK, EYE_CLASSIC, EYE_CROSSED, EYE_DONE,
 EYE_GURL, EYE_INTENSE, EYE_KIRBY, EYE_LINE, EYE_REALISH, EYE_ROUND, EYE_SHARP, EYE_STARE,
 EYE_TIC_TAC, EYE_TRAUMA, EYE_TWINKLE, EYE_U, EYE_WOBLE, FLOOF_GIDDY, EYE_BANANA, EYE_BETTY
@@ -223,12 +234,17 @@ var BrowOption = [EMPTY, BROW_BLOCK, BROW_BRICK, BROW_CHONK, BROW_CLASSIC, BROW_
 BROW_HAT, BROW_INTENSE, BROW_PRESSED, BROW_ROUND_BLOCK, BROW_ROUNDISH, BROW_SHWONK, BROW_SLICK, BROW_SWOOP, BROW_TEAR]
 var NoseOption = [EMPTY, NOSE_BLOB, NOSE_BUTTON, NOSE_CAT, NOSE_CLOWN, NOSE_FLARE, NOSE_GREMLIN, NOSE_REALISH,
 NOSE_SQUIDWARD, NOSE_VOLDY,NOSE_MUSH, NOSE_PEAR, NOSE_SCARY, NOSE_SIDE_C, NOSE_SIDE_V, NOSE_SIDE, NOSE_SKULL, NOSE_SMOLL]
-var HairOption = [HAIR_BEARD, HAIR_CHIN_WHISKER, HAIR_CURLY_STACH, HAIR_FRENCH, HAIR_MOP, HAIR_PATCH, HAIR_PENCIL, HAIR_STACH, HAIR_WHISKERS, HAIR_WIDE]
+var HairOption = [EMPTY, HAIR_BEARD, HAIR_CHIN_WHISKER, HAIR_CURLY_STACH, HAIR_FRENCH, HAIR_MOP, HAIR_PATCH, HAIR_PENCIL, HAIR_STACH, HAIR_WHISKERS, HAIR_WIDE]
+var TopStashOption = [EMPTY, HAIR_CHIN_WHISKER, HAIR_CURLY_STACH, HAIR_FRENCH, HAIR_MOP, HAIR_PENCIL, HAIR_STACH, HAIR_WHISKERS]
+var BottomStashOption = [EMPTY, HAIR_BEARD, HAIR_CHIN_WHISKER, HAIR_PATCH, HAIR_WIDE]
 var ExtraOption = [ EXTRA_BOW, EXTRA_BOWLER_HAT, EXTRA_BOWY, EXTRA_CLIP, EXTRA_FLOWER, EXTRA_GLASSES, EXTRA_HALO, EXTRA_HORN,EXTRA_MONOCLE]
 
 var CategoryOption = [BODY_ICON, EYE_ICON, MOUTH_ICON, BROW_ICON, NOSE_ICON, HAIR_ICON, EXTRA_ICON]
 var ColorOption = [PINK, ORANGE, YELLOW, GREEN, TEAL, BLUE, RED, PURPLE, WHITE]
-enum Category {BODY, EYE, MOUTH,BROW, NOSE ,HAIR, ACCECORY }
+var BodyOption = [HAND_ICON, CURL_ICON, SCAR_ICON]
+var StashOption = [BEARD_ICON, STACH_ICON]
+enum Category {BODY, EYE, MOUTH,BROW, NOSE ,HAIR, ACCECORY}
+
 
 var page_index
 var page = 0
@@ -240,6 +256,7 @@ var eye_sprite
 var iris_sprite
 var brow_sprite
 var hair_sprite
+var beard_sprite
 var extra_sprite
 var current_category = 1
 var cat_eyes
@@ -267,6 +284,9 @@ var colorHue
 var newColor
 var color_option = get_color_options()
 
+var sub_category_open = false
+var current_sub_category_container:VBoxContainer = null
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -285,8 +305,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
-	#if delta < (1 / 30): 
+		#if delta < (1 / 30): 
 	#	return
 	number_page() 
 	if Item_up_pressed == true:
@@ -311,12 +330,15 @@ func number_page():
 
 
 func create_extra_options():
-	for x in 1:
+	for x in 2:
 		var roundButton = ROUND_BUTTON_PREFAB.instantiate()
 		var GenerateButtonsprite = roundButton.get_node("CategorySprite")
 		GenerateButtonsprite.texture = GenerateOption[x]
 		extra_options.add_child(roundButton)
-		roundButton.pressed.connect(random_button_pressed)
+		if x == 0:
+			roundButton.pressed.connect(random_button_pressed)
+		else:
+			roundButton.pressed.connect(info_button_pressed)
 
 func create_eye_option_buttons():
 	for index_on_page in 9:
@@ -370,16 +392,27 @@ func create_brow_option_buttons():
 		option_container.add_child(brow_button)
 		brow_button.pressed.connect(button_is_pressed.bind(brow_sprite.texture))
 
-func create_hair_option_buttons():
+func create_stash_option_buttons():
 	for index_on_page in 9:
 		var hair_button = BUTTON_PREFAB.instantiate()
 		hair_sprite = hair_button.get_node("OptionSprite")
 		var index = index_on_page + (page * 9)
-		if index >= HairOption.size(): 
+		if index >= TopStashOption.size(): 
 			break
-		hair_sprite.texture = HairOption[index]
+		hair_sprite.texture = TopStashOption[index]
 		option_container.add_child(hair_button)
 		hair_button.pressed.connect(button_is_pressed.bind(hair_sprite.texture))
+
+func create_beard_option_buttons():
+	for index_on_page in 9:
+		var beard_button = BUTTON_PREFAB.instantiate()
+		beard_sprite = beard_button.get_node("OptionSprite")
+		var index = index_on_page + (page * 9)
+		if index >= BottomStashOption.size(): 
+			break
+		beard_sprite.texture = BottomStashOption[index]
+		option_container.add_child(beard_button)
+		beard_button.pressed.connect(button_is_pressed.bind(beard_sprite.texture))
 
 func create_extra_option_buttons():
 	for index_on_page in 9:
@@ -401,7 +434,7 @@ func create_Icon_option_buttons():
 		#sprite.scale = Vector2(0.85,0.85)
 		h_box_container.scale = Vector2(0.35,0.35)
 		h_box_container.add_child(roundButton)
-		roundButton.pressed.connect(category_button_pressed.bind(category_index))
+		roundButton.pressed.connect(category_button_pressed.bind(roundButton, category_index))
 		
 
 func create_Color_Option_button():
@@ -446,7 +479,7 @@ func _on_page_up_pressed() -> void:
 		if current_category == 4:
 			create_nose_option_buttons()
 		if current_category == 5:
-			create_hair_option_buttons()
+			create_stash_option_buttons()
 		if current_category == 6:
 			create_extra_option_buttons()
 
@@ -476,19 +509,62 @@ func _on_page_down_pressed() -> void:
 		if (page + 1) * 9 < HairOption.size():
 			page += 1
 			clear_option_buttons()
-			create_hair_option_buttons()
+			create_stash_option_buttons()
 	if current_category == 6:
 		if (page + 1) * 9 < ExtraOption.size():
 			page += 1
 			clear_option_buttons()
 			create_extra_option_buttons()
 
+func sub_category_1_button_pressed(body_subcat_index , container):
+	current_sub_category_container = null
+	if  body_subcat_index == 0:
+		page = 0
+		current_category = 7
+		clear_body_sub_category_buttons(container)
+		clear_option_buttons()
+		create_stash_option_buttons()
+	if  body_subcat_index == 1:
+		page = 0
+		current_category = 8
+		clear_body_sub_category_buttons(container)
+		clear_option_buttons()
+		create_eye_option_buttons()
+	if  body_subcat_index == 2:
+		page = 0
+		current_category = 9
+		clear_body_sub_category_buttons(container)
+		clear_option_buttons()
+		create_nose_option_buttons()
 
-func category_button_pressed(category_index):
+func sub_category_2_button_pressed(stash_subcat_index, container):
+	current_sub_category_container = null
+	if  stash_subcat_index == 0:
+		page = 0
+		current_category = 10
+		clear_stash_sub_category_buttons(container)
+		clear_option_buttons()
+		create_eye_option_buttons()
+	if  stash_subcat_index == 1:
+		page = 0
+		current_category = 11
+		clear_stash_sub_category_buttons(container)
+		clear_option_buttons()
+		create_beard_option_buttons()
+	
+
+func category_button_pressed(button, category_index):
 	print(category_index)
 	self.category_index = category_index
 	if category_index == 0:
-		pass
+		if current_sub_category_container:
+			clear_body_sub_category_buttons(current_sub_category_container)
+			current_sub_category_container.queue_free()
+			current_sub_category_container = null
+			return
+		else:
+			current_category = 0
+			create_body_sub_category(button)
 	if  category_index == 1:
 		page = 0
 		current_category = 1
@@ -510,10 +586,18 @@ func category_button_pressed(category_index):
 		clear_option_buttons()
 		create_nose_option_buttons()
 	if  category_index == 5:
-		page = 0
-		current_category = 5
-		clear_option_buttons()
-		create_hair_option_buttons()
+		if current_sub_category_container:
+			clear_stash_sub_category_buttons(current_sub_category_container)
+			current_sub_category_container.queue_free()
+			current_sub_category_container = null
+			return
+		else:
+			current_category = 5
+			create_stash_sub_category(button)
+		#page = 0
+		#current_category = 5
+		#clear_option_buttons()
+		#create_hair_option_buttons()
 	if  category_index == 6:
 		page = 0
 		current_category = 6
@@ -522,7 +606,57 @@ func category_button_pressed(category_index):
 	#if  CategoryOption[2]:
 		#clear_option_buttons()
 		#create_mouth_option_buttons()
+
+
+func create_body_sub_category(button):
+	var v_box_container = VBoxContainer.new()
+	v_box_container.scale = Vector2(0.25,0.25)
+	$UI.add_child(v_box_container)
 	
+	var button_pos = button.get_global_position()
+	var vbox_pos = button_pos + Vector2(10,85)
+	v_box_container.global_position = vbox_pos
+	
+	current_sub_category_container = v_box_container
+	
+	for body_subcat_index in BodyOption.size():
+		var roundButton = ROUND_BUTTON_PREFAB.instantiate()
+		var categorysprite = roundButton.get_node("CategorySprite")
+		#v_box_container.global_position = roundButton.get_global_position()
+		categorysprite.texture = BodyOption[body_subcat_index]
+		v_box_container.add_child(roundButton)
+		roundButton.pressed.connect(sub_category_1_button_pressed.bind(body_subcat_index, v_box_container))
+		
+func create_stash_sub_category(button):
+	var v_box_container = VBoxContainer.new()
+	v_box_container.scale = Vector2(0.25,0.25)
+	$UI.add_child(v_box_container)
+	
+	var button_pos = button.get_global_position()
+	var vbox_pos = button_pos + Vector2(10,85)
+	v_box_container.global_position = vbox_pos
+	
+	current_sub_category_container = v_box_container
+	
+	for stash_subcat_index in StashOption.size():
+		var roundButton = ROUND_BUTTON_PREFAB.instantiate()
+		var categorysprite = roundButton.get_node("CategorySprite")
+		#v_box_container.global_position = roundButton.get_global_position()
+		categorysprite.texture = StashOption[stash_subcat_index]
+		v_box_container.add_child(roundButton)
+		roundButton.pressed.connect(sub_category_2_button_pressed.bind(stash_subcat_index, v_box_container))
+
+func clear_body_sub_category_buttons(container):
+	for child in container.get_children():
+		container.remove_child(child)
+		child.queue_free()
+
+func clear_stash_sub_category_buttons(container):
+	print("CLEAR")
+	for child in container.get_children():
+		container.remove_child(child)
+		child.queue_free()
+
 func color_sprite_change(color_index):
 	var selected_color = color_option[color_index]
 	if category_index == 0:
@@ -538,7 +672,7 @@ func color_sprite_change(color_index):
 	if category_index == 4:
 		nose_prefab.modulate = selected_color
 	if category_index == 5:
-		hair_prefab.modulate = selected_color
+		stash_prefab.modulate = selected_color
 	if category_index == 6:
 		extra_prefab.modulate = selected_color
  
@@ -591,9 +725,9 @@ func change_texture_brow(texture):
 
 func change_texture_hair(texture):
 	if current_sprite_hair != null:
-		hair_prefab.hair_sprite.texture = texture
+		stash_prefab.hair_sprite.texture = texture
 	if current_category == 5:
-		hair_prefab.hair_sprite.texture = texture
+		stash_prefab.hair_sprite.texture = texture
 
 func change_texture_extra(texture):
 	if current_sprite_extra != null:
@@ -890,6 +1024,10 @@ func random_button_pressed():
 	random_mouth()
 	random_brows()
 	random_nose()
+
+func info_button_pressed():
+	print("INFO")
+
 
 func _on_color_picker_color_changed(color: Color) -> void:
 	newColor = $"UI/Color Panel/ColorPicker".color
