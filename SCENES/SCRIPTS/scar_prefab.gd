@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var nose_sprite: Sprite2D = $NoseSprite
+@onready var scar_sprite: Sprite2D = $ScarSprite
 
 var texture
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var stash_sprite: Sprite2D = $StashSprite
+@onready var beard_sprite: Sprite2D = $BeardSprite
 
 var texture
 

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvu1hqeoi0t8c"]
+
+[ext_resource type="Script" path="res://SCENES/SCRIPTS/hair_prefab.gd" id="1_t8rwb"]
+[ext_resource type="Texture2D" uid="uid://cs6jxds3cafvq" path="res://ART/HAIR/Hair Emo.png" id="2_fbs8u"]
+
+[node name="HairPrefab" type="Node2D"]
+script = ExtResource("1_t8rwb")
+
+[node name="HairSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_fbs8u")

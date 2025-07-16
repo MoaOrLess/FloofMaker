@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bg6edh5d7u0v"]
+[gd_scene load_steps=29 format=3 uid="uid://bg6edh5d7u0v"]
 
 [ext_resource type="Texture2D" uid="uid://iu7mkhq8etxx" path="res://ART/UI LOOK.png" id="1_ny5bw"]
 [ext_resource type="Script" path="res://SCENES/SCRIPTS/learning_2.gd" id="1_t10gp"]
@@ -17,10 +17,13 @@
 [ext_resource type="PackedScene" uid="uid://b7mb1gq2r5806" path="res://SCENES/Body_prefab.tscn" id="10_oeyuo"]
 [ext_resource type="PackedScene" uid="uid://c8d2abrj4fajm" path="res://SCENES/Mouth_prefab.tscn" id="11_32im6"]
 [ext_resource type="PackedScene" uid="uid://sdgxjbdh2l3w" path="res://SCENES/Brow_prefab.tscn" id="12_odh43"]
+[ext_resource type="PackedScene" uid="uid://dkcdmnvirh6jb" path="res://SCENES/scar_prefab.tscn" id="14_v7odt"]
 [ext_resource type="PackedScene" uid="uid://3ld5r6sk2jqo" path="res://SCENES/beard_prefab.tscn" id="16_bhqn7"]
 [ext_resource type="PackedScene" uid="uid://dsrhn6sqmdgn" path="res://SCENES/nose_prefab.tscn" id="16_r5aol"]
 [ext_resource type="PackedScene" uid="uid://b0icx87p5hk48" path="res://SCENES/Extra_prefab.tscn" id="17_7hk03"]
-[ext_resource type="PackedScene" uid="uid://cntb1p7otc03w" path="res://SCENES/stash_prefab.tscn" id="17_tf2bo"]
+[ext_resource type="PackedScene" uid="uid://cvu1hqeoi0t8c" path="res://SCENES/hair_prefab.tscn" id="17_tf2bo"]
+[ext_resource type="PackedScene" uid="uid://01atmuf6doy" path="res://SCENES/limb_prefab.tscn" id="18_xk8sq"]
+[ext_resource type="PackedScene" uid="uid://cntb1p7otc03w" path="res://SCENES/stash_prefab.tscn" id="23_h2762"]
 
 [sub_resource type="Gradient" id="Gradient_hgyj7"]
 colors = PackedColorArray(0.505882, 0.866667, 0.835294, 1, 1, 1, 1, 1)
@@ -395,12 +398,24 @@ texture = ExtResource("10_7dlkg")
 position = Vector2(260, 254)
 scale = Vector2(0.5, 0.5)
 
+[node name="ScarPrefab" parent="UI" instance=ExtResource("14_v7odt")]
+position = Vector2(367, 257)
+scale = Vector2(0.5, 0.5)
+
+[node name="HairPrefab" parent="UI" instance=ExtResource("17_tf2bo")]
+position = Vector2(268, 209)
+scale = Vector2(0.5, 0.5)
+
 [node name="EyePrefab" parent="UI" instance=ExtResource("9_kudht")]
 position = Vector2(261, 250)
 scale = Vector2(0.5, 0.5)
 
 [node name="BrowPrefab" parent="UI" instance=ExtResource("12_odh43")]
 position = Vector2(261, 188)
+scale = Vector2(0.5, 0.5)
+
+[node name="LimbPrefab" parent="UI" instance=ExtResource("18_xk8sq")]
+position = Vector2(264, 355)
 scale = Vector2(0.5, 0.5)
 
 [node name="BeardPrefab" parent="UI" instance=ExtResource("16_bhqn7")]
@@ -419,7 +434,7 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(260, 93)
 scale = Vector2(0.5, 0.5)
 
-[node name="StashPrefab" parent="UI" instance=ExtResource("17_tf2bo")]
+[node name="StashPrefab" parent="UI" instance=ExtResource("23_h2762")]
 position = Vector2(260, 293)
 scale = Vector2(0.5, 0.5)
 

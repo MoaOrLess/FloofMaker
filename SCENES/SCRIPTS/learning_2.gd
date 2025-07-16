@@ -33,9 +33,9 @@ const MAKE_BUTTON_BLACK = preload("res://SHADER/Make Button Black.tres")
 @onready var stash_prefab: Node2D = $UI/StashPrefab
 @onready var extra_prefab: Node2D = $UI/ExtraPrefab
 @onready var beard_prefab: Node2D = $UI/BeardPrefab
-
-
-
+@onready var scar_prefab: Node2D = $UI/ScarPrefab
+@onready var hair_prefab: Node2D = $UI/HairPrefab
+@onready var limb_prefab: Node2D = $UI/LimbPrefab
 
 
 @onready var page_number: Label = $"UI/MainPanel/Page Number"
@@ -45,6 +45,9 @@ const MAKE_BUTTON_BLACK = preload("res://SHADER/Make Button Black.tres")
 @export var ROUND_BUTTON_PREFAB = preload("res://SCENES/Button_prefab_2.tscn")
 @export var BROW_PREFAB = preload("res://SCENES/Brow_prefab.tscn")
 @export var NOSE_PREFAB = preload("res://SCENES/nose_prefab.tscn")
+
+
+
 @export var COLOR_SELECT_PREFAB = preload("res://SCENES/color_select_prefab.tscn")
 
 
@@ -202,6 +205,12 @@ const EXTRA_HALO = preload("res://ART/MOUTH ART/Extra Halo.png")
 const EXTRA_HORN = preload("res://ART/MOUTH ART/Extra Horn.png")
 const EXTRA_MONOCLE = preload("res://ART/MOUTH ART/Extra Monocle.png")
 
+const HAIR_COMBOVER = preload("res://ART/HAIR/Hair Combover.png")
+const HAIR_EMO = preload("res://ART/HAIR/Hair Emo.png")
+const HAIR_HOMER = preload("res://ART/HAIR/Hair Homer.png")
+const HAIR_MOHAWK = preload("res://ART/HAIR/Hair Mohawk.png")
+const ARMS_1 = preload("res://ART/LIMBS/ARMS 1.png")
+const SCAR_STITCH = preload("res://ART/SCAR/Scar Stitch.png")
 
 #color
 var PINK = Color(0.788, 0.384, 0.502)
@@ -235,15 +244,19 @@ BROW_HAT, BROW_INTENSE, BROW_PRESSED, BROW_ROUND_BLOCK, BROW_ROUNDISH, BROW_SHWO
 var NoseOption = [EMPTY, NOSE_BLOB, NOSE_BUTTON, NOSE_CAT, NOSE_CLOWN, NOSE_FLARE, NOSE_GREMLIN, NOSE_REALISH,
 NOSE_SQUIDWARD, NOSE_VOLDY,NOSE_MUSH, NOSE_PEAR, NOSE_SCARY, NOSE_SIDE_C, NOSE_SIDE_V, NOSE_SIDE, NOSE_SKULL, NOSE_SMOLL]
 var HairOption = [EMPTY, HAIR_BEARD, HAIR_CHIN_WHISKER, HAIR_CURLY_STACH, HAIR_FRENCH, HAIR_MOP, HAIR_PATCH, HAIR_PENCIL, HAIR_STACH, HAIR_WHISKERS, HAIR_WIDE]
-var TopStashOption = [EMPTY, HAIR_CHIN_WHISKER, HAIR_CURLY_STACH, HAIR_FRENCH, HAIR_MOP, HAIR_PENCIL, HAIR_STACH, HAIR_WHISKERS]
-var BottomStashOption = [EMPTY, HAIR_BEARD, HAIR_CHIN_WHISKER, HAIR_PATCH, HAIR_WIDE]
+var TopStashOption = [EMPTY, HAIR_CURLY_STACH, HAIR_FRENCH, HAIR_MOP, HAIR_PENCIL, HAIR_STACH, HAIR_WHISKERS, HAIR_WIDE]
+var BottomStashOption = [EMPTY, HAIR_BEARD, HAIR_CHIN_WHISKER, HAIR_PATCH]
+var HairFrontOption = [EMPTY, HAIR_COMBOVER, HAIR_EMO, HAIR_HOMER, HAIR_MOHAWK]
+var LimbOption = [EMPTY, ARMS_1]
+var ScarOption = [EMPTY, SCAR_STITCH]
 var ExtraOption = [ EXTRA_BOW, EXTRA_BOWLER_HAT, EXTRA_BOWY, EXTRA_CLIP, EXTRA_FLOWER, EXTRA_GLASSES, EXTRA_HALO, EXTRA_HORN,EXTRA_MONOCLE]
+
 
 var CategoryOption = [BODY_ICON, EYE_ICON, MOUTH_ICON, BROW_ICON, NOSE_ICON, HAIR_ICON, EXTRA_ICON]
 var ColorOption = [PINK, ORANGE, YELLOW, GREEN, TEAL, BLUE, RED, PURPLE, WHITE]
 var BodyOption = [HAND_ICON, CURL_ICON, SCAR_ICON]
 var StashOption = [BEARD_ICON, STACH_ICON]
-enum Category {BODY, EYE, MOUTH,BROW, NOSE ,HAIR, ACCECORY}
+enum Category {BODY, EYE, MOUTH, BROW, NOSE ,MUSTACHE, ACCESSORY, LIMB, HAIR, SCAR, BEARD, STASH}
 
 
 var page_index
@@ -255,9 +268,13 @@ var category_index
 var eye_sprite
 var iris_sprite
 var brow_sprite
-var hair_sprite
+var stash_sprite
 var beard_sprite
 var extra_sprite
+var limb_sprite
+var hair_sprite
+var scar_sprite
+
 var current_category = 1
 var cat_eyes
 var cat_mouth
@@ -266,8 +283,12 @@ var current_sprite_eye: Sprite2D = null
 var current_sprite_mouth: Sprite2D = null
 var current_sprite_brow: Sprite2D = null
 var current_sprite_nose: Sprite2D = null
-var current_sprite_hair: Sprite2D = null
+var current_sprite_stash: Sprite2D = null
 var current_sprite_extra: Sprite2D = null
+var current_sprite_limb: Sprite2D = null
+var current_sprite_scar: Sprite2D = null
+var current_sprite_beard: Sprite2D = null
+var current_sprite_hair: Sprite2D = null
 
 
 var Item_up_pressed: bool = false
@@ -425,6 +446,39 @@ func create_extra_option_buttons():
 		option_container.add_child(extra_button)
 		extra_button.pressed.connect(button_is_pressed.bind(extra_sprite.texture))
 
+func create_scar_option_buttons():
+	for index_on_page in 9: #Change back to 9
+		var scar_button = BUTTON_PREFAB.instantiate()
+		scar_sprite =  scar_button.get_node("OptionSprite")
+		var index = index_on_page + (page * 9)
+		if index >= ScarOption.size(): 
+			break
+		scar_sprite.texture = ScarOption[index]
+		option_container.add_child(scar_button)
+		scar_button.pressed.connect(button_is_pressed.bind(scar_sprite.texture))
+
+func create_limb_option_buttons():
+	for index_on_page in 9: #Change back to 9
+		var limb_button = BUTTON_PREFAB.instantiate()
+		limb_sprite =  limb_button.get_node("OptionSprite")
+		var index = index_on_page + (page * 9)
+		if index >= LimbOption.size(): 
+			break
+		limb_sprite.texture = LimbOption[index]
+		option_container.add_child(limb_button)
+		limb_button.pressed.connect(button_is_pressed.bind(limb_sprite.texture))
+
+func create_hair_option_buttons():
+	for index_on_page in 9: #Change back to 9
+		var hair_button = BUTTON_PREFAB.instantiate()
+		hair_sprite =  hair_button.get_node("OptionSprite")
+		var index = index_on_page + (page * 9)
+		if index >= HairFrontOption.size(): 
+			break
+		hair_sprite.texture = HairFrontOption[index]
+		option_container.add_child(hair_button)
+		hair_button.pressed.connect(button_is_pressed.bind(hair_sprite.texture))
+
 
 func create_Icon_option_buttons():
 	for category_index in 7:
@@ -470,47 +524,47 @@ func _on_page_up_pressed() -> void:
 	if page > 0:
 		page -= 1
 		clear_option_buttons()
-		if current_category == 1:
+		if current_category == Category.EYE:
 			create_eye_option_buttons()
-		if current_category == 2:
+		if current_category == Category.MOUTH:
 			create_mouth_option_buttons()
-		if current_category == 3:
+		if current_category == Category.BROW:
 			create_brow_option_buttons()
-		if current_category == 4:
+		if current_category == Category.NOSE:
 			create_nose_option_buttons()
-		if current_category == 5:
+		if current_category == Category.MUSTACHE:
 			create_stash_option_buttons()
-		if current_category == 6:
+		if current_category == Category.ACCESSORY:
 			create_extra_option_buttons()
 
 
 func _on_page_down_pressed() -> void:
-	if current_category == 1:
+	if current_category == Category.EYE:
 		if (page + 1) * 9 < EyeOption.size():
 			page += 1
 			clear_option_buttons()
 			create_eye_option_buttons()
-	if current_category == 2:
+	if current_category == Category.MOUTH:
 		if (page + 1) * 9 < MouthOption.size():
 			page += 1
 			clear_option_buttons()
 			create_mouth_option_buttons()
-	if current_category == 3:
+	if current_category == Category.BROW:
 		if (page + 1) * 9 < BrowOption.size():
 			page += 1
 			clear_option_buttons()
 			create_brow_option_buttons()
-	if current_category == 4:
+	if current_category == Category.NOSE:
 		if (page + 1) * 9 < NoseOption.size():
 			page += 1
 			clear_option_buttons()
 			create_nose_option_buttons()
-	if current_category == 5:
+	if current_category == Category.MUSTACHE:
 		if (page + 1) * 9 < HairOption.size():
 			page += 1
 			clear_option_buttons()
 			create_stash_option_buttons()
-	if current_category == 6:
+	if current_category == Category.ACCESSORY:
 		if (page + 1) * 9 < ExtraOption.size():
 			page += 1
 			clear_option_buttons()
@@ -520,92 +574,89 @@ func sub_category_1_button_pressed(body_subcat_index , container):
 	current_sub_category_container = null
 	if  body_subcat_index == 0:
 		page = 0
-		current_category = 7
+		current_category = Category.LIMB
 		clear_body_sub_category_buttons(container)
 		clear_option_buttons()
-		create_stash_option_buttons()
+		create_limb_option_buttons()
 	if  body_subcat_index == 1:
 		page = 0
-		current_category = 8
+		current_category = Category.HAIR
 		clear_body_sub_category_buttons(container)
 		clear_option_buttons()
-		create_eye_option_buttons()
+		create_hair_option_buttons()
 	if  body_subcat_index == 2:
 		page = 0
-		current_category = 9
+		current_category = Category.SCAR
 		clear_body_sub_category_buttons(container)
 		clear_option_buttons()
-		create_nose_option_buttons()
+		create_scar_option_buttons()
 
 func sub_category_2_button_pressed(stash_subcat_index, container):
 	current_sub_category_container = null
 	if  stash_subcat_index == 0:
 		page = 0
-		current_category = 10
-		clear_stash_sub_category_buttons(container)
-		clear_option_buttons()
-		create_eye_option_buttons()
-	if  stash_subcat_index == 1:
-		page = 0
-		current_category = 11
+		current_category = Category.BEARD
 		clear_stash_sub_category_buttons(container)
 		clear_option_buttons()
 		create_beard_option_buttons()
-	
+	if  stash_subcat_index == 1:
+		page = 0
+		current_category = Category.STASH
+		clear_stash_sub_category_buttons(container)
+		clear_option_buttons()
+		create_stash_option_buttons()
+
 
 func category_button_pressed(button, category_index):
 	print(category_index)
 	self.category_index = category_index
-	if category_index == 0:
+	if category_index == Category.BODY:
 		if current_sub_category_container:
 			clear_body_sub_category_buttons(current_sub_category_container)
 			current_sub_category_container.queue_free()
 			current_sub_category_container = null
 			return
 		else:
-			current_category = 0
+			current_category = Category.BODY
 			create_body_sub_category(button)
-	if  category_index == 1:
+	if  category_index == Category.EYE:
 		page = 0
-		current_category = 1
+		current_category = Category.EYE
 		clear_option_buttons()
 		create_eye_option_buttons()
-	if  category_index == 2:
+	if  category_index == Category.MOUTH:
 		page = 0
-		current_category = 2
+		current_category = Category.MOUTH
 		clear_option_buttons()
 		create_mouth_option_buttons()
-	if  category_index == 3:
+	if  category_index == Category.BROW:
 		page = 0
-		current_category = 3
+		current_category = Category.BROW
 		clear_option_buttons()
 		create_brow_option_buttons()
-	if  category_index == 4:
+	if  category_index == Category.NOSE:
 		page = 0
-		current_category = 4
+		current_category = Category.NOSE
 		clear_option_buttons()
 		create_nose_option_buttons()
-	if  category_index == 5:
+	if  category_index == Category.MUSTACHE:
 		if current_sub_category_container:
 			clear_stash_sub_category_buttons(current_sub_category_container)
 			current_sub_category_container.queue_free()
 			current_sub_category_container = null
 			return
 		else:
-			current_category = 5
+			current_category = Category.MUSTACHE
 			create_stash_sub_category(button)
 		#page = 0
 		#current_category = 5
 		#clear_option_buttons()
 		#create_hair_option_buttons()
-	if  category_index == 6:
+	if  category_index == Category.ACCESSORY:
 		page = 0
-		current_category = 6
+		current_category = Category.ACCESSORY
 		clear_option_buttons()
 		create_extra_option_buttons()
-	#if  CategoryOption[2]:
-		#clear_option_buttons()
-		#create_mouth_option_buttons()
 
 
 func create_body_sub_category(button):
@@ -684,6 +735,11 @@ func button_is_pressed(texture):
 	change_texture_nose(texture)
 	change_texture_hair(texture)
 	change_texture_extra(texture)
+	change_texture_scar(texture)
+	change_texture_stash(texture)
+	change_texture_limb(texture)
+	change_texture_beard(texture)
+	
 
 func button_is_pressed_eyes(texture, texture2):
 	change_texture_eye(texture, texture2)
@@ -706,34 +762,58 @@ func change_texture_eye(texture, texture2):
 func change_texture_mouth(texture):
 	if current_sprite_mouth != null:
 		mouth_prefab.mouth_sprite.texture = texture
-	if current_category == 2:
+	if current_category == Category.MOUTH:
 		mouth_prefab.mouth_sprite.texture = texture
 
 func change_texture_nose(texture):
 	if current_sprite_nose != null:
 		nose_prefab.nose_sprite.texture = texture
-	if current_category == 4:
+	if current_category == Category.NOSE:
 		nose_prefab.nose_sprite.texture = texture
 
 func change_texture_brow(texture):
 	var MirrorSprite = brow_prefab.get_node("BrowSprite")
 	if current_sprite_brow != null:
 		brow_prefab.brow_sprite.texture = texture
-	if current_category == 3:
+	if current_category == Category.BROW:
 		MirrorSprite.texture = texture
 		brow_prefab.brow_mirror.texture = texture
 
-func change_texture_hair(texture):
-	if current_sprite_hair != null:
-		stash_prefab.hair_sprite.texture = texture
-	if current_category == 5:
-		stash_prefab.hair_sprite.texture = texture
+func change_texture_stash(texture):
+	if current_sprite_stash != null:
+		stash_prefab.stash_sprite.texture = texture
+	if current_category == Category.STASH:
+		stash_prefab.stash_sprite.texture = texture
 
 func change_texture_extra(texture):
 	if current_sprite_extra != null:
 		extra_prefab.extra_sprite.texture = texture
-	if current_category == 6:
+	if current_category == Category.ACCESSORY:
 		extra_prefab.extra_sprite.texture = texture
+
+func change_texture_limb(texture):
+	if current_sprite_limb != null:
+		limb_prefab.limb_sprite.texture = texture
+	if current_category == Category.LIMB:
+		limb_prefab.limb_sprite.texture = texture
+
+func change_texture_hair(texture):
+	if current_sprite_hair != null:
+		hair_prefab.hair_sprite.texture = texture
+	if current_category == Category.HAIR:
+		hair_prefab.hair_sprite.texture = texture
+
+func change_texture_scar(texture):
+	if current_sprite_scar != null:
+		scar_prefab.scar_sprite.texture = texture
+	if current_category == Category.SCAR:
+		scar_prefab.scar_sprite.texture = texture
+
+func change_texture_beard(texture):
+	if current_sprite_beard != null:
+		beard_prefab.beard_sprite.texture = texture
+	if current_category == Category.BEARD:
+		beard_prefab.beard_sprite.texture = texture
 
 func Item_Up_Button_Pressed() -> void:
 	Item_Up(0)

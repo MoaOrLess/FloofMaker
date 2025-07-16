@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkcdmnvirh6jb"]
+
+[ext_resource type="Script" path="res://SCENES/SCRIPTS/scar_prefab.gd" id="1_n0o60"]
+[ext_resource type="Texture2D" uid="uid://djam3ce33ig2o" path="res://ART/SCAR/Scar Stitch.png" id="2_7l5cb"]
+
+[node name="ScarPrefab" type="Node2D"]
+script = ExtResource("1_n0o60")
+
+[node name="ScarSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_7l5cb")
