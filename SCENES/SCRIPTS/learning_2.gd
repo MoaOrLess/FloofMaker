@@ -23,7 +23,7 @@ extends Control
 
 const MAKE_BUTTON_WHITE = preload("res://SHADER/Make Button White.tres")
 const MAKE_BUTTON_BLACK = preload("res://SHADER/Make Button Black.tres")
-
+const BUTTON_CLICKED = preload("res://SHADER/ButtonClicked.tres")
 
 @onready var body_prefab: Node2D = $UI/BodyPrefab
 @onready var eye_prefab: Node2D = $UI/EyePrefab
@@ -301,6 +301,7 @@ var Item_rotr_pressed:  bool = false
 var Item_rotl_pressed:  bool = false
 
 var selected_button_index := -1
+var selected_button = null
 var colorHue
 var newColor
 var color_option = get_color_options()
@@ -316,11 +317,23 @@ func _ready() -> void:
 	create_extra_options()
 	create_Color_Option_button()
 	
+	stash_prefab.stash_sprite.texture = EMPTY
+	beard_prefab.beard_sprite.texture = EMPTY
+	hair_prefab.hair_sprite.texture = EMPTY
+	scar_prefab.scar_sprite.texture = EMPTY
+	limb_prefab.limb_sprite.texture = EMPTY
+	extra_prefab.extra_sprite.texture = EMPTY
+	
+	#ROUND_BUTTON_PREFAB.material = BUTTON_CLICKED
+	
 	body_prefab.modulate = ColorOption[0]
 	nose_prefab.modulate = ColorOption[0]
 	eye_prefab.iris_sprite.modulate = ColorOption[8]
 	eye_prefab.iris_mirror.modulate = ColorOption[8]
 	brow_prefab.modulate = ColorOption[8]
+	limb_prefab.modulate = ColorOption[0]
+	hair_prefab.modulate = ColorOption[0]
+	extra_prefab.modulate = ColorOption[2]
 
 
 
@@ -608,6 +621,13 @@ func sub_category_2_button_pressed(stash_subcat_index, container):
 
 
 func category_button_pressed(button, category_index):
+	#current_sub_category_container = null
+	
+	if selected_button:
+		selected_button.material = null
+	button.material = BUTTON_CLICKED
+	selected_button = button
+	
 	print(category_index)
 	self.category_index = category_index
 	if category_index == Category.BODY:
@@ -624,21 +644,33 @@ func category_button_pressed(button, category_index):
 		current_category = Category.EYE
 		clear_option_buttons()
 		create_eye_option_buttons()
+		if current_sub_category_container:
+			current_sub_category_container.queue_free()
+			current_sub_category_container = null
 	if  category_index == Category.MOUTH:
 		page = 0
 		current_category = Category.MOUTH
 		clear_option_buttons()
 		create_mouth_option_buttons()
+		if current_sub_category_container:
+			current_sub_category_container.queue_free()
+			current_sub_category_container = null
 	if  category_index == Category.BROW:
 		page = 0
 		current_category = Category.BROW
 		clear_option_buttons()
 		create_brow_option_buttons()
+		if current_sub_category_container:
+			current_sub_category_container.queue_free()
+			current_sub_category_container = null
 	if  category_index == Category.NOSE:
 		page = 0
 		current_category = Category.NOSE
 		clear_option_buttons()
 		create_nose_option_buttons()
+		if current_sub_category_container:
+			current_sub_category_container.queue_free()
+			current_sub_category_container = null
 	if  category_index == Category.MUSTACHE:
 		if current_sub_category_container:
 			clear_stash_sub_category_buttons(current_sub_category_container)
@@ -657,6 +689,10 @@ func category_button_pressed(button, category_index):
 		current_category = Category.ACCESSORY
 		clear_option_buttons()
 		create_extra_option_buttons()
+		if current_sub_category_container:
+			current_sub_category_container.queue_free()
+			current_sub_category_container = null
+	#if category_index == Category.
 
 
 func create_body_sub_category(button):

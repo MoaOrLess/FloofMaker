@@ -402,10 +402,6 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(367, 257)
 scale = Vector2(0.5, 0.5)
 
-[node name="HairPrefab" parent="UI" instance=ExtResource("17_tf2bo")]
-position = Vector2(268, 209)
-scale = Vector2(0.5, 0.5)
-
 [node name="EyePrefab" parent="UI" instance=ExtResource("9_kudht")]
 position = Vector2(261, 250)
 scale = Vector2(0.5, 0.5)
@@ -430,12 +426,16 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(260, 250)
 scale = Vector2(0.5, 0.5)
 
-[node name="ExtraPrefab" parent="UI" instance=ExtResource("17_7hk03")]
-position = Vector2(260, 93)
-scale = Vector2(0.5, 0.5)
-
 [node name="StashPrefab" parent="UI" instance=ExtResource("23_h2762")]
 position = Vector2(260, 293)
+scale = Vector2(0.5, 0.5)
+
+[node name="HairPrefab" parent="UI" instance=ExtResource("17_tf2bo")]
+position = Vector2(268, 209)
+scale = Vector2(0.5, 0.5)
+
+[node name="ExtraPrefab" parent="UI" instance=ExtResource("17_7hk03")]
+position = Vector2(260, 93)
 scale = Vector2(0.5, 0.5)
 
 [node name="UiLook" type="Sprite2D" parent="UI"]
