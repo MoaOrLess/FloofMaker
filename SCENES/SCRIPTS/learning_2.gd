@@ -522,7 +522,7 @@ func _on_color_button_gui_input(event, colorButton) -> void:
 				if colorButton.get_node("ColorRect").color == color_option[i]:
 					selected_button_index = i
 					break
-			print("pressed")
+			#print("pressed")
 			color_panel.global_position = colorButton.get_global_position() + Vector2(0, colorButton.size.y/2)
 			color_panel.visible = true
 
@@ -545,9 +545,15 @@ func _on_page_up_pressed() -> void:
 			create_brow_option_buttons()
 		if current_category == Category.NOSE:
 			create_nose_option_buttons()
-		if current_category == Category.MUSTACHE:
-			create_stash_option_buttons()
 		if current_category == Category.ACCESSORY:
+			create_extra_option_buttons()
+		if current_category == Category.BEARD:
+			create_extra_option_buttons()
+		if current_category == Category.STASH:
+			create_extra_option_buttons()
+		if current_category == Category.HAIR:
+			create_extra_option_buttons()
+		if current_category == Category.LIMB:
 			create_extra_option_buttons()
 
 
@@ -572,7 +578,7 @@ func _on_page_down_pressed() -> void:
 			page += 1
 			clear_option_buttons()
 			create_nose_option_buttons()
-	if current_category == Category.MUSTACHE:
+	if current_category == Category.STASH:
 		if (page + 1) * 9 < HairOption.size():
 			page += 1
 			clear_option_buttons()
@@ -582,22 +588,41 @@ func _on_page_down_pressed() -> void:
 			page += 1
 			clear_option_buttons()
 			create_extra_option_buttons()
+	if current_category == Category.BEARD:
+		if (page + 1) * 9 < ExtraOption.size():
+			page += 1
+			clear_option_buttons()
+			create_beard_option_buttons()
+	if current_category == Category.LIMB:
+		if (page + 1) * 9 < ExtraOption.size():
+			page += 1
+			clear_option_buttons()
+			create_limb_option_buttons()
+	if current_category == Category.HAIR:
+		if (page + 1) * 9 < ExtraOption.size():
+			page += 1
+			clear_option_buttons()
+			create_hair_option_buttons()
 
 func sub_category_1_button_pressed(body_subcat_index , container):
+	print(category_index)
 	current_sub_category_container = null
 	if  body_subcat_index == 0:
+		category_index = Category.LIMB
 		page = 0
 		current_category = Category.LIMB
 		clear_body_sub_category_buttons(container)
 		clear_option_buttons()
 		create_limb_option_buttons()
 	if  body_subcat_index == 1:
+		category_index = Category.HAIR
 		page = 0
 		current_category = Category.HAIR
 		clear_body_sub_category_buttons(container)
 		clear_option_buttons()
 		create_hair_option_buttons()
 	if  body_subcat_index == 2:
+		category_index = Category.SCAR
 		page = 0
 		current_category = Category.SCAR
 		clear_body_sub_category_buttons(container)
@@ -605,14 +630,17 @@ func sub_category_1_button_pressed(body_subcat_index , container):
 		create_scar_option_buttons()
 
 func sub_category_2_button_pressed(stash_subcat_index, container):
+	print(category_index)
 	current_sub_category_container = null
 	if  stash_subcat_index == 0:
+		category_index = Category.BEARD
 		page = 0
 		current_category = Category.BEARD
 		clear_stash_sub_category_buttons(container)
 		clear_option_buttons()
 		create_beard_option_buttons()
 	if  stash_subcat_index == 1:
+		category_index = Category.STASH
 		page = 0
 		current_category = Category.STASH
 		clear_stash_sub_category_buttons(container)
@@ -680,10 +708,6 @@ func category_button_pressed(button, category_index):
 		else:
 			current_category = Category.MUSTACHE
 			create_stash_sub_category(button)
-		#page = 0
-		#current_category = 5
-		#clear_option_buttons()
-		#create_hair_option_buttons()
 	if  category_index == Category.ACCESSORY:
 		page = 0
 		current_category = Category.ACCESSORY
@@ -692,7 +716,6 @@ func category_button_pressed(button, category_index):
 		if current_sub_category_container:
 			current_sub_category_container.queue_free()
 			current_sub_category_container = null
-	#if category_index == Category.
 
 
 func create_body_sub_category(button):
@@ -739,29 +762,36 @@ func clear_body_sub_category_buttons(container):
 		child.queue_free()
 
 func clear_stash_sub_category_buttons(container):
-	print("CLEAR")
+	#print("CLEAR")
 	for child in container.get_children():
 		container.remove_child(child)
 		child.queue_free()
 
 func color_sprite_change(color_index):
 	var selected_color = color_option[color_index]
-	if category_index == 0:
+	if category_index == Category.BODY:
 		body_prefab.modulate = selected_color
 		nose_prefab.modulate = selected_color
-	if category_index == 1:
+		limb_prefab.modulate = selected_color
+	if category_index == Category.EYE:
 		eye_prefab.iris_sprite.modulate = selected_color
 		eye_prefab.iris_mirror.modulate = selected_color
-	if category_index == 2:
+	if category_index == Category.MOUTH:
 		mouth_prefab.modulate = selected_color
-	if category_index == 3:
+	if category_index == Category.BROW:
 		brow_prefab.modulate = selected_color
-	if category_index == 4:
+	if category_index == Category.NOSE:
 		nose_prefab.modulate = selected_color
-	if category_index == 5:
+	if category_index == Category.STASH:
 		stash_prefab.modulate = selected_color
-	if category_index == 6:
+	if category_index == Category.ACCESSORY:
 		extra_prefab.modulate = selected_color
+	if category_index == Category.BEARD:
+		beard_prefab.modulate = selected_color
+	if category_index == Category.HAIR:
+		hair_prefab.modulate = selected_color
+	if category_index == Category.LIMB:
+		limb_prefab.modulate = selected_color
  
 
 
@@ -870,6 +900,28 @@ func Item_Up(delta):
 	if current_category == Category.NOSE:
 		if nose_prefab.position.y > 70:
 			nose_prefab.position.y -= item_move * delta
+	if current_category == Category.ACCESSORY:
+		if extra_prefab.position.y > 70:
+			extra_prefab.position.y -= item_move * delta
+	if current_category == Category.LIMB:
+		if limb_prefab.position.y > 70:
+			limb_prefab.position.y -= item_move * delta
+	if current_category == Category.HAIR:
+		if hair_prefab.position.y > 70:
+			hair_prefab.position.y -= item_move * delta
+	if current_category == Category.SCAR:
+		if scar_prefab.position.y > 70:
+			scar_prefab.position.y -= item_move * delta
+	if current_category == Category.BEARD:
+		if beard_prefab.position.y > 70:
+			beard_prefab.position.y -= item_move * delta
+	if current_category == Category.STASH:
+		if stash_prefab.position.y > 70:
+			stash_prefab.position.y -= item_move * delta
+	if current_category == Category.BODY:
+		if body_prefab.scale.y < 0.7:
+			body_prefab.scale.y += 0.1 * delta
+			body_prefab.position.y -= 40 * delta
 
 func _on_item_up_button_up() -> void:
 	item_up.material = MAKE_BUTTON_BLACK
@@ -898,6 +950,28 @@ func Item_Down(delta):
 	if current_category == Category.NOSE:
 		if nose_prefab.position.y < 500:
 			nose_prefab.position.y += item_move * delta
+	if current_category == Category.ACCESSORY:
+		if extra_prefab.position.y < 500:
+			extra_prefab.position.y += item_move * delta
+	if current_category == Category.LIMB:
+		if limb_prefab.position.y < 500:
+			limb_prefab.position.y += item_move * delta
+	if current_category == Category.HAIR:
+		if hair_prefab.position.y < 500:
+			hair_prefab.position.y += item_move * delta
+	if current_category == Category.SCAR:
+		if scar_prefab.position.y < 500:
+			scar_prefab.position.y += item_move * delta
+	if current_category == Category.BEARD:
+		if beard_prefab.position.y < 500:
+			beard_prefab.position.y += item_move * delta
+	if current_category == Category.STASH:
+		if stash_prefab.position.y < 500:
+			stash_prefab.position.y += item_move * delta
+	if current_category == Category.BODY:
+		if body_prefab.scale.y > 0.3:
+			body_prefab.scale.y -= 0.1 * delta
+			body_prefab.position.y += 40 * delta
 
 
 func _on_item_down_button_up() -> void:
@@ -930,7 +1004,29 @@ func Item_Shrink(delta):
 	if current_category == Category.NOSE:
 		if nose_prefab.scale >= Vector2 (0.3,0.3):
 			nose_prefab.scale -= Vector2(item_scale,item_scale) * delta
-			
+	if current_category == Category.ACCESSORY:
+		if extra_prefab.scale >= Vector2 (0.3,0.3):
+			extra_prefab.scale -= Vector2(item_scale,item_scale) * delta
+	if current_category == Category.LIMB:
+		if limb_prefab.scale >= Vector2 (0.3,0.3):
+			limb_prefab.scale -= Vector2(item_scale,item_scale) * delta
+	if current_category == Category.HAIR:
+		if hair_prefab.scale >= Vector2 (0.3,0.3):
+			hair_prefab.scale -= Vector2(item_scale,item_scale) * delta
+	if current_category == Category.SCAR:
+		if scar_prefab.scale >= Vector2 (0.3,0.3):
+			scar_prefab.scale -= Vector2(item_scale,item_scale) * delta
+	if current_category == Category.BEARD:
+		if beard_prefab.scale >= Vector2 (0.3,0.3):
+			beard_prefab.scale -= Vector2(item_scale,item_scale) * delta
+	if current_category == Category.STASH:
+		if stash_prefab.scale >= Vector2 (0.3,0.3):
+			stash_prefab.scale -= Vector2(item_scale,item_scale) * delta
+	if current_category == Category.BODY:
+		if body_prefab.scale.y < 0.3:
+			body_prefab.scale.y -= 0.1 * delta
+			body_prefab.position.y -= 40 * delta
+	
 func _on_item_shrink_button_up() -> void:
 	Item_shrink_pressed = false
 	item_shrink.material = MAKE_BUTTON_BLACK
@@ -958,6 +1054,31 @@ func Item_Zoom(delta):
 		if brow_prefab.brow_mirror.scale < Vector2 (1.5,1.5):
 			brow_prefab.brow_mirror.scale += Vector2(item_scale,item_scale) * delta
 			brow_prefab.brow_sprite.scale += Vector2(item_scale,item_scale) * delta
+	if current_category == Category.NOSE:
+		if nose_prefab.scale < Vector2 (1.5,1.5):
+			nose_prefab.scale += Vector2(item_scale,item_scale) * delta
+	if current_category == Category.ACCESSORY:
+		if extra_prefab.scale < Vector2 (1.5,1.5):
+			extra_prefab.scale += Vector2(item_scale,item_scale) * delta
+	if current_category == Category.LIMB:
+		if limb_prefab.scale < Vector2 (1.5,1.5):
+			limb_prefab.scale += Vector2(item_scale,item_scale) * delta
+	if current_category == Category.HAIR:
+		if hair_prefab.scale < Vector2 (1.5,1.5):
+			hair_prefab.scale += Vector2(item_scale,item_scale) * delta
+	if current_category == Category.SCAR:
+		if scar_prefab.scale < Vector2 (1.5,1.5):
+			scar_prefab.scale += Vector2(item_scale,item_scale) * delta
+	if current_category == Category.BEARD:
+		if beard_prefab.scale < Vector2 (1.5,1.5):
+			beard_prefab.scale += Vector2(item_scale,item_scale) * delta
+	if current_category == Category.STASH:
+		if stash_prefab.scale < Vector2 (1.5,1.5):
+			stash_prefab.scale += Vector2(item_scale,item_scale) * delta
+	if current_category == Category.BODY:
+		if body_prefab.scale.y < 0.7:
+			body_prefab.scale.y += 0.1 * delta
+			body_prefab.position.y -= 40 * delta
 
 func _on_item_zoom_button_up() -> void:
 	item_zoom.material = MAKE_BUTTON_BLACK
@@ -989,6 +1110,27 @@ func Item_RotL(delta):
 	if current_category == Category.NOSE:
 		if nose_prefab.rotation > deg_to_rad(-180):
 			nose_prefab.rotation -= item_rot * delta
+	if current_category == Category.ACCESSORY:
+		if extra_prefab.rotation > deg_to_rad(-180):
+			extra_prefab.rotation -= item_rot * delta
+	if current_category == Category.LIMB:
+		if limb_prefab.rotation > deg_to_rad(-180):
+			limb_prefab.rotation -= item_rot * delta
+	if current_category == Category.HAIR:
+		if hair_prefab.rotation > deg_to_rad(-180):
+			hair_prefab.rotation -= item_rot * delta
+	if current_category == Category.SCAR:
+		if scar_prefab.rotation > deg_to_rad(-180):
+			scar_prefab.rotation -= item_rot * delta
+	if current_category == Category.BEARD:
+		if beard_prefab.rotation > deg_to_rad(-180):
+			beard_prefab.rotation -= item_rot * delta
+	if current_category == Category.STASH:
+		if stash_prefab.rotation > deg_to_rad(-180):
+			stash_prefab.rotation -= item_rot * delta
+	if current_category == Category.BODY:
+		if body_prefab.rotation > deg_to_rad(-180):
+			body_prefab.rotation -= item_rot * delta
 
 func _on_item_rot_left_button_up() -> void:
 	Item_rotl_pressed = false
@@ -1020,6 +1162,27 @@ func Item_RotR(delta):
 	if current_category == Category.NOSE:
 		if nose_prefab.rotation < deg_to_rad(180):
 			nose_prefab.rotation += item_rot * delta
+	if current_category == Category.ACCESSORY:
+		if extra_prefab.rotation < deg_to_rad(180):
+			extra_prefab.rotation += item_rot * delta
+	if current_category == Category.LIMB:
+		if limb_prefab.rotation < deg_to_rad(180):
+			limb_prefab.rotation += item_rot * delta
+	if current_category == Category.HAIR:
+		if hair_prefab.rotation < deg_to_rad(180):
+			hair_prefab.rotation += item_rot * delta
+	if current_category == Category.SCAR:
+		if scar_prefab.rotation < deg_to_rad(180):
+			scar_prefab.rotation += item_rot * delta
+	if current_category == Category.BEARD:
+		if beard_prefab.rotation < deg_to_rad(180):
+			beard_prefab.rotation += item_rot * delta
+	if current_category == Category.STASH:
+		if stash_prefab.rotation < deg_to_rad(180):
+			stash_prefab.rotation += item_rot * delta
+	if current_category == Category.BODY:
+		if body_prefab.rotation < deg_to_rad(180):
+			body_prefab.rotation += item_rot * delta
 
 func _on_item_rot_right_button_up() -> void:
 	Item_rotr_pressed = false
@@ -1047,7 +1210,7 @@ func Item_Further(delta):
 			mouth_prefab.scale.x += item_scale * delta
 	if current_category == Category.BROW:
 		if brow_prefab.brow_sprite.position.x < 350:
-			print(brow_sprite.position.x)
+			#print(brow_sprite.position.x)
 			brow_prefab.brow_sprite.position.x += item_pos * delta
 			brow_prefab.brow_mirror.position.x -= item_pos * delta
 	if current_category == Category.NOSE:
@@ -1142,14 +1305,14 @@ func random_button_pressed():
 	random_nose()
 
 func info_button_pressed():
-	print("INFO")
+	$InfoScreen.visible = !$InfoScreen.visible
 
 
 func _on_color_picker_color_changed(color: Color) -> void:
 	newColor = $"UI/Color Panel/ColorPicker".color
 	#PINK = Color(newColor)
-	print(newColor)
-	print("PINK: ", PINK)
+	#print(newColor)
+	#print("PINK: ", PINK)
 	
 
 func get_color_options() -> Array:
