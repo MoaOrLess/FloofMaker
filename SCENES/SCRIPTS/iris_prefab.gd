@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var iris_sprite: Sprite2D = $IrisSprite
 
-const EYE_CROSSED_IRIS = preload("res://ART/EYES ART/IRIS/Eye Crossed Iris.png")
+const EYE_CROSSED_IRIS = preload("res://ART/IRIS ART/Eye Crossed Iris.png")
 
 var iris_mirror
 var texture

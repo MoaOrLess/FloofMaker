@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://01atmuf6doy"]
 
 [ext_resource type="Script" path="res://SCENES/SCRIPTS/limb_prefab.gd" id="1_280uy"]
-[ext_resource type="Texture2D" uid="uid://cldo0dakfnvqe" path="res://ART/LIMBS/ARMS 1.png" id="2_ym8lf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nc68a"]
 
 [node name="LimbPrefab" type="Node2D"]
 script = ExtResource("1_280uy")
 
 [node name="LimbSprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_ym8lf")
+texture = SubResource("CompressedTexture2D_nc68a")

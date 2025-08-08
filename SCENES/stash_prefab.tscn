@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cntb1p7otc03w"]
 
 [ext_resource type="Script" path="res://SCENES/SCRIPTS/stash_prefab.gd" id="1_t8rwb"]
-[ext_resource type="Texture2D" uid="uid://dpjogbbun1tch" path="res://ART/MOUTH ART/Hair Mop.png" id="2_cb4kl"]
+[ext_resource type="Texture2D" uid="uid://coif20bak2yyc" path="res://ART/STASH ART/Stash Mario.png" id="2_qihee"]
 
 [node name="StashPrefab" type="Node2D"]
 script = ExtResource("1_t8rwb")
 
 [node name="StashSprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_cb4kl")
+texture = ExtResource("2_qihee")

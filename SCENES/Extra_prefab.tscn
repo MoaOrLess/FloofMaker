@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0icx87p5hk48"]
 
 [ext_resource type="Script" path="res://SCENES/SCRIPTS/extra_prefab.gd" id="1_d711f"]
-[ext_resource type="Texture2D" uid="uid://djjxcpoi87qji" path="res://ART/MOUTH ART/Extra Bow.png" id="2_4nrh3"]
+[ext_resource type="Texture2D" uid="uid://djjxcpoi87qji" path="res://ART/EXTRA ART/Extra Bow.png" id="2_4nrh3"]
 
 [node name="ExtraPrefab" type="Node2D"]
 script = ExtResource("1_d711f")

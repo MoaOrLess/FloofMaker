@@ -5,8 +5,7 @@ extends Node2D
 
 const EYE_STARE = preload("res://ART/EYES ART/Eye Stare.png")
 const EYE_CROSSED = preload("res://ART/EYES ART/Eye Crossed.png")
-
-const IRIS_CROSSED = preload("res://ART/EYES ART/IRIS/Eye Crossed Iris.png")
+const IRIS_CROSSED = preload("res://ART/IRIS ART/Eye Crossed Iris.png")
 
 var eye_mirror
 var iris_mirror

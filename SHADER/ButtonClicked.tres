@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://8kjhi8n0nfem"]
 
-[ext_resource type="Shader" path="res://SCENES/ButtonPressed.gdshader" id="1_krk7o"]
+[ext_resource type="Shader" path="res://SHADER/ButtonPressed.gdshader" id="1_krk7o"]
 
 [resource]
 shader = ExtResource("1_krk7o")

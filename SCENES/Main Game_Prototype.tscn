@@ -1,0 +1,490 @@
+[gd_scene load_steps=29 format=3 uid="uid://bg6edh5d7u0v"]
+
+[ext_resource type="Script" path="res://SCENES/SCRIPTS/Main Game (Prototype).gd" id="1_q76ml"]
+[ext_resource type="StyleBox" uid="uid://djwwlknwmxtu" path="res://SHADER/Flat Box White.tres" id="2_v4r54"]
+[ext_resource type="Texture2D" uid="uid://c8mojrwefkpga" path="res://ART/BUTTON ART/Simple Up Button.png" id="3_ywgha"]
+[ext_resource type="StyleBox" uid="uid://dbnyr6eiwm0s" path="res://SHADER/BluePanel.tres" id="4_40k2l"]
+[ext_resource type="Material" uid="uid://c0wi7obchsds8" path="res://SHADER/Make Button Black.tres" id="5_tce14"]
+[ext_resource type="Texture2D" uid="uid://bq3awijdlrigx" path="res://ART/BUTTON ART/Arrow Up.png" id="6_fgqv5"]
+[ext_resource type="Texture2D" uid="uid://f4xpd4h14h8i" path="res://ART/BUTTON ART/Arrow In.png" id="7_vk5fs"]
+[ext_resource type="Texture2D" uid="uid://byebwktexvnf" path="res://ART/BUTTON ART/Arrow Out.png" id="8_jybyi"]
+[ext_resource type="Texture2D" uid="uid://dfvdd7253sx0x" path="res://ART/BUTTON ART/Arrow Shrink.png" id="9_ilacu"]
+[ext_resource type="Texture2D" uid="uid://bhnkuevux1xvj" path="res://ART/BUTTON ART/Arrow Grow.png" id="10_foh37"]
+[ext_resource type="Texture2D" uid="uid://2snsbexgctnm" path="res://ART/BUTTON ART/Arrow Rotate.png" id="11_snsn6"]
+[ext_resource type="Texture2D" uid="uid://ll03qkavyck1" path="res://ART/GENERAL ART/Podium.png" id="12_whua6"]
+[ext_resource type="PackedScene" uid="uid://b7mb1gq2r5806" path="res://SCENES/Body_prefab.tscn" id="13_3u6ep"]
+[ext_resource type="PackedScene" uid="uid://dkcdmnvirh6jb" path="res://SCENES/scar_prefab.tscn" id="14_tmb8n"]
+[ext_resource type="PackedScene" uid="uid://c87vojqg64ada" path="res://SCENES/eye_prefab.tscn" id="15_s4702"]
+[ext_resource type="PackedScene" uid="uid://sdgxjbdh2l3w" path="res://SCENES/Brow_prefab.tscn" id="16_c5c0k"]
+[ext_resource type="PackedScene" uid="uid://01atmuf6doy" path="res://SCENES/limb_prefab.tscn" id="17_xevau"]
+[ext_resource type="PackedScene" uid="uid://3ld5r6sk2jqo" path="res://SCENES/beard_prefab.tscn" id="18_j8cjw"]
+[ext_resource type="PackedScene" uid="uid://c8d2abrj4fajm" path="res://SCENES/Mouth_prefab.tscn" id="19_qcjq1"]
+[ext_resource type="PackedScene" uid="uid://dsrhn6sqmdgn" path="res://SCENES/nose_prefab.tscn" id="20_gp1lb"]
+[ext_resource type="PackedScene" uid="uid://cntb1p7otc03w" path="res://SCENES/stash_prefab.tscn" id="21_pt7rp"]
+[ext_resource type="PackedScene" uid="uid://cvu1hqeoi0t8c" path="res://SCENES/hair_prefab.tscn" id="22_dw7i6"]
+[ext_resource type="PackedScene" uid="uid://b0icx87p5hk48" path="res://SCENES/Extra_prefab.tscn" id="23_dvwhc"]
+[ext_resource type="PackedScene" uid="uid://b4s355uxu7to1" path="res://SCENES/info_screen.tscn" id="25_y5fy4"]
+
+[sub_resource type="Gradient" id="Gradient_hgyj7"]
+colors = PackedColorArray(0.505882, 0.866667, 0.835294, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5n8r2"]
+gradient = SubResource("Gradient_hgyj7")
+width = 1150
+height = 648
+fill_to = Vector2(0, 1)
+
+[sub_resource type="FontFile" id="FontFile_nelsi"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/26/0/ascent = 0.0
+cache/0/26/0/descent = 0.0
+cache/0/26/0/underline_position = 0.0
+cache/0/26/0/underline_thickness = 0.0
+cache/0/26/0/scale = 1.0
+cache/0/31/0/ascent = 0.0
+cache/0/31/0/descent = 0.0
+cache/0/31/0/underline_position = 0.0
+cache/0/31/0/underline_thickness = 0.0
+cache/0/31/0/scale = 1.0
+cache/0/41/0/ascent = 0.0
+cache/0/41/0/descent = 0.0
+cache/0/41/0/underline_position = 0.0
+cache/0/41/0/underline_thickness = 0.0
+cache/0/41/0/scale = 1.0
+cache/0/56/0/ascent = 0.0
+cache/0/56/0/descent = 0.0
+cache/0/56/0/underline_position = 0.0
+cache/0/56/0/underline_thickness = 0.0
+cache/0/56/0/scale = 1.0
+cache/0/61/0/ascent = 0.0
+cache/0/61/0/descent = 0.0
+cache/0/61/0/underline_position = 0.0
+cache/0/61/0/underline_thickness = 0.0
+cache/0/61/0/scale = 1.0
+cache/0/66/0/ascent = 0.0
+cache/0/66/0/descent = 0.0
+cache/0/66/0/underline_position = 0.0
+cache/0/66/0/underline_thickness = 0.0
+cache/0/66/0/scale = 1.0
+cache/0/81/0/ascent = 0.0
+cache/0/81/0/descent = 0.0
+cache/0/81/0/underline_position = 0.0
+cache/0/81/0/underline_thickness = 0.0
+cache/0/81/0/scale = 1.0
+cache/0/86/0/ascent = 0.0
+cache/0/86/0/descent = 0.0
+cache/0/86/0/underline_position = 0.0
+cache/0/86/0/underline_thickness = 0.0
+cache/0/86/0/scale = 1.0
+cache/0/111/0/ascent = 0.0
+cache/0/111/0/descent = 0.0
+cache/0/111/0/underline_position = 0.0
+cache/0/111/0/underline_thickness = 0.0
+cache/0/111/0/scale = 1.0
+cache/0/116/0/ascent = 0.0
+cache/0/116/0/descent = 0.0
+cache/0/116/0/underline_position = 0.0
+cache/0/116/0/underline_thickness = 0.0
+cache/0/116/0/scale = 1.0
+cache/0/126/0/ascent = 0.0
+cache/0/126/0/descent = 0.0
+cache/0/126/0/underline_position = 0.0
+cache/0/126/0/underline_thickness = 0.0
+cache/0/126/0/scale = 1.0
+cache/0/131/0/ascent = 0.0
+cache/0/131/0/descent = 0.0
+cache/0/131/0/underline_position = 0.0
+cache/0/131/0/underline_thickness = 0.0
+cache/0/131/0/scale = 1.0
+cache/0/121/0/ascent = 0.0
+cache/0/121/0/descent = 0.0
+cache/0/121/0/underline_position = 0.0
+cache/0/121/0/underline_thickness = 0.0
+cache/0/121/0/scale = 1.0
+cache/0/101/0/ascent = 0.0
+cache/0/101/0/descent = 0.0
+cache/0/101/0/underline_position = 0.0
+cache/0/101/0/underline_thickness = 0.0
+cache/0/101/0/scale = 1.0
+cache/0/76/0/ascent = 0.0
+cache/0/76/0/descent = 0.0
+cache/0/76/0/underline_position = 0.0
+cache/0/76/0/underline_thickness = 0.0
+cache/0/76/0/scale = 1.0
+cache/0/71/0/ascent = 0.0
+cache/0/71/0/descent = 0.0
+cache/0/71/0/underline_position = 0.0
+cache/0/71/0/underline_thickness = 0.0
+cache/0/71/0/scale = 1.0
+cache/0/51/0/ascent = 0.0
+cache/0/51/0/descent = 0.0
+cache/0/51/0/underline_position = 0.0
+cache/0/51/0/underline_thickness = 0.0
+cache/0/51/0/scale = 1.0
+cache/0/46/0/ascent = 0.0
+cache/0/46/0/descent = 0.0
+cache/0/46/0/underline_position = 0.0
+cache/0/46/0/underline_thickness = 0.0
+cache/0/46/0/scale = 1.0
+cache/0/36/0/ascent = 0.0
+cache/0/36/0/descent = 0.0
+cache/0/36/0/underline_position = 0.0
+cache/0/36/0/underline_thickness = 0.0
+cache/0/36/0/scale = 1.0
+cache/0/96/0/ascent = 0.0
+cache/0/96/0/descent = 0.0
+cache/0/96/0/underline_position = 0.0
+cache/0/96/0/underline_thickness = 0.0
+cache/0/96/0/scale = 1.0
+cache/0/106/0/ascent = 0.0
+cache/0/106/0/descent = 0.0
+cache/0/106/0/underline_position = 0.0
+cache/0/106/0/underline_thickness = 0.0
+cache/0/106/0/scale = 1.0
+cache/0/91/0/ascent = 0.0
+cache/0/91/0/descent = 0.0
+cache/0/91/0/underline_position = 0.0
+cache/0/91/0/underline_thickness = 0.0
+cache/0/91/0/scale = 1.0
+cache/0/136/0/ascent = 0.0
+cache/0/136/0/descent = 0.0
+cache/0/136/0/underline_position = 0.0
+cache/0/136/0/underline_thickness = 0.0
+cache/0/136/0/scale = 1.0
+cache/0/141/0/ascent = 0.0
+cache/0/141/0/descent = 0.0
+cache/0/141/0/underline_position = 0.0
+cache/0/141/0/underline_thickness = 0.0
+cache/0/141/0/scale = 1.0
+cache/0/146/0/ascent = 0.0
+cache/0/146/0/descent = 0.0
+cache/0/146/0/underline_position = 0.0
+cache/0/146/0/underline_thickness = 0.0
+cache/0/146/0/scale = 1.0
+cache/0/156/0/ascent = 0.0
+cache/0/156/0/descent = 0.0
+cache/0/156/0/underline_position = 0.0
+cache/0/156/0/underline_thickness = 0.0
+cache/0/156/0/scale = 1.0
+cache/0/161/0/ascent = 0.0
+cache/0/161/0/descent = 0.0
+cache/0/161/0/underline_position = 0.0
+cache/0/161/0/underline_thickness = 0.0
+cache/0/161/0/scale = 1.0
+cache/0/166/0/ascent = 0.0
+cache/0/166/0/descent = 0.0
+cache/0/166/0/underline_position = 0.0
+cache/0/166/0/underline_thickness = 0.0
+cache/0/166/0/scale = 1.0
+cache/0/171/0/ascent = 0.0
+cache/0/171/0/descent = 0.0
+cache/0/171/0/underline_position = 0.0
+cache/0/171/0/underline_thickness = 0.0
+cache/0/171/0/scale = 1.0
+cache/0/181/0/ascent = 0.0
+cache/0/181/0/descent = 0.0
+cache/0/181/0/underline_position = 0.0
+cache/0/181/0/underline_thickness = 0.0
+cache/0/181/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_ud7l4"]
+default_font = SubResource("FontFile_nelsi")
+
+[node name="Main Game_ Proto" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_q76ml")
+
+[node name="BackgroundColor" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1150, 648)
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 648.0
+texture = SubResource("GradientTexture2D_5n8r2")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainPanel" type="Panel" parent="UI"]
+layout_mode = 0
+offset_left = 526.0
+offset_top = 145.0
+offset_right = 976.0
+offset_bottom = 595.0
+theme_override_styles/panel = ExtResource("2_v4r54")
+
+[node name="OptionContainer" type="GridContainer" parent="UI/MainPanel"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 80.0
+offset_right = 1032.0
+offset_bottom = 1072.0
+scale = Vector2(0.38, 0.38)
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 3
+columns = 3
+
+[node name="PageUp" type="TextureButton" parent="UI/MainPanel"]
+layout_mode = 0
+offset_left = 366.0
+offset_top = 148.0
+offset_right = 666.0
+offset_bottom = 448.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("3_ywgha")
+
+[node name="PageDown" type="TextureButton" parent="UI/MainPanel"]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 242.0
+offset_right = 665.0
+offset_bottom = 542.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("3_ywgha")
+flip_v = true
+
+[node name="Page Number" type="Label" parent="UI/MainPanel"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 218.0
+offset_right = 432.0
+offset_bottom = 260.0
+theme = SubResource("Theme_ud7l4")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SidePanel" type="Panel" parent="UI"]
+layout_mode = 0
+offset_left = 993.0
+offset_top = 145.0
+offset_right = 1093.0
+offset_bottom = 595.0
+theme_override_styles/panel = ExtResource("4_40k2l")
+
+[node name="Item Up" type="TextureButton" parent="UI/SidePanel"]
+material = ExtResource("5_tce14")
+layout_mode = 0
+offset_left = 20.0
+offset_top = 62.0
+offset_right = 320.0
+offset_bottom = 367.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("6_fgqv5")
+
+[node name="Item Down" type="TextureButton" parent="UI/SidePanel"]
+material = ExtResource("5_tce14")
+layout_mode = 0
+offset_left = 20.0
+offset_top = 13.0
+offset_right = 320.0
+offset_bottom = 318.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("6_fgqv5")
+flip_v = true
+
+[node name="Item Closer" type="TextureButton" parent="UI/SidePanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 109.0
+offset_right = 320.0
+offset_bottom = 409.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("7_vk5fs")
+
+[node name="Item Further" type="TextureButton" parent="UI/SidePanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 151.0
+offset_right = 320.0
+offset_bottom = 451.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("8_jybyi")
+
+[node name="Item Shrink" type="TextureButton" parent="UI/SidePanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 206.0
+offset_right = 320.0
+offset_bottom = 506.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("9_ilacu")
+
+[node name="Item Zoom" type="TextureButton" parent="UI/SidePanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 268.0
+offset_right = 320.0
+offset_bottom = 568.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("10_foh37")
+
+[node name="Item Rot Right" type="TextureButton" parent="UI/SidePanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 329.0
+offset_right = 320.0
+offset_bottom = 629.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("11_snsn6")
+
+[node name="Item Rot left" type="TextureButton" parent="UI/SidePanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 371.0
+offset_right = 320.0
+offset_bottom = 671.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("11_snsn6")
+flip_h = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+offset_left = 557.0
+offset_top = 179.0
+offset_right = 886.0
+offset_bottom = 219.0
+scale = Vector2(0.35, 0.35)
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+offset_left = 526.0
+offset_top = 36.0
+offset_right = 1885.0
+offset_bottom = 256.0
+scale = Vector2(0.35, 0.35)
+theme_override_constants/separation = 14
+
+[node name="Color Panel" type="Panel" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = 602.0
+offset_top = 221.0
+offset_right = 942.0
+offset_bottom = 561.0
+scale = Vector2(0.565, 0.565)
+theme_override_styles/panel = ExtResource("4_40k2l")
+
+[node name="ColorPicker" type="ColorPicker" parent="UI/Color Panel"]
+layout_mode = 0
+offset_left = 23.0089
+offset_top = 30.0885
+offset_right = 321.009
+offset_bottom = 330.089
+edit_alpha = false
+picker_shape = 2
+can_add_swatches = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="Podium" type="Sprite2D" parent="UI"]
+position = Vector2(262, 558)
+scale = Vector2(0.46, 0.46)
+texture = ExtResource("12_whua6")
+
+[node name="FloofArt" type="Sprite2D" parent="UI"]
+
+[node name="BodyPrefab" parent="UI/FloofArt" instance=ExtResource("13_3u6ep")]
+position = Vector2(260, 254)
+scale = Vector2(0.5, 0.5)
+
+[node name="ScarPrefab" parent="UI/FloofArt" instance=ExtResource("14_tmb8n")]
+position = Vector2(262, 257)
+scale = Vector2(0.5, 0.5)
+
+[node name="EyePrefab" parent="UI/FloofArt" instance=ExtResource("15_s4702")]
+position = Vector2(261, 250)
+scale = Vector2(0.5, 0.5)
+
+[node name="BrowPrefab" parent="UI/FloofArt" instance=ExtResource("16_c5c0k")]
+position = Vector2(261, 188)
+scale = Vector2(0.5, 0.5)
+
+[node name="LimbPrefab" parent="UI/FloofArt" instance=ExtResource("17_xevau")]
+position = Vector2(264, 355)
+scale = Vector2(0.5, 0.5)
+
+[node name="BeardPrefab" parent="UI/FloofArt" instance=ExtResource("18_j8cjw")]
+position = Vector2(260, 350)
+scale = Vector2(0.5, 0.5)
+
+[node name="MouthPrefab" parent="UI/FloofArt" instance=ExtResource("19_qcjq1")]
+position = Vector2(260, 303)
+scale = Vector2(0.5, 0.5)
+
+[node name="NosePrefab" parent="UI/FloofArt" instance=ExtResource("20_gp1lb")]
+position = Vector2(260, 250)
+scale = Vector2(0.5, 0.5)
+
+[node name="StashPrefab" parent="UI/FloofArt" instance=ExtResource("21_pt7rp")]
+position = Vector2(260, 293)
+scale = Vector2(0.5, 0.5)
+
+[node name="HairPrefab" parent="UI/FloofArt" instance=ExtResource("22_dw7i6")]
+position = Vector2(268, 209)
+scale = Vector2(0.5, 0.5)
+
+[node name="ExtraPrefab" parent="UI/FloofArt" instance=ExtResource("23_dvwhc")]
+position = Vector2(260, 93)
+scale = Vector2(0.5, 0.5)
+
+[node name="Extra Options" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 549.0
+offset_right = 104.0
+offset_bottom = 626.0
+scale = Vector2(0.35, 0.35)
+theme_override_constants/separation = 14
+
+[node name="InfoScreen" parent="." instance=ExtResource("25_y5fy4")]
+visible = false
+layout_mode = 1
+offset_left = 595.0
+offset_top = 308.0
+offset_right = 595.0
+offset_bottom = 308.0
+
+[connection signal="pressed" from="UI/MainPanel/PageUp" to="." method="_on_page_up_pressed"]
+[connection signal="pressed" from="UI/MainPanel/PageDown" to="." method="_on_page_down_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Up" to="." method="_on_item_up_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Up" to="." method="_on_item_up_button_up"]
+[connection signal="pressed" from="UI/SidePanel/Item Up" to="." method="Item_Up_Button_Pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Down" to="." method="_on_item_down_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Down" to="." method="_on_item_down_button_up"]
+[connection signal="pressed" from="UI/SidePanel/Item Down" to="." method="_on_item_down_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Closer" to="." method="_on_item_closer_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Closer" to="." method="_on_item_closer_button_up"]
+[connection signal="pressed" from="UI/SidePanel/Item Closer" to="." method="_on_item_closer_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Further" to="." method="_on_item_further_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Further" to="." method="_on_item_further_button_up"]
+[connection signal="pressed" from="UI/SidePanel/Item Further" to="." method="_on_item_further_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Shrink" to="." method="_on_item_shrink_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Shrink" to="." method="_on_item_shrink_button_up"]
+[connection signal="pressed" from="UI/SidePanel/Item Shrink" to="." method="_on_item_shrink_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Zoom" to="." method="_on_item_zoom_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Zoom" to="." method="_on_item_zoom_button_up"]
+[connection signal="pressed" from="UI/SidePanel/Item Zoom" to="." method="_on_item_zoom_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Rot Right" to="." method="_on_item_rot_right_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Rot Right" to="." method="_on_item_rot_right_button_up"]
+[connection signal="pressed" from="UI/SidePanel/Item Rot Right" to="." method="_on_item_rot_right_pressed"]
+[connection signal="button_down" from="UI/SidePanel/Item Rot left" to="." method="_on_item_rot_left_button_down"]
+[connection signal="button_up" from="UI/SidePanel/Item Rot left" to="." method="_on_item_rot_left_button_up"]
+[connection signal="pressed" from="UI/SidePanel/Item Rot left" to="." method="_on_item_rot_left_pressed"]
+[connection signal="gui_input" from="UI/Color Panel" to="." method="_on_color_panel_gui_input"]
+[connection signal="color_changed" from="UI/Color Panel/ColorPicker" to="." method="_on_color_picker_color_changed"]
